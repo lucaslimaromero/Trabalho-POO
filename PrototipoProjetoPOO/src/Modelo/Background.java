@@ -23,12 +23,14 @@ import javax.swing.JPanel;
  */
 public abstract class Background implements Serializable {
     protected ImageIcon iImage;
-    protected Posicao BackPosicao;
+    public Posicao BackPosicao;
+    protected boolean BackMovimenta;
     protected boolean BackTransponivel; /*Pode passar por cima?*/
     
     protected Background(String sNomeImagePNG) {
         this.BackPosicao = new Posicao(1, 1);
         this.BackTransponivel = false;
+        this.BackMovimenta = false;
         try {
             iImage = new ImageIcon(new java.io.File(".").getCanonicalPath() + Consts.PATH + sNomeImagePNG);
             Image img = iImage.getImage();
@@ -59,6 +61,14 @@ public abstract class Background implements Serializable {
 
     public void setBackTransponivel(boolean bTransponivel) {
         this.BackTransponivel = bTransponivel;
+    }
+
+    public boolean isBackMovimenta() {
+        return BackMovimenta;
+    }
+
+    public void setBackMovimenta(boolean BackMovimenta) {
+        this.BackMovimenta = BackMovimenta;
     }
     
     

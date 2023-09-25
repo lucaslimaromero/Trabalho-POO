@@ -13,13 +13,12 @@ import java.io.Serializable;
  *
  * @author Samsung
  */
-public class Wallbricks extends Background implements Serializable {
-    public boolean BackMovimenta;
+public class Wallbricks extends Personagem implements Serializable {
     
     public Wallbricks(String sNomeImagePNG){
         super(sNomeImagePNG);
-        this.BackTransponivel = false;
-        this.BackMovimenta = true;
+        this.bTransponivel = false;
+        this.bMovimenta = true;
     }
     
     

@@ -17,15 +17,18 @@ import javax.swing.JPanel;
 public abstract class Personagem implements Serializable {
 
     protected ImageIcon iImage;
-    protected Posicao pPosicao;
+    public Posicao pPosicao;
     protected boolean bTransponivel; /*Pode passar por cima?*/
     protected boolean bMortal;       /*Se encostar, morre?*/
+    
+    protected boolean bMovimenta;
 
 
     protected Personagem(String sNomeImagePNG) {
         this.pPosicao = new Posicao(1, 1);
         this.bTransponivel = true;
         this.bMortal = false;
+        this.bMovimenta = false;
         try {
             iImage = new ImageIcon(new java.io.File(".").getCanonicalPath() + Consts.PATH + sNomeImagePNG);
             Image img = iImage.getImage();
@@ -58,6 +61,14 @@ public abstract class Personagem implements Serializable {
 
     public void setbTransponivel(boolean bTransponivel) {
         this.bTransponivel = bTransponivel;
+    }
+
+    public boolean isbMovimenta() {
+        return bMovimenta;
+    }
+
+    public void setbMovimenta(boolean bMovimenta) {
+        this.bMovimenta = bMovimenta;
     }
 
     public void autoDesenho(){

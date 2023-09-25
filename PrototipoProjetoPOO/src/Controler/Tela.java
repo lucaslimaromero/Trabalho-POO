@@ -2,7 +2,7 @@ package Controler;
 
 
 import Modelo.Personagem;
-import Modelo.Background;
+
 import Modelo.Heart;
 import Modelo.Caveira;
 import Modelo.Hero;
@@ -41,7 +41,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
     
     private Hero hero;
     private ArrayList<Personagem> faseAtual;
-    private ArrayList<Background> cenarioAtual;
+    
     private ControleDeJogo cj = new ControleDeJogo();
     private Graphics g2;
 
@@ -56,7 +56,6 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
                 Consts.RES * Consts.CELL_SIDE + getInsets().top + getInsets().bottom);
 
         faseAtual = new ArrayList<Personagem>();
-        cenarioAtual = new ArrayList<Background>();
 
         /*Cria faseAtual adiciona personagens*/
         hero = new Hero("skoot.png");
@@ -92,10 +91,10 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
             wvd.setPosicao(i, Consts.RES - 1);
             wha.setPosicao(0, i);
             wve.setPosicao(i, 0);
-            this.addBackground(whb);
-            this.addBackground(wvd);
-            this.addBackground(wha);
-            this.addBackground(wve);
+            this.addPersonagem(whb);
+            this.addPersonagem(wvd);
+            this.addPersonagem(wha);
+            this.addPersonagem(wve);
         }
         
         for(int i = 0; i < (int) Consts.RES/2; i++){
@@ -103,8 +102,8 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
             Wallbricks wd = new Wallbricks("Wallbricks.png");
             we.setPosicao(7, i);
             wd.setPosicao(7, Consts.RES - i - 1);
-            this.addBackground(we);
-            this.addBackground(wd);
+            this.addPersonagem(we);
+            this.addPersonagem(wd);
         }
         
         for(int i = 0; i < (int) (Consts.RES/2) - 2; i++){
@@ -112,19 +111,19 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
             Wallbricks wd = new Wallbricks("Wallbricks.png");
             we.setPosicao(9, i);
             wd.setPosicao(9, Consts.RES - i - 1);
-            this.addBackground(we);
-            this.addBackground(wd);
+            this.addPersonagem(we);
+            this.addPersonagem(wd);
         }
         
         
         
         Heart h1 = new Heart("coracao.png");
         h1.setPosicao(11, 7);
-        this.addBackground(h1);
+        this.addPersonagem(h1);
     }
 
     public boolean ehPosicaoValida(Posicao p){
-        return cj.ehPosicaoValida(this.faseAtual, this.cenarioAtual, p);
+        return cj.ehPosicaoValida(this.faseAtual, p);
     }
     public void addPersonagem(Personagem umPersonagem) {
         faseAtual.add(umPersonagem);
@@ -132,14 +131,6 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
 
     public void removePersonagem(Personagem umPersonagem) {
         faseAtual.remove(umPersonagem);
-    }
-    
-    public void addBackground(Background umBloco) {
-        cenarioAtual.add(umBloco);
-    }
-
-    public void removeBackground(Background umBloco) {
-        cenarioAtual.remove(umBloco);
     }
 
     public Graphics getGraphicsBuffer(){
@@ -161,11 +152,9 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
                 }
             }
         }
-        if (!this.faseAtual.isEmpty() && !this.cenarioAtual.isEmpty()) {
+        if (!this.faseAtual.isEmpty()) {
             this.cj.desenhaTudo(faseAtual);
             this.cj.processaTudo(faseAtual);
-            this.cj.desenhaTudoCenario(cenarioAtual);
-            this.cj.processaTudoCenario(faseAtual, cenarioAtual);
         }
 
         g.dispose();

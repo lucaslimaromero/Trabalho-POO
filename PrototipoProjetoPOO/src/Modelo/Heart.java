@@ -12,11 +12,11 @@ import java.io.Serializable;
  *
  * @author Samsung
  */
-public class Heart extends Background implements Serializable {
+public class Heart extends Personagem implements Serializable {
     
     public Heart(String sNomeImagePNG){
         super(sNomeImagePNG);
-        this.BackTransponivel = true;
+        this.bTransponivel = true;
     }
     
 }
