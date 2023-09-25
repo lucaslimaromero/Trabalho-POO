@@ -8,18 +8,24 @@ import java.util.Random;
 import Auxiliar.Consts;
 import Auxiliar.Desenho;
 import java.io.Serializable;
+import java.awt.event.KeyEvent;
 
 /**
  *
- * @author Samsung
+ * @author lucas
  */
-public class Wallbricks extends Personagem implements Serializable {
+public class Box extends Personagem implements Serializable {
     
-    public Wallbricks(String sNomeImagePNG){
+    
+    
+    public Box(String sNomeImagePNG){
         super(sNomeImagePNG);
         this.bTransponivel = false;
-        this.bMovimenta = false;
+        this.bMovimenta = true;
     }
+
+
+    
     
     
 }

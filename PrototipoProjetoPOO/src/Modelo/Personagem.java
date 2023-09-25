@@ -20,10 +20,9 @@ public abstract class Personagem implements Serializable {
     public Posicao pPosicao;
     protected boolean bTransponivel; /*Pode passar por cima?*/
     protected boolean bMortal;       /*Se encostar, morre?*/
-    
     protected boolean bMovimenta;
-
-
+    protected char lastMovement;
+    
     protected Personagem(String sNomeImagePNG) {
         this.pPosicao = new Posicao(1, 1);
         this.bTransponivel = true;
@@ -93,5 +92,13 @@ public abstract class Personagem implements Serializable {
 
     public boolean moveLeft() {
         return this.pPosicao.moveLeft();
+    }
+    
+    public char getLastMovement() {
+        return lastMovement;
+    }
+
+    public void setLastMovement(char lastMovement) {
+        this.lastMovement = lastMovement;
     }
 }

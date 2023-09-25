@@ -2,7 +2,7 @@ package Controler;
 
 
 import Modelo.Personagem;
-
+import Modelo.Box;
 import Modelo.Heart;
 import Modelo.Caveira;
 import Modelo.Hero;
@@ -115,11 +115,13 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
             this.addPersonagem(wd);
         }
         
-        
-        
         Heart h1 = new Heart("coracao.png");
         h1.setPosicao(11, 7);
         this.addPersonagem(h1);
+        
+        Box b1 = new Box("box.png");
+        b1.setPosicao(2,2);
+        this.addPersonagem(b1);
     }
 
     public boolean ehPosicaoValida(Posicao p){
@@ -179,12 +181,16 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
             this.faseAtual.clear();
         } else if (e.getKeyCode() == KeyEvent.VK_UP) {
             hero.moveUp();
+            hero.setLastMovement('u');
         } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
             hero.moveDown();
+            hero.setLastMovement('d');
         } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
             hero.moveLeft();
+            hero.setLastMovement('l');
         } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
             hero.moveRight();
+            hero.setLastMovement('r');
         }
 
         this.setTitle("-> Cell: " + (hero.getPosicao().getColuna()) + ", "

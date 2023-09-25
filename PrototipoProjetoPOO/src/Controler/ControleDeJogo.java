@@ -1,5 +1,6 @@
 package Controler;
 
+import java.awt.event.KeyEvent;
 import Modelo.Personagem;
 import Modelo.Hero;
 import auxiliar.Posicao;
@@ -27,7 +28,25 @@ public class ControleDeJogo {
                     umaFase.remove(pIesimoPersonagem);
                 }
                 else if(pIesimoPersonagem.isbMovimenta()){
-                    pIesimoPersonagem.setPosicao(pIesimoPersonagem.pPosicao.getLinha(), pIesimoPersonagem.pPosicao.getColuna());
+                    if(hero.getLastMovement() == 'u'){
+                        // o objeto so pode se mover se na posicao (linha + 1) nao tiver um objeto fixo
+                        
+                        /* Supondo que existe uma funcao chamada retornaObjeto(linha, coluna) que dado
+                        uma posicao na matriz ele retorna o objeto nela:
+                        if(!retornaObjeto(pIesimoPersonagem.getLinha() + 1, pIesimoPersonagem.getColuna()).isbMovimenta())
+                        */
+                        
+                        pIesimoPersonagem.moveUp();
+                    }
+                    else if(hero.getLastMovement() == 'd'){
+                        pIesimoPersonagem.moveDown();
+                    }
+                    else if(hero.getLastMovement() == 'l'){
+                        pIesimoPersonagem.moveLeft();
+                    }
+                    else if(hero.getLastMovement() == 'r'){
+                        pIesimoPersonagem.moveRight();
+                    }
                 }
             }
         }
@@ -38,7 +57,7 @@ public class ControleDeJogo {
         Personagem pIesimoPersonagem;
         for(int i = 1; i < umaFase.size(); i++){
             pIesimoPersonagem = umaFase.get(i);            
-            if(!pIesimoPersonagem.isbTransponivel())
+            if(!pIesimoPersonagem.isbTransponivel() && !pIesimoPersonagem.isbMovimenta())
                 if(pIesimoPersonagem.getPosicao().igual(p))
                     return false;
         }
