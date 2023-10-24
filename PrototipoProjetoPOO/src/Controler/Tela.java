@@ -58,7 +58,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         faseAtual = new ArrayList<Personagem>();
 
         /*Cria faseAtual adiciona personagens*/
-        hero = new Hero("skoot.png");
+        hero = new Hero("lolo.png");
         hero.setPosicao(1, 7);
         this.addPersonagem(hero);
         
@@ -146,7 +146,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         for (int i = 0; i < Consts.RES; i++) {
             for (int j = 0; j < Consts.RES; j++) {
                 try {
-                    Image newImage = Toolkit.getDefaultToolkit().getImage(new java.io.File(".").getCanonicalPath() + Consts.PATH + "bricks.png");
+                    Image newImage = Toolkit.getDefaultToolkit().getImage(new java.io.File(".").getCanonicalPath() + Consts.PATH + "stone-brick2.png");
                     g2.drawImage(newImage,
                             j * Consts.CELL_SIDE, i * Consts.CELL_SIDE, Consts.CELL_SIDE, Consts.CELL_SIDE, null);
                 } catch (IOException ex) {
@@ -182,15 +182,19 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         } else if (e.getKeyCode() == KeyEvent.VK_UP) {
             hero.moveUp();
             hero.setLastMovement('u');
+            hero.setImage("lolo-up.png");
         } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
             hero.moveDown();
             hero.setLastMovement('d');
+            hero.setImage("lolo.png");
         } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
             hero.moveLeft();
             hero.setLastMovement('l');
+            hero.setImage("lolo-left.png");
         } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
             hero.moveRight();
             hero.setLastMovement('r');
+            hero.setImage("lolo-right.png");
         }
 
         this.setTitle("-> Cell: " + (hero.getPosicao().getColuna()) + ", "

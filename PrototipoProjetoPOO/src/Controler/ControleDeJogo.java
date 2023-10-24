@@ -1,5 +1,6 @@
 package Controler;
 
+import Auxiliar.Consts;
 import java.awt.event.KeyEvent;
 import Modelo.Personagem;
 import Modelo.Hero;
@@ -27,29 +28,54 @@ public class ControleDeJogo {
                     }
                     umaFase.remove(pIesimoPersonagem);
                 }
-                else if(pIesimoPersonagem.isbMovimenta()){
-                    if(hero.getLastMovement() == 'u'){
-                        // o objeto so pode se mover se na posicao (linha + 1) nao tiver um objeto fixo
-                        
-                        /* Supondo que existe uma funcao chamada retornaObjeto(linha, coluna) que dado
-                        uma posicao na matriz ele retorna o objeto nela:
-                        if(!retornaObjeto(pIesimoPersonagem.getLinha() + 1, pIesimoPersonagem.getColuna()).isbMovimenta())
-                        */
-                        
-                        pIesimoPersonagem.moveUp();
-                    }
-                    else if(hero.getLastMovement() == 'd'){
-                        pIesimoPersonagem.moveDown();
-                    }
-                    else if(hero.getLastMovement() == 'l'){
-                        pIesimoPersonagem.moveLeft();
-                    }
-                    else if(hero.getLastMovement() == 'r'){
-                        pIesimoPersonagem.moveRight();
+                
+                else if(pIesimoPersonagem.isbMovimenta()){ // se é uma caixa (se movimenta)
+                    
+                    int linhap = pIesimoPersonagem.pPosicao.getLinha(); // linha da caixa
+                    int colunap = pIesimoPersonagem.pPosicao.getColuna(); // coluna da caixa
+                    
+                    Personagem p; // personagem que está imediatamente depois da caixa (na direção a ser especificada)
+                    
+                    switch (hero.getLastMovement()) {
+                        case 'u':
+                            //pIesimoPersonagem.moveUp();
+                            
+                            // o objeto so pode se mover se na posicao (linha - 1) nao tiver um objeto fixo
+                            linhap = linhap - 1;
+                            p = retornaObjeto(umaFase, linhap, colunap);
+                            if(p == null){
+                                pIesimoPersonagem.moveUp();
+                                pIesimoPersonagem.autoDesenho();
+                            }
+                            break;
+                        case 'd':
+                            pIesimoPersonagem.moveDown();
+                            break;
+                        case 'l':
+                            pIesimoPersonagem.moveLeft();
+                            break;
+                        case 'r':
+                            pIesimoPersonagem.moveRight();
+                            break;
+                        default:
+                            break;
                     }
                 }
             }
         }
+    }
+    
+    public Personagem retornaObjeto(ArrayList<Personagem> personagem, int linha, int coluna){
+        Personagem p = null;
+        for(int i = 0; i < Consts.RES; i++){
+            for(int j = 0; j < Consts.RES; j++){
+                if(personagem.get(i).pPosicao.getLinha() == linha && personagem.get(j).pPosicao.getColuna() == coluna){
+                    p = personagem.get(i);
+                    return p;
+                }
+            }
+        }
+        return p;
     }
     
     /*Retorna true se a posicao p é válida para Hero com relacao a todos os personagens no array*/

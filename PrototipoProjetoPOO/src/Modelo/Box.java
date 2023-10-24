@@ -25,7 +25,9 @@ public class Box extends Personagem implements Serializable {
     }
 
 
-    
+    public void autoDesenho(){
+        super.autoDesenho();
+    }
     
     
 }
