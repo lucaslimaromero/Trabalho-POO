@@ -4,6 +4,7 @@ import Auxiliar.Consts;
 import java.awt.event.KeyEvent;
 import Modelo.Personagem;
 import Modelo.Hero;
+import Modelo.Heart;
 import auxiliar.Posicao;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -25,6 +26,9 @@ public class ControleDeJogo {
                     /*TO-DO: verificar se o personagem eh mortal antes de retirar*/ 
                     if(pIesimoPersonagem.isbMortal()){
                         umaFase.remove(hero);
+                    }
+                    if(pIesimoPersonagem instanceof Heart){
+                        hero.setnHeart(hero.getnHeart() + 1);
                     }
                     umaFase.remove(pIesimoPersonagem);
                 }

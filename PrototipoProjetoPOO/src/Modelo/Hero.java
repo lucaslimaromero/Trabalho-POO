@@ -65,4 +65,27 @@ public class Hero extends Personagem implements Serializable{
         return false;
     }    
     
+    public void shootR(){
+        Esfera f = new Esfera("Esfera.png", 'r');
+        f.setPosicao(pPosicao.getLinha(),pPosicao.getColuna()+1);
+        Desenho.acessoATelaDoJogo().addPersonagem(f);
+    }
+    
+    public void shootL(){
+        Esfera f = new Esfera("Esfera.png", 'l');
+        f.setPosicao(pPosicao.getLinha(),pPosicao.getColuna()-1);
+        Desenho.acessoATelaDoJogo().addPersonagem(f);
+    }
+    
+    public void shootU(){
+        Esfera f = new Esfera("Esfera.png", 'u');
+        f.setPosicao(pPosicao.getLinha()-1,pPosicao.getColuna());
+        Desenho.acessoATelaDoJogo().addPersonagem(f);
+    }
+    
+    public void shootD(){
+        Esfera f = new Esfera("Esfera.png", 'd');
+        f.setPosicao(pPosicao.getLinha()+1,pPosicao.getColuna());
+        Desenho.acessoATelaDoJogo().addPersonagem(f);
+    }
 }

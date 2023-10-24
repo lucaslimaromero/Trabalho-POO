@@ -22,6 +22,7 @@ public abstract class Personagem implements Serializable {
     protected boolean bMortal;       /*Se encostar, morre?*/
     protected boolean bMovimenta;
     protected char lastMovement;
+    protected int nHeart;
     
     protected Personagem(String sNomeImagePNG) {
         this.pPosicao = new Posicao(1, 1);
@@ -51,6 +52,14 @@ public abstract class Personagem implements Serializable {
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
+    }
+    
+    public int getnHeart() {
+        return nHeart;
+    }
+
+    public void setnHeart(int nHeart) {
+        this.nHeart = nHeart;
     }
 
     public boolean isbMortal() {
