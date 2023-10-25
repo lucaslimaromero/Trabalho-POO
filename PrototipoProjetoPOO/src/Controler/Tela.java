@@ -49,14 +49,13 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         segundaFase = new ArrayList<Personagem>();
 
         /*Cria primeiraFase adiciona personagens*/
-        hero = new Hero("lolo.png");
+        hero = new Hero("lolo.png", 1);
         hero.setPosicao(1, 7);
-        this.addPersonagem(hero);
-        this.addPersonagemsegundaFase(hero);
+        this.addPersonagem(hero, 1);
 
         Cenario porta = new Cenario("porta.png");
         porta.setPosicao(0,7);
-        this.addPersonagem(porta);
+        this.addPersonagem(porta, 1);
         // Posição da porta na primeira fase: (0,7)
         
         for(int i = 0; i < Consts.RES; i++){
@@ -68,17 +67,17 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
             if(i != Consts.RES - 1) {
                 Cenario wha = new Cenario("brick-cima.png");
                 wha.setPosicao(0, i);
-                this.addPersonagem(wha);
+                this.addPersonagem(wha, 1);
                 if(i == 7)
-                    this.removePersonagem(wha);
+                    this.removePersonagem(wha, 1);
                 
                 Cenario wve = new Cenario("brick-lateral.png");
                 wve.setPosicao(i, 0);
-                this.addPersonagem(wve);
+                this.addPersonagem(wve, 1);
             }
             
-            this.addPersonagem(wvd);
-            this.addPersonagem(whb);
+            this.addPersonagem(wvd, 1);
+            this.addPersonagem(whb, 1);
         }
 
         arbustosPrimeiraFase();
@@ -86,37 +85,38 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
 
         Cobrinha cobra = new Cobrinha("cobrinha.png");
         cobra.setPosicao(6, 7);
-        this.addPersonagem(cobra);
+        this.addPersonagem(cobra, 1);
         
         Heart h1 = new Heart("coracao.png");
         h1.setPosicao(2, 5);
-        this.addPersonagem(h1);
+        this.addPersonagem(h1, 1);
         
         Heart h2 = new Heart("coracao.png");
         h2.setPosicao(5, 11);
-        this.addPersonagem(h2);
+        this.addPersonagem(h2, 1);
         
         Box b1 = new Box("box.png");
         b1.setPosicao(6,2);
-        this.addPersonagem(b1);
-        this.addPersonagemsegundaFase(b1);
-
-
+        this.addPersonagem(b1, 1);
     }
 
     public boolean ehPosicaoValida(Posicao p){
         return cj.ehPosicaoValida(this.primeiraFase, p);
     }
-    public void addPersonagem(Personagem umPersonagem) {
-        primeiraFase.add(umPersonagem);
+    public void addPersonagem(Personagem umPersonagem, int fase) {
+        if(fase == 1){
+            primeiraFase.add(umPersonagem);
+        } else if(fase == 2){
+            segundaFase.add(umPersonagem);
+        }
     }
 
-    public void addPersonagemsegundaFase(Personagem umPersonagem) {
-        segundaFase.add(umPersonagem);
-    }
-
-    public void removePersonagem(Personagem umPersonagem) {
-        primeiraFase.remove(umPersonagem);
+    public void removePersonagem(Personagem umPersonagem, int fase) {
+        if(fase == 1){
+            primeiraFase.remove(umPersonagem);
+        } else if(fase == 2){
+            segundaFase.remove(umPersonagem);
+        }
     }
 
     public Graphics getGraphicsBuffer(){
@@ -222,7 +222,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
                 if(matriz[i][j] == 1){
                     Cenario arvore = new Cenario("arvore.png");
                     arvore.setPosicao(i+1,j+1);
-                    this.addPersonagem(arvore);
+                    this.addPersonagem(arvore, 1);
                 }
             }
         }
@@ -246,7 +246,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
                 if(matriz[i][j] == 1){
                     Cenario arbusto = new Cenario("arbusto.png");
                     arbusto.setPosicao(i+1,j+1);
-                    this.addPersonagem(arbusto);
+                    this.addPersonagem(arbusto, 1);
                 }
             }
         }

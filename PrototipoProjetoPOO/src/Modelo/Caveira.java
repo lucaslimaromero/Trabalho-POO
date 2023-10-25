@@ -24,7 +24,7 @@ public class Caveira extends Personagem implements Serializable{
             this.iContaIntervalos = 0;
             Fogo f = new Fogo("fire.png");
             f.setPosicao(pPosicao.getLinha(),pPosicao.getColuna()+1);
-            Desenho.acessoATelaDoJogo().addPersonagem(f);
+            Desenho.acessoATelaDoJogo().addPersonagem(f, 1);
         }
     }    
 }

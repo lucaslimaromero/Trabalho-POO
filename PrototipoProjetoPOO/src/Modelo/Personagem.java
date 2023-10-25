@@ -24,6 +24,7 @@ public abstract class Personagem implements Serializable {
     protected char lastMovement;
     protected int nHeart;
     protected boolean bixo;
+    protected int fase;
     
     protected Personagem(String sNomeImagePNG) {
         this.pPosicao = new Posicao(1, 1);
