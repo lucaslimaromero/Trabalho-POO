@@ -4,23 +4,18 @@
  */
 package Modelo;
 
-import java.util.Random;
-import Auxiliar.Consts;
-import Auxiliar.Desenho;
 import java.io.Serializable;
 
 /**
  *
  * @author Samsung
  */
-public class Wallbricks extends Personagem implements Serializable {
+public class Cenario extends Personagem implements Serializable {
     
-    public Wallbricks(String sNomeImagePNG){
+    public Cenario(String sNomeImagePNG){
         super(sNomeImagePNG);
         this.bTransponivel = false;
         this.bMovimenta = false;
         this.bixo = false;
     }
-    
-    
 }

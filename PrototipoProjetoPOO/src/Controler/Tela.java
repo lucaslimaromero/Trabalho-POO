@@ -4,16 +4,13 @@ package Controler;
 import Modelo.Personagem;
 import Modelo.Box;
 import Modelo.Heart;
-import Modelo.Caveira;
 import Modelo.Cobrinha;
 import Modelo.Hero;
-import Modelo.BichinhoVaiVemHorizontal;
-import Modelo.Wallbricks;
+import Modelo.Cenario;
 import Auxiliar.Consts;
 import Auxiliar.Desenho;
-import Modelo.ZigueZague;
 import auxiliar.Posicao;
-import java.awt.FlowLayout;
+
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -21,26 +18,19 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.zip.GZIPInputStream;
-import java.util.zip.GZIPOutputStream;
-import javax.swing.JButton;
 
 
 public class Tela extends javax.swing.JFrame implements MouseListener, KeyListener {
     
     private Hero hero;
-    private ArrayList<Personagem> faseAtual;
+    private ArrayList<Personagem> primeiraFase;
+    private ArrayList<Personagem> segundaFase;
     
     private ControleDeJogo cj = new ControleDeJogo();
     private Graphics g2;
@@ -55,49 +45,34 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         this.setSize(Consts.RES * Consts.CELL_SIDE + getInsets().left + getInsets().right,
                 Consts.RES * Consts.CELL_SIDE + getInsets().top + getInsets().bottom);
 
-        faseAtual = new ArrayList<Personagem>();
+        primeiraFase = new ArrayList<Personagem>();
+        segundaFase = new ArrayList<Personagem>();
 
-        /*Cria faseAtual adiciona personagens*/
+        /*Cria primeiraFase adiciona personagens*/
         hero = new Hero("lolo.png");
         hero.setPosicao(1, 7);
         this.addPersonagem(hero);
+        this.addPersonagemsegundaFase(hero);
 
-        Wallbricks porta = new Wallbricks("porta.png");
+        Cenario porta = new Cenario("porta.png");
         porta.setPosicao(0,7);
         this.addPersonagem(porta);
         // Posição da porta na primeira fase: (0,7)
-        /*
-        ZigueZague zz = new ZigueZague("robo.png");
-        zz.setPosicao(11, 9);
-        this.addPersonagem(zz);
-
-        BichinhoVaiVemHorizontal bBichinhoH = new BichinhoVaiVemHorizontal("roboPink.png");
-        bBichinhoH.setPosicao(11, 5);
-        this.addPersonagem(bBichinhoH);
-
-        BichinhoVaiVemHorizontal bBichinhoH2 = new BichinhoVaiVemHorizontal("roboPink.png");
-        bBichinhoH2.setPosicao(11, 3);
-        this.addPersonagem(bBichinhoH2);
-
-        Caveira bV = new Caveira("caveira.png");
-        bV.setPosicao(11, 9);
-        this.addPersonagem(bV);
-        */
         
         for(int i = 0; i < Consts.RES; i++){
-            Wallbricks whb = new Wallbricks("brick-baixo.png");
-            Wallbricks wvd = new Wallbricks("brick-lateral.png");   
+            Cenario whb = new Cenario("brick-baixo.png");
+            Cenario wvd = new Cenario("brick-lateral.png");
             
             whb.setPosicao(Consts.RES - 1, i);
             wvd.setPosicao(i, Consts.RES - 1);
             if(i != Consts.RES - 1) {
-                Wallbricks wha = new Wallbricks("brick-cima.png");
+                Cenario wha = new Cenario("brick-cima.png");
                 wha.setPosicao(0, i);
                 this.addPersonagem(wha);
                 if(i == 7)
                     this.removePersonagem(wha);
                 
-                Wallbricks wve = new Wallbricks("brick-lateral.png");
+                Cenario wve = new Cenario("brick-lateral.png");
                 wve.setPosicao(i, 0);
                 this.addPersonagem(wve);
             }
@@ -109,24 +84,6 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         arbustosPrimeiraFase();
         arvoresPrimeiraFase();
 
-        /*
-        for(int i = 0; i < (int) Consts.RES/2; i++){;;;;;;;;;;
-            Wallbricks we = new Wallbricks("Wallbricks.png");
-            Wallbricks wd = new Wallbricks("Wallbricks.png");
-            we.setPosicao(7, i);
-            wd.setPosicao(7, Consts.RES - i - 1);
-            this.addPersonagem(we);
-            this.addPersonagem(wd);
-        }
-        
-        for(int i = 0; i < (int) (Consts.RES/2) - 2; i++){
-            Wallbricks we = new Wallbricks("Wallbricks.png");
-            Wallbricks wd = new Wallbricks("Wallbricks.png");
-            we.setPosicao(9, i);
-            wd.setPosicao(9, Consts.RES - i - 1);
-            this.addPersonagem(we);
-            this.addPersonagem(wd);
-        }*/
         Cobrinha cobra = new Cobrinha("cobrinha.png");
         cobra.setPosicao(6, 7);
         this.addPersonagem(cobra);
@@ -142,17 +99,24 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         Box b1 = new Box("box.png");
         b1.setPosicao(6,2);
         this.addPersonagem(b1);
+        this.addPersonagemsegundaFase(b1);
+
+
     }
 
     public boolean ehPosicaoValida(Posicao p){
-        return cj.ehPosicaoValida(this.faseAtual, p);
+        return cj.ehPosicaoValida(this.primeiraFase, p);
     }
     public void addPersonagem(Personagem umPersonagem) {
-        faseAtual.add(umPersonagem);
+        primeiraFase.add(umPersonagem);
+    }
+
+    public void addPersonagemsegundaFase(Personagem umPersonagem) {
+        segundaFase.add(umPersonagem);
     }
 
     public void removePersonagem(Personagem umPersonagem) {
-        faseAtual.remove(umPersonagem);
+        primeiraFase.remove(umPersonagem);
     }
 
     public Graphics getGraphicsBuffer(){
@@ -174,9 +138,12 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
                 }
             }
         }
-        if (!this.faseAtual.isEmpty()) {
-            this.cj.desenhaTudo(faseAtual);
-            this.cj.processaTudo(faseAtual);
+        if (!this.primeiraFase.isEmpty()) {
+            this.cj.desenhaTudo(primeiraFase);
+            this.cj.processaTudo(primeiraFase, 2);
+        } else if(!this.segundaFase.isEmpty()){
+            this.cj.desenhaTudo(segundaFase);
+            this.cj.processaTudo(segundaFase, 2);
         }
 
         g.dispose();
@@ -198,7 +165,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
 
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_C) {
-            this.faseAtual.clear();
+            this.primeiraFase.clear();
         } else if (e.getKeyCode() == KeyEvent.VK_UP) {
             hero.moveUp();
             hero.setLastMovement('u');
@@ -253,7 +220,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         for(int i = 0; i < Consts.RES - 2; i++){
             for(int j = 0; j < Consts.RES - 2; j++){
                 if(matriz[i][j] == 1){
-                    Wallbricks arvore = new Wallbricks("arvore.png");
+                    Cenario arvore = new Cenario("arvore.png");
                     arvore.setPosicao(i+1,j+1);
                     this.addPersonagem(arvore);
                 }
@@ -277,7 +244,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         for(int i = 0; i < Consts.RES - 2; i++){
             for(int j = 0; j < Consts.RES - 2; j++){
                 if(matriz[i][j] == 1){
-                    Wallbricks arbusto = new Wallbricks("arbusto.png");
+                    Cenario arbusto = new Cenario("arbusto.png");
                     arbusto.setPosicao(i+1,j+1);
                     this.addPersonagem(arbusto);
                 }

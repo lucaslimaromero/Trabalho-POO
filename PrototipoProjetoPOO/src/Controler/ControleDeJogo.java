@@ -21,7 +21,7 @@ public class ControleDeJogo {
             e.get(i).autoDesenho();
         }
     }
-    public void processaTudo(ArrayList<Personagem> umaFase){
+    public void processaTudo(ArrayList<Personagem> umaFase, int nHeart){
         Personagem hero = umaFase.get(0);
         Personagem porta = umaFase.get(1);
         Personagem pIesimoPersonagem;
@@ -37,7 +37,7 @@ public class ControleDeJogo {
                     if(pIesimoPersonagem instanceof Heart){
                         hero.setnHeart(hero.getnHeart() + 1);
                     }
-                    if(hero.getnHeart() == 2){ //cria atributo pra quantidade de coracoes na fase
+                    if(hero.getnHeart() == nHeart){ //cria atributo pra quantidade de coracoes na fase
                         porta.setbTransponivel(true);
                         //setimage porta aberta
                     }
