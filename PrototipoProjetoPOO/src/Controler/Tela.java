@@ -96,8 +96,12 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
             this.addPersonagem(wha);
             this.addPersonagem(wve);
         }
-        
-        for(int i = 0; i < (int) Consts.RES/2; i++){
+        // Posição da porta na primeira fase: (0,7)
+        arbustosPrimeiraFase();
+        arvoresPrimeiraFase();
+
+        /*
+        for(int i = 0; i < (int) Consts.RES/2; i++){;;;;;;;;;;
             Wallbricks we = new Wallbricks("Wallbricks.png");
             Wallbricks wd = new Wallbricks("Wallbricks.png");
             we.setPosicao(7, i);
@@ -113,14 +117,15 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
             wd.setPosicao(9, Consts.RES - i - 1);
             this.addPersonagem(we);
             this.addPersonagem(wd);
-        }
+        }*/
+        
         
         Heart h1 = new Heart("coracao.png");
         h1.setPosicao(11, 7);
         this.addPersonagem(h1);
         
         Box b1 = new Box("box.png");
-        b1.setPosicao(2,2);
+        b1.setPosicao(6,2);
         this.addPersonagem(b1);
     }
 
@@ -215,7 +220,21 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
 
         //repaint(); /*invoca o paint imediatamente, sem aguardar o refresh*/
     }
+    
+    public void arvoresPrimeiraFase(){
+        // Colocando as árvores da primeira fase (hard coding)
+        Wallbricks arvore = new Wallbricks("arvore.png");
+        arvore.setPosicao(2,2);
+        this.addPersonagem(arvore);
+    }
 
+    public void arbustosPrimeiraFase(){
+        // Colocando os arbustos da primeira fase
+        Wallbricks arbusto = new Wallbricks("arbusto.png");
+        arbusto.setPosicao(3,2);
+        this.addPersonagem(arbusto);
+    }
+    
     public void mousePressed(MouseEvent e) {
         /* Clique do mouse desligado*/
          int x = e.getX();
