@@ -31,6 +31,8 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
     private Hero hero;
     private ArrayList<Personagem> primeiraFase;
     private ArrayList<Personagem> segundaFase;
+    private ArrayList<Personagem> terceiraFase;
+    private ArrayList<Personagem> quartaFase;
     
     private ControleDeJogo cj = new ControleDeJogo();
     private Graphics g2;
@@ -47,38 +49,23 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
 
         primeiraFase = new ArrayList<Personagem>();
         segundaFase = new ArrayList<Personagem>();
+        terceiraFase = new ArrayList<Personagem>();
+        quartaFase = new ArrayList<Personagem>();
 
-        /*Cria primeiraFase adiciona personagens*/
+        // ------------ PRIMEIRA FASE -------------------- //
         hero = new Hero("lolo.png", 1);
         hero.setPosicao(1, 7);
         this.addPersonagem(hero, 1);
-
-        Cenario porta = new Cenario("porta.png");
-        porta.setPosicao(0,7);
-        this.addPersonagem(porta, 1);
-        // Posição da porta na primeira fase: (0,7)
         
-        for(int i = 0; i < Consts.RES; i++){
-            Cenario whb = new Cenario("brick-baixo.png");
-            Cenario wvd = new Cenario("brick-lateral.png");
-            
-            whb.setPosicao(Consts.RES - 1, i);
-            wvd.setPosicao(i, Consts.RES - 1);
-            if(i != Consts.RES - 1) {
-                Cenario wha = new Cenario("brick-cima.png");
-                wha.setPosicao(0, i);
-                this.addPersonagem(wha, 1);
-                if(i == 7)
-                    this.removePersonagem(wha, 1);
-                
-                Cenario wve = new Cenario("brick-lateral.png");
-                wve.setPosicao(i, 0);
-                this.addPersonagem(wve, 1);
-            }
-            
-            this.addPersonagem(wvd, 1);
-            this.addPersonagem(whb, 1);
-        }
+        // Criando a porta da fase 1 (0,7)
+        Cenario porta1 = new Cenario("porta.png");
+        porta1.setPosicao(0,7);
+        this.addPersonagem(porta1, 1);
+
+        criaMuros(primeiraFase, 1);
+        criaMuros(segundaFase, 2);/*
+        criaMuros(terceiraFase, 3);
+        criaMuros(quartaFase, 4);*/
 
         arbustosPrimeiraFase();
         arvoresPrimeiraFase();
@@ -98,24 +85,93 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         Box b1 = new Box("box.png");
         b1.setPosicao(6,2);
         this.addPersonagem(b1, 1);
+        
+        // -------------------------------------------- //
+        
+        // SEGUNDA FASE
+        /*
+        hero = new Hero("lolo.png", 2);
+        hero.setPosicao(11, 5);
+        this.addPersonagem(hero, 2);*/
+        
+        Cenario porta2 = new Cenario("porta.png");
+        porta2.setPosicao(0,10);
+        this.addPersonagem(porta2, 2);
+    }
+    
+    public void criaMuros(ArrayList<Personagem> a, int fase){
+        
+        for(int i = 0; i < Consts.RES; i++){
+            Cenario whb = new Cenario("brick-baixo.png");
+            Cenario wvd = new Cenario("brick-lateral.png");
+            
+            whb.setPosicao(Consts.RES - 1, i);
+            wvd.setPosicao(i, Consts.RES - 1);
+            if(i != Consts.RES - 1) {
+                Cenario wha = new Cenario("brick-cima.png");
+                wha.setPosicao(0, i);
+                this.addPersonagem(wha, fase);
+                if(fase == 1 && i == 7){ // Se for a primeira fase
+                    this.removePersonagem(wha, fase);
+                }
+                else if(fase == 2 && i == 10){
+                    this.removePersonagem(wha, fase);
+                }
+                else if(fase == 3 && i == 6){
+                    this.removePersonagem(wha, fase);
+                }
+                else if(fase == 4 && i == 6){
+                    this.removePersonagem(wha, fase);                   
+                }
+                
+                Cenario wve = new Cenario("brick-lateral.png");
+                wve.setPosicao(i, 0);
+                this.addPersonagem(wve, fase);
+            }
+            
+            this.addPersonagem(wvd, fase);
+            this.addPersonagem(whb, fase);
+        }
     }
 
     public boolean ehPosicaoValida(Posicao p){
         return cj.ehPosicaoValida(this.primeiraFase, p);
     }
     public void addPersonagem(Personagem umPersonagem, int fase) {
-        if(fase == 1){
-            primeiraFase.add(umPersonagem);
-        } else if(fase == 2){
-            segundaFase.add(umPersonagem);
+        switch (fase) {
+            case 1:
+                primeiraFase.add(umPersonagem);
+                break;
+            case 2:
+                segundaFase.add(umPersonagem);
+                break;
+            case 3:
+                terceiraFase.add(umPersonagem);
+                break;
+            case 4:
+                quartaFase.add(umPersonagem);
+                break;
+            default:
+                break;
         }
     }
 
     public void removePersonagem(Personagem umPersonagem, int fase) {
-        if(fase == 1){
-            primeiraFase.remove(umPersonagem);
-        } else if(fase == 2){
-            segundaFase.remove(umPersonagem);
+        switch (fase) {
+            case 1:
+                primeiraFase.remove(umPersonagem);
+                break;
+            case 2:
+                segundaFase.remove(umPersonagem);
+                break;
+            case 3:
+                terceiraFase.remove(umPersonagem);
+                break;
+            case 4:
+                quartaFase.remove(umPersonagem);
+                break;
+            default:
+                break;
         }
     }
 
