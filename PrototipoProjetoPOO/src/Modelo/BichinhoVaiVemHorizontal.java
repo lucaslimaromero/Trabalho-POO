@@ -19,6 +19,7 @@ public class BichinhoVaiVemHorizontal extends Personagem  implements Serializabl
         super(sNomeImagePNG);
         bRight = true;
         this.iContaIntervalos = 0;
+        this.bixo = true;
     }
     
     public void voltaAUltimaPosicao(){

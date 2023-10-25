@@ -22,6 +22,7 @@ public class Box extends Personagem implements Serializable {
         super(sNomeImagePNG);
         this.bTransponivel = false;
         this.bMovimenta = true;
+        this.bixo = false;
     }
 
 

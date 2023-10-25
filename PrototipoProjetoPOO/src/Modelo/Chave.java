@@ -19,5 +19,6 @@ public class Chave extends Personagem implements Serializable{
         super(sNomeImagePNG);
         this.bTransponivel = true;
         this.bMovimenta = false;
+        this.bixo = false;
     }
 }

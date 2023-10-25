@@ -61,6 +61,11 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         hero = new Hero("lolo.png");
         hero.setPosicao(1, 7);
         this.addPersonagem(hero);
+
+        Wallbricks porta = new Wallbricks("porta.png");
+        porta.setPosicao(0,7);
+        this.addPersonagem(porta);
+        // Posição da porta na primeira fase: (0,7)
         /*
         ZigueZague zz = new ZigueZague("robo.png");
         zz.setPosicao(11, 9);
@@ -89,6 +94,8 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
                 Wallbricks wha = new Wallbricks("brick-cima.png");
                 wha.setPosicao(0, i);
                 this.addPersonagem(wha);
+                if(i == 7)
+                    this.removePersonagem(wha);
                 
                 Wallbricks wve = new Wallbricks("brick-lateral.png");
                 wve.setPosicao(i, 0);
@@ -98,11 +105,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
             this.addPersonagem(wvd);
             this.addPersonagem(whb);
         }
-        
-        Wallbricks porta = new Wallbricks("porta.png");
-        porta.setPosicao(0,7);
-        this.addPersonagem(porta);
-        // Posição da porta na primeira fase: (0,7)
+
         arbustosPrimeiraFase();
         arvoresPrimeiraFase();
 

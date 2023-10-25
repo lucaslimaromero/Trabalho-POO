@@ -20,6 +20,7 @@ public class Esfera extends Personagem implements Serializable{
         super(sNomeImagePNG);
         this.bMortal = false;
         this.sentido = sentido;
+        this.bixo = false;
     }
 
     @Override

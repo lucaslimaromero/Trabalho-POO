@@ -10,6 +10,7 @@ public class ZigueZague extends Personagem{
     public ZigueZague(String sNomeImagePNG) {
         super(sNomeImagePNG);
         this.iContaIntervalos = 0;
+        this.bixo = true;
     }
     
     public void voltaAUltimaPosicao(){

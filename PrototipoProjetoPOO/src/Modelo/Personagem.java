@@ -23,6 +23,7 @@ public abstract class Personagem implements Serializable {
     protected boolean bMovimenta;
     protected char lastMovement;
     protected int nHeart;
+    protected boolean bixo;
     
     protected Personagem(String sNomeImagePNG) {
         this.pPosicao = new Posicao(1, 1);
@@ -53,7 +54,15 @@ public abstract class Personagem implements Serializable {
             System.out.println(ex.getMessage());
         }
     }
-    
+
+    public boolean isBixo() {
+        return bixo;
+    }
+
+    public void setBixo(boolean bixo) {
+        this.bixo = bixo;
+    }
+
     public int getnHeart() {
         return nHeart;
     }

@@ -19,5 +19,6 @@ public class Porta extends Personagem implements Serializable {
         super(sNomeImagePNG);
         this.bTransponivel = false;
         this.bMovimenta = false;
+        this.bixo = false;
     }
 }

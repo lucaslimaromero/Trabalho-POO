@@ -20,7 +20,8 @@ public class Cobrinha extends Personagem implements Serializable {
     public Cobrinha(String sNomeImagePNG){
         super(sNomeImagePNG);
         this.bTransponivel = false;
-        this.bMovimenta = true;
+        this.bMovimenta = false;
+        this.bixo = true;
     }
 
 

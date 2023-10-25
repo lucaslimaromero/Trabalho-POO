@@ -13,6 +13,7 @@ public class Caveira extends Personagem implements Serializable{
         super(sNomeImagePNG);
         this.bTransponivel = false;
         this.iContaIntervalos = 0;
+        this.bixo = false;
     }
 
     public void autoDesenho() {

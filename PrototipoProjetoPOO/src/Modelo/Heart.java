@@ -17,6 +17,7 @@ public class Heart extends Personagem implements Serializable {
     public Heart(String sNomeImagePNG){
         super(sNomeImagePNG);
         this.bTransponivel = true;
+        this.bixo = false;
     }
     
 }

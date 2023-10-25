@@ -5,7 +5,12 @@ import java.awt.event.KeyEvent;
 import Modelo.Personagem;
 import Modelo.Hero;
 import Modelo.Heart;
+import Modelo.Box;
+import Modelo.Fogo;
+import Modelo.Esfera;
 import auxiliar.Posicao;
+
+import java.nio.channels.Pipe;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,39 +23,34 @@ public class ControleDeJogo {
     }
     public void processaTudo(ArrayList<Personagem> umaFase){
         Personagem hero = umaFase.get(0);
+        Personagem porta = umaFase.get(1);
         Personagem pIesimoPersonagem;
+        Personagem pJesimoPersonagem;
         for(int i = 1; i < umaFase.size(); i++){
             pIesimoPersonagem = umaFase.get(i);
             if(hero.getPosicao().igual(pIesimoPersonagem.getPosicao())){
                 if(pIesimoPersonagem.isbTransponivel()){
-                    /*TO-DO: verificar se o personagem eh mortal antes de retirar*/ 
+                    /*TO-DO: verificar se o personagem eh mortal antes de retirar*/
                     if(pIesimoPersonagem.isbMortal()){
                         umaFase.remove(hero);
                     }
                     if(pIesimoPersonagem instanceof Heart){
                         hero.setnHeart(hero.getnHeart() + 1);
                     }
+                    if(hero.getnHeart() == 2){ //cria atributo pra quantidade de coracoes na fase
+                        porta.setbTransponivel(true);
+                        //setimage porta aberta
+                    }
+                    if(hero.getPosicao().igual(porta.getPosicao()))
+                    {
+                        umaFase.clear();
+                    }
                     umaFase.remove(pIesimoPersonagem);
                 }
-                
-                else if(pIesimoPersonagem.isbMovimenta()){ // se é uma caixa (se movimenta)
-                    
-                    int linhap = pIesimoPersonagem.pPosicao.getLinha(); // linha da caixa
-                    int colunap = pIesimoPersonagem.pPosicao.getColuna(); // coluna da caixa
-                    
-                    Personagem p; // personagem que está imediatamente depois da caixa (na direção a ser especificada)
-                    
+                else if(pIesimoPersonagem.isbMovimenta()){
                     switch (hero.getLastMovement()) {
                         case 'u':
-                            //pIesimoPersonagem.moveUp();
-                            
-                            // o objeto so pode se mover se na posicao (linha - 1) nao tiver um objeto fixo
-                            linhap = linhap - 1;
-                            p = retornaObjeto(umaFase, linhap, colunap);
-                            if(p == null){
-                                pIesimoPersonagem.moveUp();
-                                pIesimoPersonagem.autoDesenho();
-                            }
+                            pIesimoPersonagem.moveUp();
                             break;
                         case 'd':
                             pIesimoPersonagem.moveDown();
@@ -66,9 +66,78 @@ public class ControleDeJogo {
                     }
                 }
             }
+            if(pIesimoPersonagem instanceof Box){
+                for(int j = 1; j < umaFase.size(); j++){
+                    pJesimoPersonagem = umaFase.get(j);
+                    if(pJesimoPersonagem != pIesimoPersonagem) {
+                        if (pIesimoPersonagem.getPosicao().igual(pJesimoPersonagem.getPosicao())) {
+                            if (!pJesimoPersonagem.isbTransponivel()) {
+                                if (!pJesimoPersonagem.isbMovimenta()) {
+                                    switch (hero.getLastMovement()) {
+                                        case 'u':
+                                            pIesimoPersonagem.moveDown();
+                                            hero.moveDown();
+                                            break;
+                                        case 'd':
+                                            pIesimoPersonagem.moveUp();
+                                            hero.moveUp();
+                                            break;
+                                        case 'l':
+                                            pIesimoPersonagem.moveRight();
+                                            hero.moveRight();
+                                            break;
+                                        case 'r':
+                                            pIesimoPersonagem.moveLeft();
+                                            hero.moveLeft();
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else if(pIesimoPersonagem instanceof Fogo){
+                for(int j = 1; j < umaFase.size(); j++){
+                    pJesimoPersonagem = umaFase.get(j);
+                    if(pJesimoPersonagem != pIesimoPersonagem) {
+                        if (pIesimoPersonagem.getPosicao().igual(pJesimoPersonagem.getPosicao())) {
+                            if (!pJesimoPersonagem.isbTransponivel()) {
+                                umaFase.remove(pIesimoPersonagem);
+                            }
+                        }
+                    }
+                }
+            }
+            else if(pIesimoPersonagem instanceof Esfera){
+                for(int j = 1; j < umaFase.size(); j++){
+                    pJesimoPersonagem = umaFase.get(j);
+                    if(pJesimoPersonagem != pIesimoPersonagem) {
+                        if (pIesimoPersonagem.getPosicao().igual(pJesimoPersonagem.getPosicao())) {
+                            if (!pJesimoPersonagem.isbTransponivel()) {
+                                umaFase.remove(pIesimoPersonagem);
+                                if(pJesimoPersonagem.isBixo()){
+                                    umaFase.remove(pJesimoPersonagem);
+                                }
+                            }
+                            else{
+                                if(pJesimoPersonagem.isBixo()){
+                                    umaFase.remove(pJesimoPersonagem);
+                                    umaFase.remove(pIesimoPersonagem);
+                                }
+                                else{
+                                    umaFase.remove(pIesimoPersonagem);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
-    
+
     public Personagem retornaObjeto(ArrayList<Personagem> personagem, int linha, int coluna){
         Personagem p = null;
         for(int i = 0; i < Consts.RES; i++){
@@ -81,12 +150,12 @@ public class ControleDeJogo {
         }
         return p;
     }
-    
+
     /*Retorna true se a posicao p é válida para Hero com relacao a todos os personagens no array*/
     public boolean ehPosicaoValida(ArrayList<Personagem> umaFase, Posicao p){
         Personagem pIesimoPersonagem;
         for(int i = 1; i < umaFase.size(); i++){
-            pIesimoPersonagem = umaFase.get(i);            
+            pIesimoPersonagem = umaFase.get(i);
             if(!pIesimoPersonagem.isbTransponivel() && !pIesimoPersonagem.isbMovimenta())
                 if(pIesimoPersonagem.getPosicao().igual(p))
                     return false;
