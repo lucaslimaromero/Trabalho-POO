@@ -5,9 +5,9 @@ import Modelo.Personagem;
 import Modelo.Box;
 import Modelo.Heart;
 import Modelo.Caveira;
+import Modelo.Cobrinha;
 import Modelo.Hero;
 import Modelo.BichinhoVaiVemHorizontal;
-import Modelo.Pacman;
 import Modelo.Wallbricks;
 import Auxiliar.Consts;
 import Auxiliar.Desenho;
@@ -61,7 +61,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         hero = new Hero("lolo.png");
         hero.setPosicao(1, 7);
         this.addPersonagem(hero);
-        
+        /*
         ZigueZague zz = new ZigueZague("robo.png");
         zz.setPosicao(11, 9);
         this.addPersonagem(zz);
@@ -75,27 +75,33 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         this.addPersonagem(bBichinhoH2);
 
         Caveira bV = new Caveira("caveira.png");
-        bV.setPosicao(8, 1);
+        bV.setPosicao(11, 9);
         this.addPersonagem(bV);
-        
-        /*Pacman pac = new Pacman("Pacman.png");
-        pac.setPosicao(5, 5);
-        this.addPersonagem(pac);*/
+        */
         
         for(int i = 0; i < Consts.RES; i++){
-            Wallbricks whb = new Wallbricks("Wallbricks.png");
-            Wallbricks wvd = new Wallbricks("Wallbricks.png");
-            Wallbricks wha = new Wallbricks("Wallbricks.png");
-            Wallbricks wve = new Wallbricks("Wallbricks.png");
+            Wallbricks whb = new Wallbricks("brick-baixo.png");
+            Wallbricks wvd = new Wallbricks("brick-lateral.png");   
+            
             whb.setPosicao(Consts.RES - 1, i);
             wvd.setPosicao(i, Consts.RES - 1);
-            wha.setPosicao(0, i);
-            wve.setPosicao(i, 0);
-            this.addPersonagem(whb);
+            if(i != Consts.RES - 1) {
+                Wallbricks wha = new Wallbricks("brick-cima.png");
+                wha.setPosicao(0, i);
+                this.addPersonagem(wha);
+                
+                Wallbricks wve = new Wallbricks("brick-lateral.png");
+                wve.setPosicao(i, 0);
+                this.addPersonagem(wve);
+            }
+            
             this.addPersonagem(wvd);
-            this.addPersonagem(wha);
-            this.addPersonagem(wve);
+            this.addPersonagem(whb);
         }
+        
+        Wallbricks porta = new Wallbricks("porta.png");
+        porta.setPosicao(0,7);
+        this.addPersonagem(porta);
         // Posição da porta na primeira fase: (0,7)
         arbustosPrimeiraFase();
         arvoresPrimeiraFase();
@@ -118,11 +124,17 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
             this.addPersonagem(we);
             this.addPersonagem(wd);
         }*/
-        
+        Cobrinha cobra = new Cobrinha("cobrinha.png");
+        cobra.setPosicao(6, 7);
+        this.addPersonagem(cobra);
         
         Heart h1 = new Heart("coracao.png");
-        h1.setPosicao(11, 7);
+        h1.setPosicao(2, 5);
         this.addPersonagem(h1);
+        
+        Heart h2 = new Heart("coracao.png");
+        h2.setPosicao(5, 11);
+        this.addPersonagem(h2);
         
         Box b1 = new Box("box.png");
         b1.setPosicao(6,2);
@@ -223,16 +235,51 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
     
     public void arvoresPrimeiraFase(){
         // Colocando as árvores da primeira fase (hard coding)
-        Wallbricks arvore = new Wallbricks("arvore.png");
-        arvore.setPosicao(2,2);
-        this.addPersonagem(arvore);
+        
+        int[][] matriz = new int[11][11];
+        matriz[0][9] = matriz[0][10] = 1;
+        matriz[1][1] = matriz[1][2] = matriz[1][9] = matriz[1][10] = 1;
+        matriz[2][1] = matriz[2][2] = matriz[2][10] = 1;
+        matriz[3][2] = matriz[3][3] = matriz[3][10] = 1;
+        matriz[4][9] = 1;
+        matriz[6][1] = matriz[6][2] = 1;
+        matriz[7][0] = matriz[7][1] = matriz[7][2] = matriz[7][3] = matriz[7][7] = matriz[7][8] = 1;
+        matriz[8][0] = matriz[8][1] = matriz[8][2] = matriz[8][3] = matriz[8][7] = matriz[8][8] = matriz[8][9] = 1;
+        matriz[9][1] = matriz[9][2] = matriz[9][8] = matriz[9][9] = 1;
+        
+        for(int i = 0; i < Consts.RES - 2; i++){
+            for(int j = 0; j < Consts.RES - 2; j++){
+                if(matriz[i][j] == 1){
+                    Wallbricks arvore = new Wallbricks("arvore.png");
+                    arvore.setPosicao(i+1,j+1);
+                    this.addPersonagem(arvore);
+                }
+            }
+        }
     }
 
     public void arbustosPrimeiraFase(){
         // Colocando os arbustos da primeira fase
-        Wallbricks arbusto = new Wallbricks("arbusto.png");
-        arbusto.setPosicao(3,2);
-        this.addPersonagem(arbusto);
+
+        int[][] matriz = new int[11][11];
+        matriz[0][0] = matriz[0][1] = matriz[0][2] = matriz[0][3] = matriz[0][4] = matriz[0][5] = matriz[0][7] = matriz[0][8] = 1;
+        matriz[1][0] = matriz[1][3] = matriz[1][7] = matriz[1][8] = 1;
+        matriz[2][3] = matriz[2][4] = matriz[2][5] = matriz[2][7] = matriz[2][8] = matriz[2][9] = 1;
+        matriz[3][4] = matriz[3][5] = matriz[3][7] = matriz[3][8] = matriz[3][9] = 1;
+        matriz[4][4] = matriz[4][5] = matriz[4][7] = matriz[4][8] = 1;
+        matriz[5][8] = 1;
+        matriz[9][0] = matriz[9][3] = 1;
+        matriz[10][0] = matriz[10][1] = matriz[10][2] = matriz[10][3] = matriz[10][4] = matriz[10][5] = 1;
+        
+        for(int i = 0; i < Consts.RES - 2; i++){
+            for(int j = 0; j < Consts.RES - 2; j++){
+                if(matriz[i][j] == 1){
+                    Wallbricks arbusto = new Wallbricks("arbusto.png");
+                    arbusto.setPosicao(i+1,j+1);
+                    this.addPersonagem(arbusto);
+                }
+            }
+        }
     }
     
     public void mousePressed(MouseEvent e) {
