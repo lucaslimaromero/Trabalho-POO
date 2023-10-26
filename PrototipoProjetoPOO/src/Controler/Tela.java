@@ -6,6 +6,7 @@ import Modelo.Box;
 import Modelo.Heart;
 import Modelo.Cobrinha;
 import Modelo.Hero;
+import Modelo.Dino;
 import Modelo.Cenario;
 import Auxiliar.Consts;
 import Auxiliar.Desenho;
@@ -109,9 +110,9 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         b2.setPosicao(6,2);
         this.addPersonagem(b2, 2);
 
-        Cobrinha cobra2 = new Cobrinha("cobrinha.png");
-        cobra2.setPosicao(2, 7);
-        this.addPersonagem(cobra2, 2);
+        Dino dino1 = new Dino("pacman.png", hero2, 2);
+        dino1.setPosicao(5, 6);
+        this.addPersonagem(dino1, 2);
 
         criaMuros(segundaFase, 2);
 

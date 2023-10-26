@@ -22,7 +22,7 @@ public class Caveira extends Personagem implements Serializable{
         this.iContaIntervalos++;
         if(this.iContaIntervalos == Consts.TIMERFOGO){
             this.iContaIntervalos = 0;
-            Fogo f = new Fogo("fire.png");
+            Fogo f = new Fogo("fire.png", 'r');
             f.setPosicao(pPosicao.getLinha(),pPosicao.getColuna()+1);
             Desenho.acessoATelaDoJogo().addPersonagem(f, 1);
         }

@@ -141,4 +141,60 @@ public abstract class Personagem implements Serializable {
     public void setLastMovement(char lastMovement) {
         this.lastMovement = lastMovement;
     }
+
+    public void shootR(){
+        Esfera f = new Esfera("Esfera.png", 'r');
+        f.setPosicao(pPosicao.getLinha(),pPosicao.getColuna());
+        if(this.fase == 1){
+            Desenho.acessoATelaDoJogo().addPersonagem(f, 1);
+        } else if(this.fase == 2){
+            Desenho.acessoATelaDoJogo().addPersonagem(f, 2);
+        } else if(this.fase == 3){
+            Desenho.acessoATelaDoJogo().addPersonagem(f, 3);
+        } else if(this.fase == 4){
+            Desenho.acessoATelaDoJogo().addPersonagem(f, 4);
+        }
+    }
+
+    public void shootL(){
+        Esfera f = new Esfera("Esfera.png", 'l');
+        f.setPosicao(pPosicao.getLinha(),pPosicao.getColuna());
+        if(this.fase == 1){
+            Desenho.acessoATelaDoJogo().addPersonagem(f, 1);
+        } else if(this.fase == 2){
+            Desenho.acessoATelaDoJogo().addPersonagem(f, 2);
+        } else if(this.fase == 3){
+            Desenho.acessoATelaDoJogo().addPersonagem(f, 3);
+        } else if(this.fase == 4){
+            Desenho.acessoATelaDoJogo().addPersonagem(f, 4);
+        }
+    }
+
+    public void shootU(){
+        Esfera f = new Esfera("Esfera.png", 'u');
+        f.setPosicao(pPosicao.getLinha(),pPosicao.getColuna());
+        if(this.fase == 1){
+            Desenho.acessoATelaDoJogo().addPersonagem(f, 1);
+        } else if(this.fase == 2){
+            Desenho.acessoATelaDoJogo().addPersonagem(f, 2);
+        } else if(this.fase == 3){
+            Desenho.acessoATelaDoJogo().addPersonagem(f, 3);
+        } else if(this.fase == 4){
+            Desenho.acessoATelaDoJogo().addPersonagem(f, 4);
+        }
+    }
+
+    public void shootD(){
+        Esfera f = new Esfera("Esfera.png", 'd');
+        f.setPosicao(pPosicao.getLinha(),pPosicao.getColuna());
+        if(this.fase == 1){
+            Desenho.acessoATelaDoJogo().addPersonagem(f, 1);
+        } else if(this.fase == 2){
+            Desenho.acessoATelaDoJogo().addPersonagem(f, 2);
+        } else if(this.fase == 3){
+            Desenho.acessoATelaDoJogo().addPersonagem(f, 3);
+        } else if(this.fase == 4){
+            Desenho.acessoATelaDoJogo().addPersonagem(f, 4);
+        }
+    }
 }
