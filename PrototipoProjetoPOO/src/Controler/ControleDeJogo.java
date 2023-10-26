@@ -30,20 +30,21 @@ public class ControleDeJogo {
             pIesimoPersonagem = umaFase.get(i);
             if(hero.getPosicao().igual(pIesimoPersonagem.getPosicao())){
                 if(pIesimoPersonagem.isbTransponivel()){
-                    /*TO-DO: verificar se o personagem eh mortal antes de retirar*/
                     if(pIesimoPersonagem.isbMortal()){
                         umaFase.remove(hero);
                     }
                     if(pIesimoPersonagem instanceof Heart){
                         hero.setnHeart(hero.getnHeart() + 1);
                     }
-                    if(hero.getnHeart() == nHeart){ //cria atributo pra quantidade de coracoes na fase
+                    if(hero.getnHeart() == nHeart){
                         porta.setbTransponivel(true);
                         //setimage porta aberta
                     }
                     if(hero.getPosicao().igual(porta.getPosicao()))
                     {
                         umaFase.clear();
+                        hero.setFase(-1);
+                        break;
                     }
                     umaFase.remove(pIesimoPersonagem);
                 }

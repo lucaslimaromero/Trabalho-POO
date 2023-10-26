@@ -56,6 +56,14 @@ public abstract class Personagem implements Serializable {
         }
     }
 
+    public int getFase() {
+        return fase;
+    }
+
+    public void setFase(int fase) {
+        this.fase = fase;
+    }
+
     public boolean isBixo() {
         return bixo;
     }

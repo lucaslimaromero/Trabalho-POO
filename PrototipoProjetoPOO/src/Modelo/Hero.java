@@ -18,6 +18,8 @@ public class Hero extends Personagem implements Serializable{
         this.fase = fase;
     }
 
+
+
     public void voltaAUltimaPosicao(){
         this.pPosicao.volta();
     }
