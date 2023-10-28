@@ -19,9 +19,10 @@ import java.io.Serializable;
 public class Cobrinha extends Personagem implements Serializable {
     public Cobrinha(String sNomeImagePNG){
         super(sNomeImagePNG);
-        this.bTransponivel = false;
+        this.bTransponivel = true;
         this.bMovimenta = false;
         this.bixo = true;
+        this.bMortal = true;
     }
 
 
