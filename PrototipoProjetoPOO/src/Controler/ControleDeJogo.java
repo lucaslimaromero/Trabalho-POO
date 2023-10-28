@@ -38,7 +38,7 @@ public class ControleDeJogo {
                     }
                     if(hero.getnHeart() == nHeart){
                         porta.setbTransponivel(true);
-                        //setimage porta aberta
+                        porta.setImage("porta_aberta.png");
                     }
                     if(hero.getPosicao().igual(porta.getPosicao()))
                     {
