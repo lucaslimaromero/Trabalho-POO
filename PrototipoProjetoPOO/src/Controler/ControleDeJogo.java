@@ -3,6 +3,7 @@ package Controler;
 import Auxiliar.Consts;
 import java.awt.event.KeyEvent;
 import Modelo.Personagem;
+import Modelo.Bolota;
 import Modelo.Hero;
 import Modelo.Heart;
 import Modelo.Agua;
@@ -76,6 +77,7 @@ public class ControleDeJogo {
                         bau.setImage("bau_aberto.png");
                         porta.setbTransponivel(true);
                         porta.setImage("porta_aberta.png");
+                        bau.setbTransponivel(false);
                     }
                 }
             }

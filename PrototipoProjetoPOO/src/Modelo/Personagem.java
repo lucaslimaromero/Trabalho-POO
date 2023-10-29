@@ -53,13 +53,10 @@ public abstract class Personagem implements Serializable {
             Graphics g = bi.createGraphics();
             g.drawImage(img, 0, 0, Consts.CELL_SIDE, Consts.CELL_SIDE, null);
             iImage = new ImageIcon(bi);
+            this.imagem = imagem;
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
-    }
-
-    public void setNomeImagem(String imagem) {
-        this.imagem = imagem;
     }
     
     public String getImage(){
