@@ -5,7 +5,9 @@ import java.awt.event.KeyEvent;
 import Modelo.Personagem;
 import Modelo.Hero;
 import Modelo.Heart;
+import Modelo.Agua;
 import Modelo.Box;
+import Modelo.Bau;
 import Modelo.Fogo;
 import Modelo.Esfera;
 import auxiliar.Posicao;
@@ -24,6 +26,7 @@ public class ControleDeJogo {
     public void processaTudo(ArrayList<Personagem> umaFase, int nHeart){
         Personagem hero = umaFase.get(0);
         Personagem porta = umaFase.get(1);
+        Personagem bau = umaFase.get(2);
         Personagem pIesimoPersonagem;
         Personagem pJesimoPersonagem;
         for(int i = 1; i < umaFase.size(); i++){
@@ -36,18 +39,18 @@ public class ControleDeJogo {
                     if(pIesimoPersonagem instanceof Heart){
                         hero.setnHeart(hero.getnHeart() + 1);
                     }
-                    if(hero.getnHeart() == nHeart){
-                        porta.setbTransponivel(true);
-                        porta.setImage("porta_aberta.png");
-                    }
+
                     if(hero.getPosicao().igual(porta.getPosicao()))
                     {
                         umaFase.clear();
                         hero.setFase(-1);
                         break;
                     }
-                    umaFase.remove(pIesimoPersonagem);
+                    if(!(pIesimoPersonagem instanceof Bau)){
+                        umaFase.remove(pIesimoPersonagem);
+                    }
                 }
+               
                 else if(pIesimoPersonagem.isbMovimenta()){
                     switch (hero.getLastMovement()) {
                         case 'u':
@@ -66,7 +69,18 @@ public class ControleDeJogo {
                             break;
                     }
                 }
+                if(hero.getnHeart() == nHeart){
+                    bau.setImage("bau_aberto_perola.png");
+                    bau.setbTransponivel(true);
+                    if(hero.getPosicao().igual(bau.getPosicao())){
+                        bau.setImage("bau_aberto.png");
+                        porta.setbTransponivel(true);
+                        porta.setImage("porta_aberta.png");
+                    }
+                }
             }
+            
+            
             if(pIesimoPersonagem instanceof Box){
                 for(int j = 1; j < umaFase.size(); j++){
                     pJesimoPersonagem = umaFase.get(j);

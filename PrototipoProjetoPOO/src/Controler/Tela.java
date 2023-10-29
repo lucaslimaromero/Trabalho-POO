@@ -1,12 +1,13 @@
 package Controler;
 
-
+import Modelo.Bau;
 import Modelo.Personagem;
 import Modelo.Box;
 import Modelo.Heart;
 import Modelo.Cobrinha;
 import Modelo.Hero;
 import Modelo.Dino;
+import Modelo.Agua;
 import Modelo.Cenario;
 import Auxiliar.Consts;
 import Auxiliar.Desenho;
@@ -65,6 +66,10 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         Cenario porta1 = new Cenario("porta.png");
         porta1.setPosicao(0,7);
         this.addPersonagem(porta1, 1);
+        
+        Bau bau1 = new Bau("bau.png");
+        bau1.setPosicao(10,5);
+        this.addPersonagem(bau1, 1);
 
         criaMuros(primeiraFase, 1);
 
@@ -86,11 +91,16 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         b1.setPosicao(6,2);
         this.addPersonagem(b1, 1);
         
+        Cenario agua = new Cenario("agua.png");
+        agua.setPosicao(5,5);
+        this.addPersonagem(agua, 1);
+        
         // -------------------------------------------- //
         
         // SEGUNDA FASE
         hero2 = new Hero("lolo.png", 2);
         hero2.setPosicao(5, 5);
+        System.out.println("("+ hero2.getPosicao().getLinha() + "," + hero2.getPosicao().getColuna()+")");
         this.addPersonagem(hero2, 2);
         
         Cenario porta2 = new Cenario("porta.png");
@@ -116,14 +126,14 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         Box b2 = new Box("box.png");
         b2.setPosicao(10,7);
         this.addPersonagem(b2, 2);
-
+        /*
         Dino dino1 = new Dino("pacman.png", hero2, 2);
         dino1.setPosicao(9, 1);
         this.addPersonagem(dino1, 2);
 
         Dino dino2 = new Dino("pacman.png", hero2, 2);
         dino2.setPosicao(1, 4);
-        this.addPersonagem(dino2, 2);
+        this.addPersonagem(dino2, 2);*/
 
         criaMuros(segundaFase, 2);
         arvoresArbustosSegundaFase();
@@ -137,10 +147,12 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         this.addPersonagem(hero3, 3);
 
         Cenario porta3 = new Cenario("porta.png");
-        porta3.setPosicao(0,10);
+        porta3.setPosicao(0,6);
         this.addPersonagem(porta3, 3);
 
         criaMuros(terceiraFase, 3);
+        
+        arvoresArbustosTerceiraFase();
 
         // -------------------------------------------- //
 
@@ -149,9 +161,13 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         hero4.setPosicao(11, 5);
         this.addPersonagem(hero4, 4);
 
-
+        Cenario porta4 = new Cenario("porta.png");
+        porta4.setPosicao(0,6);
+        this.addPersonagem(porta4, 4);
 
         criaMuros(quartaFase, 4);
+        
+        arvoresArbustosQuartaFase();
     }
     
     public void criaMuros(ArrayList<Personagem> a, int fase){
@@ -263,7 +279,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
             this.cj.processaTudo(primeiraFase, 2);
         } else if(hero2.getFase() != -1){
             this.cj.desenhaTudo(segundaFase);
-            this.cj.processaTudo(segundaFase, 2);
+            this.cj.processaTudo(segundaFase, 4);
         } else if(hero3.getFase() != -1){
             this.cj.desenhaTudo(terceiraFase);
             this.cj.processaTudo(terceiraFase, 2);
@@ -516,16 +532,16 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
 
         int[][] matriz = {
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0},
-            {0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0},
+            {0, 0, 1, 1, 1, 1, 0, 3, 3, 3, 0},
+            {0, 3, 1, 1, 1, 1, 0, 3, 3, 3, 0},
+            {0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0},
+            {0, 3, 0, 1, 0, 0, 0, 1, 0, 0, 0},
             {0, 0, 0, 2, 0, 2, 0, 1, 0, 0, 0},
-            {0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0},
-            {0, 0, 0, 2, 0, 2, 1, 0, 0, 0, 0},
-            {0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+            {0, 3, 0, 2, 0, 2, 0, 0, 0, 0, 0},
+            {0, 3, 0, 2, 0, 2, 1, 3, 3, 3, 0},
+            {0, 3, 0, 1, 0, 0, 0, 3, 3, 3, 0},
+            {0, 3, 0, 3, 3, 3, 3, 3, 3, 3, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}
         };
 
         for(int i = 0; i < Consts.RES - 2; i++){
@@ -539,6 +555,11 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
                     Cenario arbusto = new Cenario("arbusto.png");
                     arbusto.setPosicao(i+1,j+1);
                     this.addPersonagem(arbusto, 3);
+                }
+                if(matriz[i][j] == 3){
+                    Cenario agua = new Cenario("agua.png");
+                    agua.setPosicao(i+1,j+1);
+                    this.addPersonagem(agua, 3);
                 }
             }
         }
@@ -584,6 +605,12 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
             this.hero1.getPosicao().setPosicao(y/Consts.CELL_SIDE, x/Consts.CELL_SIDE);
         } else if(hero2.getFase() != -1){
             this.hero2.getPosicao().setPosicao(y/Consts.CELL_SIDE, x/Consts.CELL_SIDE);
+        }
+        else if(hero3.getFase() != -1){
+            this.hero3.getPosicao().setPosicao(y/Consts.CELL_SIDE, x/Consts.CELL_SIDE);
+        }
+        else if(hero4.getFase() != -1){
+            this.hero4.getPosicao().setPosicao(y/Consts.CELL_SIDE, x/Consts.CELL_SIDE);
         }
 
          

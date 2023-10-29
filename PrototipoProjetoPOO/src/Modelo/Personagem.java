@@ -25,12 +25,14 @@ public abstract class Personagem implements Serializable {
     protected int nHeart;
     protected boolean bixo;
     protected int fase;
+    public String imagem;
     
     protected Personagem(String sNomeImagePNG) {
         this.pPosicao = new Posicao(1, 1);
         this.bTransponivel = true;
         this.bMortal = false;
         this.bMovimenta = false;
+        this.imagem = sNomeImagePNG;
         try {
             iImage = new ImageIcon(new java.io.File(".").getCanonicalPath() + Consts.PATH + sNomeImagePNG);
             Image img = iImage.getImage();
@@ -54,6 +56,10 @@ public abstract class Personagem implements Serializable {
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
+    }
+    
+    public String getImage(){
+        return this.imagem;
     }
 
     public int getFase() {
