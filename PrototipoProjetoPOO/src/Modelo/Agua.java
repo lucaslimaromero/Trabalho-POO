@@ -6,41 +6,36 @@ package Modelo;
 
 import Auxiliar.Consts;
 import java.io.Serializable;
+import Auxiliar.Desenho;
+
 
 /**
  *
  * @author Lucas
  */
 public class Agua extends Personagem implements Serializable {
-    private int iContaFrames;
+    private Personagem hero;
+    private int iContaIntervalos;
 
     public Agua(String sNomeImagePNG) {
         super(sNomeImagePNG);
-        this.iContaFrames = 0;
+        this.iContaIntervalos = 0;
         this.bixo = false;
     }
-    
-    public void autoDesenho(){
-        
-        this.iContaFrames++;
-        if(this.iContaFrames % 2000 == 0){
+
+    public void autoDesenho() {
+        super.autoDesenho();
+
+        this.iContaIntervalos++;
+        if(this.iContaIntervalos == Consts.TIMERFOGO){
             if(this.getImage() == "agua.png"){
                 this.setImage("agua2.png");
             }
-            else{
+            if(this.getImage() == "agua2.png"){
                 this.setImage("agua.png");
             }
+            this.iContaIntervalos = 0;
         }
-        
-        super.autoDesenho();
-    }    
-
-    public int getiContaFrames() {
-        return iContaFrames;
-    }
-
-    public void setiContaFrames(int iContaFrames) {
-        this.iContaFrames = iContaFrames;
     }
     
 }

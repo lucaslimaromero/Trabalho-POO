@@ -57,6 +57,10 @@ public abstract class Personagem implements Serializable {
             System.out.println(ex.getMessage());
         }
     }
+
+    public void setNomeImagem(String imagem) {
+        this.imagem = imagem;
+    }
     
     public String getImage(){
         return this.imagem;

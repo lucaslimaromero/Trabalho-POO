@@ -4,7 +4,13 @@
  */
 package Modelo;
 
+import Auxiliar.Consts;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.io.Serializable;
+import javax.swing.ImageIcon;
 
 /**
  *

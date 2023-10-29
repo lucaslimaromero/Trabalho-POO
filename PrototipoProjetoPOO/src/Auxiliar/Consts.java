@@ -12,6 +12,7 @@ public class Consts {
     public static final int TIMERFOGO = 15;
     public static final int TIMERZZ = 2;
     public static final int TIMERPACMAN = 30;
+    public static final int TIMERAGUA = 15;
 
 
 }

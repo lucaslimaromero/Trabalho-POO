@@ -46,6 +46,8 @@ public class Dino extends Personagem  implements Serializable {
                 f.setPosicao(pPosicao.getLinha(), pPosicao.getColuna());
                 Desenho.acessoATelaDoJogo().addPersonagem(f, this.fase);
             }
+            
+            
             this.iContaIntervalos = 0;
         }
     }

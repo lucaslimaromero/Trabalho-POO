@@ -4,6 +4,7 @@ import Auxiliar.Consts;
 import Auxiliar.Desenho;
 import Controler.ControleDeJogo;
 import Controler.Tela;
+import auxiliar.Posicao;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.io.IOException;
@@ -16,6 +17,13 @@ public class Hero extends Personagem implements Serializable{
     public Hero(String sNomeImagePNG, int fase) {
         super(sNomeImagePNG);
         this.fase = fase;
+        if(fase == 2){
+            this.pPosicao = new Posicao(11, 5);
+        } else if(fase == 3){
+            this.pPosicao = new Posicao(9, 7);
+        } else if(fase == 4){
+            this.pPosicao = new Posicao(11, 6);
+        }
     }
 
 
