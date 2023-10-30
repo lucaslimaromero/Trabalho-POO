@@ -35,16 +35,7 @@ public abstract class Personagem implements Serializable {
         this.bMortal = false;
         this.bMovimenta = false;
         this.imagem = sNomeImagePNG;
-        try {
-            iImage = new ImageIcon(new java.io.File(".").getCanonicalPath() + Consts.PATH + sNomeImagePNG);
-            Image img = iImage.getImage();
-            BufferedImage bi = new BufferedImage(Consts.CELL_SIDE, Consts.CELL_SIDE, BufferedImage.TYPE_INT_ARGB);
-            Graphics g = bi.createGraphics();
-            g.drawImage(img, 0, 0, Consts.CELL_SIDE, Consts.CELL_SIDE, null);
-            iImage = new ImageIcon(bi);
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }
+        this.setImage(sNomeImagePNG);
     }
     
     public void setImage(String sNomeImagePNG){
@@ -168,60 +159,5 @@ public abstract class Personagem implements Serializable {
     public void setLastMovement(char lastMovement) {
         this.lastMovement = lastMovement;
     }
-
-    public void shootR(){
-        Esfera f = new Esfera("bola.png", 'r');
-        f.setPosicao(pPosicao.getLinha(),pPosicao.getColuna());
-        if(this.fase == 1){
-            Desenho.acessoATelaDoJogo().addPersonagem(f, 1);
-        } else if(this.fase == 2){
-            Desenho.acessoATelaDoJogo().addPersonagem(f, 2);
-        } else if(this.fase == 3){
-            Desenho.acessoATelaDoJogo().addPersonagem(f, 3);
-        } else if(this.fase == 4){
-            Desenho.acessoATelaDoJogo().addPersonagem(f, 4);
-        }
-    }
-
-    public void shootL(){
-        Esfera f = new Esfera("bola.png", 'l');
-        f.setPosicao(pPosicao.getLinha(),pPosicao.getColuna());
-        if(this.fase == 1){
-            Desenho.acessoATelaDoJogo().addPersonagem(f, 1);
-        } else if(this.fase == 2){
-            Desenho.acessoATelaDoJogo().addPersonagem(f, 2);
-        } else if(this.fase == 3){
-            Desenho.acessoATelaDoJogo().addPersonagem(f, 3);
-        } else if(this.fase == 4){
-            Desenho.acessoATelaDoJogo().addPersonagem(f, 4);
-        }
-    }
-
-    public void shootU(){
-        Esfera f = new Esfera("bola.png", 'u');
-        f.setPosicao(pPosicao.getLinha(),pPosicao.getColuna());
-        if(this.fase == 1){
-            Desenho.acessoATelaDoJogo().addPersonagem(f, 1);
-        } else if(this.fase == 2){
-            Desenho.acessoATelaDoJogo().addPersonagem(f, 2);
-        } else if(this.fase == 3){
-            Desenho.acessoATelaDoJogo().addPersonagem(f, 3);
-        } else if(this.fase == 4){
-            Desenho.acessoATelaDoJogo().addPersonagem(f, 4);
-        }
-    }
-
-    public void shootD(){
-        Esfera f = new Esfera("bola.png", 'd');
-        f.setPosicao(pPosicao.getLinha(),pPosicao.getColuna());
-        if(this.fase == 1){
-            Desenho.acessoATelaDoJogo().addPersonagem(f, 1);
-        } else if(this.fase == 2){
-            Desenho.acessoATelaDoJogo().addPersonagem(f, 2);
-        } else if(this.fase == 3){
-            Desenho.acessoATelaDoJogo().addPersonagem(f, 3);
-        } else if(this.fase == 4){
-            Desenho.acessoATelaDoJogo().addPersonagem(f, 4);
-        }
-    }
+    
 }

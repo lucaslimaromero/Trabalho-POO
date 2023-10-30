@@ -76,5 +76,9 @@ public class Hero extends Personagem implements Serializable{
         return false;
     }    
     
-
+    public void shootEsfera(int fase, char sentido){ // Recebe a fase
+        Esfera esf = new Esfera("bola.png", sentido); // Pode ser r,l,u,d
+        esf.setPosicao(pPosicao.getLinha(),pPosicao.getColuna());
+        Desenho.acessoATelaDoJogo().addPersonagem(esf, fase);
+    }
 }

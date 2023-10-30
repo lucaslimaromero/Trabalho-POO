@@ -502,58 +502,14 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
                 hero4.setImage("lolo-right.png");
             }
         } else if(e.getKeyCode() == KeyEvent.VK_SPACE){
-            if(hero1.getFase() != -1){
-                if(hero1.getLastMovement() == 'u'){
-                    hero1.shootU();
-                }
-                else if(hero1.getLastMovement() == 'd'){
-                    hero1.shootD();
-                }
-                else if(hero1.getLastMovement() == 'l'){
-                    hero1.shootL();
-                }
-                else if(hero1.getLastMovement() == 'r'){
-                    hero1.shootR();
-                }
+            if(hero1.getFase() != -1){ // Se a fase do herói for válida
+                hero1.shootEsfera(1, hero1.getLastMovement());
             } else if(hero2.getFase() != -1){
-                if(hero2.getLastMovement() == 'u'){
-                    hero2.shootU();
-                }
-                else if(hero2.getLastMovement() == 'd'){
-                    hero2.shootD();
-                }
-                else if(hero2.getLastMovement() == 'l'){
-                    hero2.shootL();
-                }
-                else if(hero2.getLastMovement() == 'r'){
-                    hero2.shootR();
-                }
+                hero2.shootEsfera(2, hero2.getLastMovement());
             } else if(hero3.getFase() != -1){
-                if(hero3.getLastMovement() == 'u'){
-                    hero3.shootU();
-                }
-                else if(hero3.getLastMovement() == 'd'){
-                    hero3.shootD();
-                }
-                else if(hero3.getLastMovement() == 'l'){
-                    hero3.shootL();
-                }
-                else if(hero3.getLastMovement() == 'r'){
-                    hero3.shootR();
-                }
+                hero3.shootEsfera(3, hero3.getLastMovement());
             } else if(hero4.getFase() != -1){
-                if(hero4.getLastMovement() == 'u'){
-                    hero4.shootU();
-                }
-                else if(hero4.getLastMovement() == 'd'){
-                    hero4.shootD();
-                }
-                else if(hero4.getLastMovement() == 'l'){
-                    hero4.shootL();
-                }
-                else if(hero4.getLastMovement() == 'r'){
-                    hero4.shootR();
-                }
+                hero4.shootEsfera(4, hero4.getLastMovement());
             }
         }
 
