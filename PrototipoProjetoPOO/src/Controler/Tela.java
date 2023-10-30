@@ -9,6 +9,7 @@ import Modelo.Hero;
 import Modelo.Dino;
 import Modelo.Bolota;
 import Modelo.Agua;
+import Modelo.Caveira;
 import Modelo.Cenario;
 import Auxiliar.Consts;
 import Auxiliar.Desenho;
@@ -71,6 +72,11 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         Bau bau1 = new Bau("bau.png");
         bau1.setPosicao(10,5);
         this.addPersonagem(bau1, 1);
+        
+        Caveira c1 = new Caveira("caveira.png", 'h');
+        c1.setPosicao(6, 4);
+        this.addPersonagem(c1, 1);
+        
 
         criaMuros(primeiraFase, 1);
         

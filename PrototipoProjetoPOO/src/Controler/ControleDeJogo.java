@@ -6,6 +6,7 @@ import Modelo.Personagem;
 import Modelo.Bolota;
 import Modelo.Hero;
 import Modelo.Heart;
+import Modelo.Caveira;
 import Modelo.Agua;
 import Modelo.Box;
 import Modelo.Bau;
@@ -86,7 +87,7 @@ public class ControleDeJogo {
             if(pIesimoPersonagem instanceof Box){
                 for(int j = 1; j < umaFase.size(); j++){
                     pJesimoPersonagem = umaFase.get(j);
-                    if(pJesimoPersonagem != pIesimoPersonagem) {
+                    if(pJesimoPersonagem != pIesimoPersonagem && !(pJesimoPersonagem instanceof Caveira)) {
                         if (pIesimoPersonagem.getPosicao().igual(pJesimoPersonagem.getPosicao())) {
                             if (!pJesimoPersonagem.isbTransponivel()) {
                                 if (!pJesimoPersonagem.isbMovimenta()) {
@@ -146,6 +147,27 @@ public class ControleDeJogo {
                                 }
                                 else{
                                     umaFase.remove(pIesimoPersonagem);
+                                }
+                            }
+                        }
+                    }
+                }
+            } else if(pIesimoPersonagem instanceof Caveira){
+                for(int j = 1; j < umaFase.size(); j++){
+                    pJesimoPersonagem = umaFase.get(j);
+                    if(pJesimoPersonagem != pIesimoPersonagem) {
+                        if (pIesimoPersonagem.getPosicao().igual(pJesimoPersonagem.getPosicao())) {
+                            if(pIesimoPersonagem.getDirecao() == 'h'){
+                                if(pIesimoPersonagem.getSentido() == 'r'){
+                                    pIesimoPersonagem.setSentido('l');
+                                } else{
+                                    pIesimoPersonagem.setSentido('r');
+                                }
+                            } else {
+                                if(pIesimoPersonagem.getSentido() == 'u'){
+                                    pIesimoPersonagem.setSentido('d');
+                                } else{
+                                    pIesimoPersonagem.setSentido('u');
                                 }
                             }
                         }

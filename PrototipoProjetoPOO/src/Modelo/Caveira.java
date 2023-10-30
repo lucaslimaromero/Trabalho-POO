@@ -9,22 +9,35 @@ import java.io.Serializable;
 public class Caveira extends Personagem implements Serializable{
     private int iContaIntervalos;
     
-    public Caveira(String sNomeImagePNG) {
+    public Caveira(String sNomeImagePNG, char direcao) {
         super(sNomeImagePNG);
+        this.bMortal = true;
         this.bTransponivel = false;
         this.iContaIntervalos = 0;
         this.bixo = false;
+        this.direcao = direcao;
+        if(direcao == 'h'){
+            this.setSentido('r');
+        } else{
+            this.setSentido('u');
+        }
     }
 
     public void autoDesenho() {
         super.autoDesenho();
-
-        this.iContaIntervalos++;
-        if(this.iContaIntervalos == Consts.TIMERFOGO){
-            this.iContaIntervalos = 0;
-            Fogo f = new Fogo("fire.png", 'r');
-            f.setPosicao(pPosicao.getLinha(),pPosicao.getColuna()+1);
-            Desenho.acessoATelaDoJogo().addPersonagem(f, 1);
+        
+        if(this.getDirecao() == 'h'){
+            if(this.getSentido() == 'r'){
+                this.moveRight();
+            } else {
+                this.moveLeft();
+            }
+        } else{
+            if(this.getSentido() == 'u'){
+                this.moveUp();
+            } else {
+                this.moveDown();
+            }
         }
     }    
 }
