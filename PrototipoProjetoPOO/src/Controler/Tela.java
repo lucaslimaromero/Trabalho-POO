@@ -31,10 +31,7 @@ import java.util.logging.Logger;
 
 public class Tela extends javax.swing.JFrame implements MouseListener, KeyListener {
     
-    private Hero hero1;
-    private Hero hero2;
-    private Hero hero3;
-    private Hero hero4;
+    private Hero hero;
     private ArrayList<Personagem> primeiraFase;
     private ArrayList<Personagem> segundaFase;
     private ArrayList<Personagem> terceiraFase;
@@ -59,9 +56,9 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         quartaFase = new ArrayList<Personagem>();
 
         // ------------ PRIMEIRA FASE -------------------- //
-        hero1 = new Hero("lolo.png", 1);
-        hero1.setPosicao(1, 7);
-        this.addPersonagem(hero1, 1);
+        hero = new Hero("lolo.png");
+        hero.setPosicao(1, 7);
+        this.addPersonagem(hero, 1);
 
         // Criando a porta da fase 1 (0,7)
         Cenario porta1 = new Cenario("porta.png");
@@ -112,9 +109,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         // -------------------------------------------- //
         
         // SEGUNDA FASE
-        hero2 = new Hero("lolo.png", 2);
-        hero2.setPosicao(5, 5);
-        this.addPersonagem(hero2, 2);
+        this.addPersonagem(hero, 2);
         
         Cenario porta2 = new Cenario("porta.png");
         porta2.setPosicao(0,10);
@@ -144,11 +139,11 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         b2.setPosicao(10,7);
         this.addPersonagem(b2, 2);
 
-        Dino dino1 = new Dino("dino.png", hero2, 2);
+        Dino dino1 = new Dino("dino.png", hero, 2);
         dino1.setPosicao(9, 1);
         this.addPersonagem(dino1, 2);
 
-        Dino dino2 = new Dino("dino-bravo.png", hero2, 2);
+        Dino dino2 = new Dino("dino-bravo.png", hero, 2);
         dino2.setPosicao(1, 4);
         this.addPersonagem(dino2, 2);
 
@@ -169,15 +164,12 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         };
         
         criaCenarioFase(matriz2, 2);
-        
 
         // -------------------------------------------- //
 
         // TERCEIRA FASE
-        hero3 = new Hero("lolo.png", 3);
-        hero3.setPosicao(9, 7);
-        this.addPersonagem(hero3, 3);
-
+        this.addPersonagem(hero, 3);
+        
         Cenario porta3 = new Cenario("porta.png");
         porta3.setPosicao(0,6);
         this.addPersonagem(porta3, 3);
@@ -226,9 +218,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         // -------------------------------------------- //
 
         // QUARTA FASE
-        hero4 = new Hero("lolo.png", 4);
-        hero4.setPosicao(11, 6);
-        this.addPersonagem(hero4, 4);
+        this.addPersonagem(hero, 4);
         
         Cenario porta4 = new Cenario("porta.png");
         porta4.setPosicao(0,6);
@@ -318,17 +308,24 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
     }
 
     public boolean ehPosicaoValida(Posicao p){
-        if(hero1.getFase() != -1){
-            return cj.ehPosicaoValida(this.primeiraFase, p);
-        } else if(hero2.getFase() != -1){
-            return cj.ehPosicaoValida(this.segundaFase, p);
-        } else if(hero3.getFase() != -1){
-            return cj.ehPosicaoValida(this.terceiraFase, p);
-        } else if(hero4.getFase() != -1){
-            return cj.ehPosicaoValida(this.quartaFase, p);
+        if(hero.getFase() != -1){
+            switch (hero.getFase()){
+                case 1:
+                    return cj.ehPosicaoValida(this.primeiraFase, p);
+                case 2:
+                    return cj.ehPosicaoValida(this.segundaFase, p);
+                case 3:
+                    return cj.ehPosicaoValida(this.terceiraFase, p);
+                case 4:
+                    return cj.ehPosicaoValida(this.quartaFase, p);
+                default:
+                    break;
+            }
         }
+        
         return false;
     }
+        
     public void addPersonagem(Personagem umPersonagem, int fase) {
         switch (fase) {
             case 1:
@@ -386,18 +383,29 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
                 }
             }
         }
-        if (hero1.getFase() != -1) {
-            this.cj.desenhaTudo(primeiraFase);
-            this.cj.processaTudo(primeiraFase, 2);
-        } else if(hero2.getFase() != -1){
-            this.cj.desenhaTudo(segundaFase);
-            this.cj.processaTudo(segundaFase, 4);
-        } else if(hero3.getFase() != -1){
-            this.cj.desenhaTudo(terceiraFase);
-            this.cj.processaTudo(terceiraFase, 5);
-        } else if(hero4.getFase() != -1){
-            this.cj.desenhaTudo(quartaFase);
-            this.cj.processaTudo(quartaFase, 5);
+        
+        if(hero.getFase() != -1){
+            switch (hero.getFase()){
+                case 1:
+                    this.cj.desenhaTudo(primeiraFase);
+                    this.cj.processaTudo(primeiraFase, 2);
+                    break;
+                case 2:
+                    this.cj.desenhaTudo(segundaFase);
+                    this.cj.processaTudo(segundaFase, 4);
+                    break;
+                case 3:
+                    this.cj.desenhaTudo(terceiraFase);
+                    this.cj.processaTudo(terceiraFase, 5);
+                    break;
+                case 4:
+                    this.cj.desenhaTudo(quartaFase);
+                    this.cj.processaTudo(quartaFase, 5);
+                    break;
+                default:
+                    break;
+                    
+            }
         }
 
         g.dispose();
@@ -415,113 +423,6 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         };
         Timer timer = new Timer();
         timer.schedule(task, 0, Consts.PERIOD);
-    }
-
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_C) {
-            this.primeiraFase.clear();
-            this.segundaFase.clear();
-            this.terceiraFase.clear();
-            this.quartaFase.clear();
-        } else if (e.getKeyCode() == KeyEvent.VK_UP) {
-            if(hero1.getFase() != -1){
-                hero1.moveUp();
-                hero1.setLastMovement('u');
-                hero1.setImage("lolo-up.png");
-            } else if(hero2.getFase() != -1){
-                hero2.moveUp();
-                hero2.setLastMovement('u');
-                hero2.setImage("lolo-up.png");
-            } else if(hero3.getFase() != -1){
-                hero3.moveUp();
-                hero3.setLastMovement('u');
-                hero3.setImage("lolo-up.png");
-            } else if(hero4.getFase() != -1){
-                hero4.moveUp();
-                hero4.setLastMovement('u');
-                hero4.setImage("lolo-up.png");
-            }
-        } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-            if(hero1.getFase() != -1){
-                hero1.moveDown();
-                hero1.setLastMovement('d');
-                hero1.setImage("lolo.png");
-            } else if(hero2.getFase() != -1){
-                hero2.moveDown();
-                hero2.setLastMovement('d');
-                hero2.setImage("lolo.png");
-            } else if(hero3.getFase() != -1){
-                hero3.moveDown();
-                hero3.setLastMovement('d');
-                hero3.setImage("lolo.png");
-            } else if(hero4.getFase() != -1){
-                hero4.moveDown();
-                hero4.setLastMovement('d');
-                hero4.setImage("lolo.png");
-            }
-        } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            if(hero1.getFase() != -1){
-                hero1.moveLeft();
-                hero1.setLastMovement('l');
-                hero1.setImage("lolo-left.png");
-            } else if(hero2.getFase() != -1){
-                hero2.moveLeft();
-                hero2.setLastMovement('l');
-                hero2.setImage("lolo-left.png");
-            } else if(hero3.getFase() != -1){
-                hero3.moveLeft();
-                hero3.setLastMovement('l');
-                hero3.setImage("lolo-left.png");
-            } else if(hero4.getFase() != -1){
-                hero4.moveLeft();
-                hero4.setLastMovement('l');
-                hero4.setImage("lolo-left.png");
-            }
-        } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            if(hero1.getFase() != -1){
-                hero1.moveRight();
-                hero1.setLastMovement('r');
-                hero1.setImage("lolo-right.png");
-            } else if(hero2.getFase() != -1){
-                hero2.moveRight();
-                hero2.setLastMovement('r');
-                hero2.setImage("lolo-right.png");
-            } else if(hero3.getFase() != -1){
-                hero3.moveRight();
-                hero3.setLastMovement('r');
-                hero3.setImage("lolo-right.png");
-            } else if(hero4.getFase() != -1){
-                hero4.moveRight();
-                hero4.setLastMovement('r');
-                hero4.setImage("lolo-right.png");
-            }
-        } else if(e.getKeyCode() == KeyEvent.VK_SPACE){
-            if(hero1.getFase() != -1){ // Se a fase do herói for válida
-                hero1.shootEsfera(1, hero1.getLastMovement());
-            } else if(hero2.getFase() != -1){
-                hero2.shootEsfera(2, hero2.getLastMovement());
-            } else if(hero3.getFase() != -1){
-                hero3.shootEsfera(3, hero3.getLastMovement());
-            } else if(hero4.getFase() != -1){
-                hero4.shootEsfera(4, hero4.getLastMovement());
-            }
-        }
-
-        if(hero1.getFase() != -1){
-            this.setTitle("-> Cell: " + (hero1.getPosicao().getColuna()) + ", "
-                    + (hero1.getPosicao().getLinha()));
-        } else if(hero2.getFase() != -1){
-            this.setTitle("-> Cell: " + (hero2.getPosicao().getColuna()) + ", "
-                    + (hero2.getPosicao().getLinha()));
-        } else if(hero3.getFase() != -1){
-            this.setTitle("-> Cell: " + (hero3.getPosicao().getColuna()) + ", "
-                    + (hero3.getPosicao().getLinha()));
-        } else if(hero4.getFase() != -1){
-            this.setTitle("-> Cell: " + (hero4.getPosicao().getColuna()) + ", "
-                    + (hero4.getPosicao().getLinha()));
-        }
-
-        //repaint(); /*invoca o paint imediatamente, sem aguardar o refresh*/
     }
     
     public void criaCenarioFase(int [][]matriz, int fase){
@@ -547,6 +448,41 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
             }
         }
     }
+
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_C) {
+            switch (hero.getFase()){
+                case 1:
+                    primeiraFase.clear();
+                    break;
+                case 2:
+                    segundaFase.clear();
+                    break;
+                case 3:
+                    terceiraFase.clear();
+                    break;
+                case 4:
+                    quartaFase.clear();
+                    break;
+                default:
+                    break;
+            }
+        } else if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W)
+            hero.moveUp();
+        else if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S)
+            hero.moveDown();
+        else if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A)
+            hero.moveLeft();
+        else if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D)
+            hero.moveRight();
+        else if (e.getKeyCode() == KeyEvent.VK_SPACE)
+            hero.shootEsfera(hero.getFase(), hero.getLastMovement());
+
+        this.setTitle("-> Cell: " + (hero.getPosicao().getColuna()) + ", " + (hero.getPosicao().getLinha()));
+        
+
+        //repaint(); /*invoca o paint imediatamente, sem aguardar o refresh*/
+    }
     
     public void mousePressed(MouseEvent e) {
         /* Clique do mouse desligado*/
@@ -556,22 +492,12 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
          this.setTitle("X: "+ x + ", Y: " + y +
          " -> Cell: " + (y/Consts.CELL_SIDE) + ", " + (x/Consts.CELL_SIDE));
 
-        if(hero1.getFase() != -1){
-            this.hero1.getPosicao().setPosicao(y/Consts.CELL_SIDE, x/Consts.CELL_SIDE);
-        } else if(hero2.getFase() != -1){
-            this.hero2.getPosicao().setPosicao(y/Consts.CELL_SIDE, x/Consts.CELL_SIDE);
+        if(hero.getFase() != -1){
+            this.hero.getPosicao().setPosicao(y/Consts.CELL_SIDE, x/Consts.CELL_SIDE);
         }
-        else if(hero3.getFase() != -1){
-            this.hero3.getPosicao().setPosicao(y/Consts.CELL_SIDE, x/Consts.CELL_SIDE);
-        }
-        else if(hero4.getFase() != -1){
-            this.hero4.getPosicao().setPosicao(y/Consts.CELL_SIDE, x/Consts.CELL_SIDE);
-        }
-
          
         repaint();
     }
-
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

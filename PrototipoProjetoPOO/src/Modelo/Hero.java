@@ -14,24 +14,25 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Hero extends Personagem implements Serializable{
-    public Hero(String sNomeImagePNG, int fase) {
+    public Hero(String sNomeImagePNG) {
         super(sNomeImagePNG);
-        this.fase = fase;
-        if(fase == 2){
-            this.pPosicao = new Posicao(11, 5);
-        } else if(fase == 3){
-            this.pPosicao = new Posicao(9, 7);
-        } else if(fase == 4){
-            this.pPosicao = new Posicao(11, 6);
-        }
+        this.fase = 1; // Sempre começa na fase 1 ? aqui é o lugar que podemos alterar pra salvar a fase tlvz
     }
 
-
+    public void setFase(int faseNova){
+        if(faseNova == 2){
+            this.pPosicao = new Posicao(11, 5);
+        } else if(faseNova == 3){
+            this.pPosicao = new Posicao(9, 7);
+        } else if(faseNova == 4){
+            this.pPosicao = new Posicao(11, 6);
+        }
+        this.fase = faseNova;
+    }
 
     public void voltaAUltimaPosicao(){
         this.pPosicao.volta();
     }
-    
     
     public boolean setPosicao(int linha, int coluna){
         if(this.pPosicao.setPosicao(linha, coluna)){
@@ -53,24 +54,32 @@ public class Hero extends Personagem implements Serializable{
     }
     
     public boolean moveUp() {
+        this.setLastMovement('u');
+        this.setImage("lolo-up.png");
         if(super.moveUp())
             return validaPosicao();
         return false;
     }
 
     public boolean moveDown() {
+        this.setLastMovement('d');
+        this.setImage("lolo.png");
         if(super.moveDown())
             return validaPosicao();
         return false;
     }
 
     public boolean moveRight() {
+        this.setLastMovement('r');
+        this.setImage("lolo-right.png");
         if(super.moveRight())
             return validaPosicao();
         return false;
     }
 
     public boolean moveLeft() {
+        this.setLastMovement('l');
+        this.setImage("lolo-left.png");
         if(super.moveLeft())
             return validaPosicao();
         return false;

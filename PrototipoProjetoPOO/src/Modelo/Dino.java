@@ -11,7 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class Dino extends Personagem  implements Serializable {
+public class Dino extends Personagem implements Serializable {
     private Personagem hero;
     private int iContaIntervalos;
 

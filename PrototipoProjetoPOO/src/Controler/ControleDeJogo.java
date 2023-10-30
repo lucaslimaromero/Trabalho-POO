@@ -37,14 +37,15 @@ public class ControleDeJogo {
                     if(pIesimoPersonagem.isbMortal()){
                         umaFase.remove(hero);
                     }
-                    if(pIesimoPersonagem instanceof Heart){
+                    if(pIesimoPersonagem instanceof Heart){ // Para ele coletar os corações
                         hero.setnHeart(hero.getnHeart() + 1);
                     }
 
                     if(hero.getPosicao().igual(porta.getPosicao()))
                     {
+                        hero.setnHeart(0); // Reinicia o número de corações
                         umaFase.clear();
-                        hero.setFase(-1);
+                        hero.setFase(hero.getFase()+1);
                         break;
                     }
                     if(!(pIesimoPersonagem instanceof Bau)){
@@ -153,19 +154,6 @@ public class ControleDeJogo {
                 }
             }
         }
-    }
-
-    public Personagem retornaObjeto(ArrayList<Personagem> personagem, int linha, int coluna){
-        Personagem p = null;
-        for(int i = 0; i < Consts.RES; i++){
-            for(int j = 0; j < Consts.RES; j++){
-                if(personagem.get(i).pPosicao.getLinha() == linha && personagem.get(j).pPosicao.getColuna() == coluna){
-                    p = personagem.get(i);
-                    return p;
-                }
-            }
-        }
-        return p;
     }
 
     /*Retorna true se a posicao p é válida para Hero com relacao a todos os personagens no array*/
