@@ -73,8 +73,21 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         this.addPersonagem(bau1, 1);
 
         criaMuros(primeiraFase, 1);
-
-        arvoresArbustosPrimeiraFase();
+        
+        int[][] matriz1 = {
+            {2, 2, 2, 2, 2, 2, 0, 2, 2, 1, 1},
+            {2, 1, 1, 2, 0, 0, 0, 2, 2, 1, 1},
+            {0, 1, 1, 2, 2, 2, 0, 2, 2, 2, 1},
+            {0, 0, 1, 1, 2, 2, 0, 2, 2, 2, 1},
+            {0, 0, 0, 0, 2, 2, 0, 2, 2, 1, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0},
+            {0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0},
+            {1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0},
+            {1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0},
+            {2, 1, 1, 2, 0, 0, 0, 0, 1, 1, 0},
+            {2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0}
+        };
+        criaCenarioFase(matriz1, 1);
 
         Cobrinha cobra = new Cobrinha("cobrinha.png");
         cobra.setPosicao(6, 7);
@@ -92,7 +105,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         b1.setPosicao(6,2);
         this.addPersonagem(b1, 1);
         
-        Cenario agua = new Cenario("agua.png");
+        Cenario agua = new Cenario("agua.gif");
         agua.setPosicao(5,5);
         this.addPersonagem(agua, 1);
         
@@ -140,7 +153,22 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         this.addPersonagem(dino2, 2);
 
         criaMuros(segundaFase, 2);
-        arvoresArbustosSegundaFase();
+        
+        int[][] matriz2 = {
+            {0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0},
+            {0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0},
+            {3, 3, 3, 3, 4, 3, 3, 3, 3, 4, 3},
+            {3, 3, 3, 3, 4, 3, 3, 3, 3, 4, 3},
+            {0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 3},
+            {0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 3},
+            {0, 0, 0, 0, 0, 2, 2, 1, 1, 0, 3},
+            {0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 3},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3},
+            {0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3}
+        };
+        
+        criaCenarioFase(matriz2, 2);
         
 
         // -------------------------------------------- //
@@ -179,7 +207,21 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         this.addPersonagem(h11, 3);
 
         criaMuros(terceiraFase, 3);
-        arvoresArbustosTerceiraFase();
+        
+        int[][] matriz3 = {
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 1, 1, 1, 1, 0, 3, 3, 3, 0},
+            {0, 3, 1, 1, 1, 1, 0, 3, 3, 3, 0},
+            {0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0},
+            {0, 3, 0, 1, 0, 0, 0, 1, 0, 0, 0},
+            {0, 0, 0, 2, 0, 2, 0, 1, 0, 0, 0},
+            {0, 3, 0, 2, 0, 2, 0, 0, 0, 0, 0},
+            {0, 3, 0, 2, 0, 2, 1, 3, 3, 3, 0},
+            {0, 3, 0, 1, 0, 0, 0, 3, 3, 3, 0},
+            {0, 3, 0, 3, 3, 3, 3, 3, 3, 3, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}
+        };
+        criaCenarioFase(matriz3, 3);
 
         // -------------------------------------------- //
 
@@ -222,7 +264,22 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
 
 
         criaMuros(quartaFase, 4);
-        arvoresArbustosQuartaFase();
+        
+        int[][] matriz4 = {
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0},
+            {0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0},
+            {0, 3, 3, 3, 3, 0, 2, 0, 0, 0, 0},
+            {0, 3, 3, 3, 0, 0, 2, 0, 0, 0, 0},
+            {0, 3, 3, 3, 3, 0, 2, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0},
+            {0, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+        };
+        
+        criaCenarioFase(matriz4, 4);
     }
     
     public void criaMuros(ArrayList<Personagem> a, int fase){
@@ -511,143 +568,25 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         //repaint(); /*invoca o paint imediatamente, sem aguardar o refresh*/
     }
     
-    public void arvoresArbustosPrimeiraFase(){
+    public void criaCenarioFase(int [][]matriz, int fase){
         // Colocando as árvores da primeira fase (hard coding)
-        
-        int[][] matriz = {
-            {2, 2, 2, 2, 2, 2, 0, 2, 2, 1, 1},
-            {2, 1, 1, 2, 0, 0, 0, 2, 2, 1, 1},
-            {0, 1, 1, 2, 2, 2, 0, 2, 2, 2, 1},
-            {0, 0, 1, 1, 2, 2, 0, 2, 2, 2, 1},
-            {0, 0, 0, 0, 2, 2, 0, 2, 2, 1, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0},
-            {0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0},
-            {1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0},
-            {1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0},
-            {2, 1, 1, 2, 0, 0, 0, 0, 1, 1, 0},
-            {2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0}
-        };
         
         for(int i = 0; i < Consts.RES - 2; i++){
             for(int j = 0; j < Consts.RES - 2; j++){
                 if(matriz[i][j] == 1){
                     Cenario arvore = new Cenario("arvore.png");
                     arvore.setPosicao(i+1,j+1);
-                    this.addPersonagem(arvore, 1);
+                    this.addPersonagem(arvore, fase);
                 }
                 if(matriz[i][j] == 2){
                     Cenario arbusto = new Cenario("arbusto.png");
                     arbusto.setPosicao(i+1,j+1);
-                    this.addPersonagem(arbusto, 1);
-                }
-            }
-        }
-    }
-
-    public void arvoresArbustosSegundaFase(){
-        // Colocando as árvores da primeira fase (hard coding)
-
-        int[][] matriz = {
-            {0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0},
-            {0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0},
-            {3, 3, 3, 3, 4, 3, 3, 3, 3, 4, 3},
-            {3, 3, 3, 3, 4, 3, 3, 3, 3, 4, 3},
-            {0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 3},
-            {0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 3},
-            {0, 0, 0, 0, 0, 2, 2, 1, 1, 0, 3},
-            {0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 3},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3},
-            {0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3}
-        };
-
-        for(int i = 0; i < Consts.RES - 2; i++){
-            for(int j = 0; j < Consts.RES - 2; j++){
-                if(matriz[i][j] == 1){
-                    Cenario arvore = new Cenario("arvore.png");
-                    arvore.setPosicao(i+1,j+1);
-                    this.addPersonagem(arvore, 2);
-                }
-                if(matriz[i][j] == 2){
-                    Cenario arbusto = new Cenario("arbusto.png");
-                    arbusto.setPosicao(i+1,j+1);
-                    this.addPersonagem(arbusto, 2);
+                    this.addPersonagem(arbusto, fase);
                 }
                 if(matriz[i][j] == 3){
-                    Cenario agua = new Cenario("agua.png");
+                    Cenario agua = new Cenario("agua.gif");
                     agua.setPosicao(i+1,j+1);
-                    this.addPersonagem(agua, 2);
-                }
-            }
-        }
-    }
-    
-    public void arvoresArbustosTerceiraFase(){
-        // Colocando as árvores da primeira fase (hard coding)
-
-        int[][] matriz = {
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 1, 1, 1, 1, 0, 3, 3, 3, 0},
-            {0, 3, 1, 1, 1, 1, 0, 3, 3, 3, 0},
-            {0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0},
-            {0, 3, 0, 1, 0, 0, 0, 1, 0, 0, 0},
-            {0, 0, 0, 2, 0, 2, 0, 1, 0, 0, 0},
-            {0, 3, 0, 2, 0, 2, 0, 0, 0, 0, 0},
-            {0, 3, 0, 2, 0, 2, 1, 3, 3, 3, 0},
-            {0, 3, 0, 1, 0, 0, 0, 3, 3, 3, 0},
-            {0, 3, 0, 3, 3, 3, 3, 3, 3, 3, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}
-        };
-
-        for(int i = 0; i < Consts.RES - 2; i++){
-            for(int j = 0; j < Consts.RES - 2; j++){
-                if(matriz[i][j] == 1){
-                    Cenario arvore = new Cenario("arvore.png");
-                    arvore.setPosicao(i+1,j+1);
-                    this.addPersonagem(arvore, 3);
-                }
-                if(matriz[i][j] == 2){
-                    Cenario arbusto = new Cenario("arbusto.png");
-                    arbusto.setPosicao(i+1,j+1);
-                    this.addPersonagem(arbusto, 3);
-                }
-                if(matriz[i][j] == 3){
-                    Cenario agua = new Cenario("agua.png");
-                    agua.setPosicao(i+1,j+1);
-                    this.addPersonagem(agua, 3);
-                }
-            }
-        }
-    }
-    
-    public void arvoresArbustosQuartaFase(){
-        
-
-        int[][] matriz = {
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0},
-            {0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0},
-            {0, 3, 3, 3, 3, 0, 2, 0, 0, 0, 0},
-            {0, 3, 3, 3, 0, 0, 2, 0, 0, 0, 0},
-            {0, 3, 3, 3, 3, 0, 2, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0},
-            {0, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-        };
-
-        for(int i = 0; i < Consts.RES - 2; i++){
-            for(int j = 0; j < Consts.RES - 2; j++){
-                if(matriz[i][j] == 2){
-                    Cenario arbusto = new Cenario("arbusto.png");
-                    arbusto.setPosicao(i+1,j+1);
-                    this.addPersonagem(arbusto, 4);
-                }
-                if(matriz[i][j] == 3){
-                    Cenario agua = new Cenario("agua.png");
-                    agua.setPosicao(i+1,j+1);
-                    this.addPersonagem(agua, 4);
+                    this.addPersonagem(agua, fase);
                 }
             }
         }
