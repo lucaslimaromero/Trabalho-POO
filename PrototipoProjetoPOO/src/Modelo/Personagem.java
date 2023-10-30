@@ -150,7 +150,7 @@ public abstract class Personagem implements Serializable {
     }
 
     public void shootR(){
-        Esfera f = new Esfera("Esfera.png", 'r');
+        Esfera f = new Esfera("bola.png", 'r');
         f.setPosicao(pPosicao.getLinha(),pPosicao.getColuna());
         if(this.fase == 1){
             Desenho.acessoATelaDoJogo().addPersonagem(f, 1);
@@ -164,7 +164,7 @@ public abstract class Personagem implements Serializable {
     }
 
     public void shootL(){
-        Esfera f = new Esfera("Esfera.png", 'l');
+        Esfera f = new Esfera("bola.png", 'l');
         f.setPosicao(pPosicao.getLinha(),pPosicao.getColuna());
         if(this.fase == 1){
             Desenho.acessoATelaDoJogo().addPersonagem(f, 1);
@@ -178,7 +178,7 @@ public abstract class Personagem implements Serializable {
     }
 
     public void shootU(){
-        Esfera f = new Esfera("Esfera.png", 'u');
+        Esfera f = new Esfera("bola.png", 'u');
         f.setPosicao(pPosicao.getLinha(),pPosicao.getColuna());
         if(this.fase == 1){
             Desenho.acessoATelaDoJogo().addPersonagem(f, 1);
@@ -192,7 +192,7 @@ public abstract class Personagem implements Serializable {
     }
 
     public void shootD(){
-        Esfera f = new Esfera("Esfera.png", 'd');
+        Esfera f = new Esfera("bola.png", 'd');
         f.setPosicao(pPosicao.getLinha(),pPosicao.getColuna());
         if(this.fase == 1){
             Desenho.acessoATelaDoJogo().addPersonagem(f, 1);

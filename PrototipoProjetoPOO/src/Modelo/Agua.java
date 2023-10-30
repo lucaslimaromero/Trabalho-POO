@@ -7,7 +7,13 @@ package Modelo;
 import Auxiliar.Consts;
 import java.io.Serializable;
 import Auxiliar.Desenho;
-
+import Controler.Tela;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -25,17 +31,6 @@ public class Agua extends Personagem implements Serializable {
 
     public void autoDesenho() {
         super.autoDesenho();
-
-        this.iContaIntervalos++;
-        if(this.iContaIntervalos == Consts.TIMERFOGO){
-            if(this.getImage() == "agua.png"){
-                this.setImage("agua2.png");
-            }
-            if(this.getImage() == "agua2.png"){
-                this.setImage("agua.png");
-            }
-            this.iContaIntervalos = 0;
-        }
     }
     
 }
