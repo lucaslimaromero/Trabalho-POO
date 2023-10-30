@@ -26,6 +26,8 @@ public abstract class Personagem implements Serializable {
     protected boolean bixo;
     protected int fase;
     public String imagem;
+    protected char Sentido;
+    protected char direcao;
     
     protected Personagem(String sNomeImagePNG) {
         this.pPosicao = new Posicao(1, 1);
@@ -49,6 +51,24 @@ public abstract class Personagem implements Serializable {
             System.out.println(ex.getMessage());
         }
     }
+
+    public char getSentido() {
+        return Sentido;
+    }
+
+    public void setSentido(char Sentido) {
+        this.Sentido = Sentido;
+    }
+
+    public char getDirecao() {
+        return direcao;
+    }
+
+    public void setDirecao(char direcao) {
+        this.direcao = direcao;
+    }
+    
+    
     
     public String getImage(){
         return this.imagem;
