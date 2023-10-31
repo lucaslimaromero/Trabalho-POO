@@ -22,7 +22,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -33,6 +38,7 @@ import java.util.logging.Logger;
 public class Tela extends javax.swing.JFrame implements MouseListener, KeyListener {
     
     private Hero hero;
+    private ArrayList<Personagem> umaFase;
     private ArrayList<Personagem> primeiraFase;
     private ArrayList<Personagem> segundaFase;
     private ArrayList<Personagem> terceiraFase;
@@ -40,6 +46,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
     
     private ControleDeJogo cj = new ControleDeJogo();
     private Graphics g2;
+    private GameState gamestate;
 
     public Tela() {
         Desenho.setCenario(this);
@@ -51,6 +58,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         this.setSize(Consts.RES * Consts.CELL_SIDE + getInsets().left + getInsets().right,
                 Consts.RES * Consts.CELL_SIDE + getInsets().top + getInsets().bottom);
 
+        
         primeiraFase = new ArrayList<Personagem>();
         segundaFase = new ArrayList<Personagem>();
         terceiraFase = new ArrayList<Personagem>();
@@ -58,6 +66,17 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
 
         // ------------ PRIMEIRA FASE -------------------- //
         hero = new Hero("lolo.png");
+
+        
+        constroiFase1();
+        constroiFase2();
+        constroiFase3();
+        constroiFase4();
+        
+        //GameState estadoAtual = loadGameState();
+    }
+    
+    public void constroiFase1(){
         hero.setPosicao(1, 7);
         this.addPersonagem(hero, 1);
 
@@ -103,18 +122,9 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         Heart h2 = new Heart("coracao.png");
         h2.setPosicao(5, 11);
         this.addPersonagem(h2, 1);
-        
-        Box b1 = new Box("box.png");
-        b1.setPosicao(6,2);
-        this.addPersonagem(b1, 1);
-        
-        Cenario agua = new Cenario("agua.gif");
-        agua.setPosicao(5,5);
-        this.addPersonagem(agua, 1);
-        
-        // -------------------------------------------- //
-        
-        // SEGUNDA FASE
+    }
+    
+    public void constroiFase2(){
         this.addPersonagem(hero, 2);
         
         Cenario porta2 = new Cenario("porta.png");
@@ -170,10 +180,9 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         };
         
         criaCenarioFase(matriz2, 2);
-
-        // -------------------------------------------- //
-
-        // TERCEIRA FASE
+    }
+    
+    public void constroiFase3(){
         this.addPersonagem(hero, 3);
         
         Cenario porta3 = new Cenario("porta.png");
@@ -220,10 +229,9 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}
         };
         criaCenarioFase(matriz3, 3);
-
-        // -------------------------------------------- //
-
-        // QUARTA FASE
+    }
+    
+    public void constroiFase4(){
         this.addPersonagem(hero, 4);
         
         Cenario porta4 = new Cenario("porta.png");
@@ -277,6 +285,72 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         
         criaCenarioFase(matriz4, 4);
     }
+    
+    private GameState loadGameState() { // Retomando
+        try (FileInputStream fileIn = new FileInputStream("savegame.ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn)) {
+            
+            GameState gameState = (GameState) in.readObject();
+            
+            switch (gameState.getCurrentPhase()){
+                case 1:
+                    primeiraFase = gameState.getArrayFaseAtual();
+                    break;
+                case 2:
+                    segundaFase = gameState.getArrayFaseAtual();;
+                    break;
+                case 3:
+                    terceiraFase = gameState.getArrayFaseAtual();;
+                    break;
+                case 4:
+                    quartaFase = gameState.getArrayFaseAtual();;
+                    break;
+                default:
+                    break;
+            }
+            
+            return (GameState) in.readObject();
+        } catch (FileNotFoundException | ClassNotFoundException e) {
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void saveGameState() { // Salvando o estado do jogo em um arquivo
+        try (FileOutputStream fileOut = new FileOutputStream("savegame.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
+            
+            switch (hero.getFase()){
+                case 1:
+                    umaFase = primeiraFase;
+                    break;
+                case 2:
+                    umaFase = segundaFase;
+                    break;
+                case 3:
+                    umaFase = terceiraFase;
+                    break;
+                case 4:
+                    umaFase = quartaFase;
+                    break;
+                default:
+                    break;
+            }
+            GameState gameState = new GameState(umaFase, hero.getFase());
+            
+            out.writeObject(gameState);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    /*
+    public void advanceToNextPhase() {
+        // Lógica para avançar para a próxima fase
+        gameState.setCurrentPhase(gameState.getCurrentPhase() + 1);
+        saveGameState();
+    }*/
     
     public void criaMuros(ArrayList<Personagem> a, int fase){
         
@@ -390,29 +464,28 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
             }
         }
         
-        if(hero.getFase() != -1){
-            switch (hero.getFase()){
-                case 1:
-                    this.cj.desenhaTudo(primeiraFase);
-                    this.cj.processaTudo(primeiraFase, 2);
-                    break;
-                case 2:
-                    this.cj.desenhaTudo(segundaFase);
-                    this.cj.processaTudo(segundaFase, 4);
-                    break;
-                case 3:
-                    this.cj.desenhaTudo(terceiraFase);
-                    this.cj.processaTudo(terceiraFase, 5);
-                    break;
-                case 4:
-                    this.cj.desenhaTudo(quartaFase);
-                    this.cj.processaTudo(quartaFase, 5);
-                    break;
-                default:
-                    break;
-                    
-            }
+        switch (hero.getFase()){
+            case 1:
+                this.cj.desenhaTudo(primeiraFase);
+                this.cj.processaTudo(primeiraFase, 2);
+                break;
+            case 2:
+                this.cj.desenhaTudo(segundaFase);
+                this.cj.processaTudo(segundaFase, 4);
+                break;
+            case 3:
+                this.cj.desenhaTudo(terceiraFase);
+                this.cj.processaTudo(terceiraFase, 5);
+                break;
+            case 4:
+                this.cj.desenhaTudo(quartaFase);
+                this.cj.processaTudo(quartaFase, 5);
+                break;
+            default:
+                break;
+
         }
+        
 
         g.dispose();
         g2.dispose();
@@ -420,7 +493,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
             getBufferStrategy().show();
         }
     }
-
+    
     public void go() {
         TimerTask task = new TimerTask() {
             public void run() {
@@ -483,6 +556,8 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
             hero.moveRight();
         else if (e.getKeyCode() == KeyEvent.VK_SPACE)
             hero.shootEsfera(hero.getFase(), hero.getLastMovement());
+        else if(e.getKeyCode() == KeyEvent.VK_X)
+            saveGameState();
 
         this.setTitle("-> Cell: " + (hero.getPosicao().getColuna()) + ", " + (hero.getPosicao().getLinha()));
         
@@ -498,9 +573,9 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
          this.setTitle("X: "+ x + ", Y: " + y +
          " -> Cell: " + (y/Consts.CELL_SIDE) + ", " + (x/Consts.CELL_SIDE));
 
-        if(hero.getFase() != -1){
-            this.hero.getPosicao().setPosicao(y/Consts.CELL_SIDE, x/Consts.CELL_SIDE);
-        }
+
+        this.hero.getPosicao().setPosicao(y/Consts.CELL_SIDE, x/Consts.CELL_SIDE);
+        
          
         repaint();
     }

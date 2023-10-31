@@ -13,6 +13,7 @@ import Modelo.Bau;
 import Modelo.Fogo;
 import Modelo.Esfera;
 import auxiliar.Posicao;
+import java.io.*;
 
 import java.nio.channels.Pipe;
 import java.util.ArrayList;
@@ -20,11 +21,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class ControleDeJogo {
+    
     public void desenhaTudo(ArrayList<Personagem> e){
         for(int i = 0; i < e.size(); i++){
             e.get(i).autoDesenho();
         }
     }
+    
     public void processaTudo(ArrayList<Personagem> umaFase, int nHeart){
         Personagem hero = umaFase.get(0);
         Personagem porta = umaFase.get(1);
@@ -46,6 +49,7 @@ public class ControleDeJogo {
                     {
                         hero.setnHeart(0); // Reinicia o número de corações
                         umaFase.clear();
+                        //advanceToNextPhase();
                         hero.setFase(hero.getFase()+1);
                         break;
                     }
