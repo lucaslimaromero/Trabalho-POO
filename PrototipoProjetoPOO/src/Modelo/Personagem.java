@@ -51,6 +51,25 @@ public abstract class Personagem implements Serializable {
             System.out.println(ex.getMessage());
         }
     }
+    
+    public void respawnHeroi(int faseNova){
+        switch (faseNova) {
+            case 1:
+                this.pPosicao = new Posicao(1, 7);
+                break;
+            case 2:
+                this.pPosicao = new Posicao(11, 5);
+                break;
+            case 3:
+                this.pPosicao = new Posicao(9, 7);
+                break;
+            case 4:
+                this.pPosicao = new Posicao(11, 6);
+                break;
+            default:
+                break;
+        }
+    }
 
     public char getSentido() {
         return Sentido;

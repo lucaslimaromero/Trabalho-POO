@@ -28,19 +28,19 @@ public class Esfera extends Personagem implements Serializable{
         super.autoDesenho();
         if(this.sentido == 'u'){
             if(!this.moveUp()) {
-                Desenho.acessoATelaDoJogo().addPersonagem(this, this.fase);
+                Desenho.acessoATelaDoJogo().addPersonagem(this);
             }
         } else if(this.sentido == 'd'){
             if(!this.moveDown()) {
-                Desenho.acessoATelaDoJogo().addPersonagem(this, this.fase);
+                Desenho.acessoATelaDoJogo().addPersonagem(this);
             }
         } else if(this.sentido == 'r'){
             if(!this.moveRight()) {
-                Desenho.acessoATelaDoJogo().addPersonagem(this, this.fase);
+                Desenho.acessoATelaDoJogo().addPersonagem(this);
             }
         } else if(this.sentido == 'l'){
             if(!this.moveLeft()) {
-                Desenho.acessoATelaDoJogo().addPersonagem(this, this.fase);
+                Desenho.acessoATelaDoJogo().addPersonagem(this);
             }
         }
     }

@@ -39,14 +39,12 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
     
     private Hero hero;
     private ArrayList<Personagem> umaFase;
-    private ArrayList<Personagem> primeiraFase;
-    private ArrayList<Personagem> segundaFase;
-    private ArrayList<Personagem> terceiraFase;
-    private ArrayList<Personagem> quartaFase;
     
     private ControleDeJogo cj = new ControleDeJogo();
     private Graphics g2;
-    private GameState gamestate;
+    private GameState estadoAtual; // Guarda o estado atual da Tela
+                                   // Isso inclui a fase e corações pegos (?)
+                                   // Poderá incluir a posição do heroi também
 
     public Tela() {
         Desenho.setCenario(this);
@@ -58,43 +56,62 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         this.setSize(Consts.RES * Consts.CELL_SIDE + getInsets().left + getInsets().right,
                 Consts.RES * Consts.CELL_SIDE + getInsets().top + getInsets().bottom);
 
-        
-        primeiraFase = new ArrayList<Personagem>();
-        segundaFase = new ArrayList<Personagem>();
-        terceiraFase = new ArrayList<Personagem>();
-        quartaFase = new ArrayList<Personagem>();
-
-        // ------------ PRIMEIRA FASE -------------------- //
-        hero = new Hero("lolo.png");
+        umaFase = new ArrayList<Personagem>();
 
         
-        constroiFase1();
-        constroiFase2();
-        constroiFase3();
-        constroiFase4();
+        // Temos que dar load no Game Salvo
+        if(loadGameState() == null) // Se retornar nulo, indica que é a primeira vez, logo deve seguir o fluxo natural do jogo (começar na fase 1)
+            estadoAtual = new GameState(umaFase, 1);
+        else // Se tiver algo salvo, eu dou load no estado atual (inclui o arraylist e o num da fase)
+            estadoAtual = loadGameState();
         
-        //GameState estadoAtual = loadGameState();
+        hero = new Hero("lolo.png", estadoAtual.getFaseAtual());
+        // Constrói a fase atual baseado no arraylist salvo
+        constroiFaseAtual(estadoAtual.getFaseAtual());
+        
+        System.out.println("----- Bem vindo ao Aventura de Bombonari! -----");
+        System.out.println(" Autores: ");
+        System.out.println(" - Guilherme Augusto da Silva Fincatti");
+        System.out.println(" - Lucas Lima Romero");
+        System.out.println("");
+        System.out.println("W A S D: Movimentos");
+        System.out.println("SPACE: Ejetar a esfera de forca");
+        System.out.println("X: Salvamento do Progresso");
+    }
+    
+    public void constroiFaseAtual(int faseAtual){
+        switch (faseAtual){
+            case 1:
+                constroiFase1();
+                break;
+            case 2:
+                constroiFase2();
+                break;
+            case 3:
+                constroiFase3();
+                break;
+            case 4:
+                constroiFase4();
+                break;
+            default:
+                break;
+        }
     }
     
     public void constroiFase1(){
         hero.setPosicao(1, 7);
-        this.addPersonagem(hero, 1);
+        this.addPersonagem(hero);
 
         // Criando a porta da fase 1 (0,7)
         Cenario porta1 = new Cenario("porta.png");
         porta1.setPosicao(0,7);
-        this.addPersonagem(porta1, 1);
+        this.addPersonagem(porta1);
         
         Bau bau1 = new Bau("bau.png");
         bau1.setPosicao(10,5);
-        this.addPersonagem(bau1, 1);
+        this.addPersonagem(bau1);
         
-        Caveira c1 = new Caveira("caveira.png", 'h');
-        c1.setPosicao(6, 4);
-        this.addPersonagem(c1, 1);
-        
-
-        criaMuros(primeiraFase, 1);
+        criaMuros(umaFase, 1);
         
         int[][] matriz1 = {
             {2, 2, 2, 2, 2, 2, 0, 2, 2, 1, 1},
@@ -109,61 +126,62 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
             {2, 1, 1, 2, 0, 0, 0, 0, 1, 1, 0},
             {2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0}
         };
-        criaCenarioFase(matriz1, 1);
+        
+        criaCenarioFase(matriz1);
 
         Cobrinha cobra = new Cobrinha("cobrinha.png");
         cobra.setPosicao(6, 7);
-        this.addPersonagem(cobra, 1);
+        this.addPersonagem(cobra);
         
         Heart h1 = new Heart("coracao.png");
         h1.setPosicao(2, 5);
-        this.addPersonagem(h1, 1);
+        this.addPersonagem(h1);
         
         Heart h2 = new Heart("coracao.png");
         h2.setPosicao(5, 11);
-        this.addPersonagem(h2, 1);
+        this.addPersonagem(h2);
     }
     
     public void constroiFase2(){
-        this.addPersonagem(hero, 2);
+        this.addPersonagem(hero);
         
         Cenario porta2 = new Cenario("porta.png");
         porta2.setPosicao(0,10);
-        this.addPersonagem(porta2, 2);
+        this.addPersonagem(porta2);
         
         Bau bau2 = new Bau("bau.png");
         bau2.setPosicao(6,1);
-        this.addPersonagem(bau2, 2);
+        this.addPersonagem(bau2);
 
         Heart h3 = new Heart("coracao.png");
         h3.setPosicao(11, 1);
-        this.addPersonagem(h3, 2);
+        this.addPersonagem(h3);
 
         Heart h4 = new Heart("coracao.png");
         h4.setPosicao(2, 2);
-        this.addPersonagem(h4, 2);
+        this.addPersonagem(h4);
 
         Heart h5 = new Heart("coracao.png");
         h5.setPosicao(2, 10);
-        this.addPersonagem(h5, 2);
+        this.addPersonagem(h5);
 
         Heart h6 = new Heart("coracao.png");
         h6.setPosicao(9, 8);
-        this.addPersonagem(h6, 2);
+        this.addPersonagem(h6);
 
         Box b2 = new Box("box.png");
         b2.setPosicao(10,7);
-        this.addPersonagem(b2, 2);
+        this.addPersonagem(b2);
 
         Dino dino1 = new Dino("dino.png", hero, 2);
         dino1.setPosicao(9, 1);
-        this.addPersonagem(dino1, 2);
+        this.addPersonagem(dino1);
 
         Dino dino2 = new Dino("dino-bravo.png", hero, 2);
         dino2.setPosicao(1, 4);
-        this.addPersonagem(dino2, 2);
+        this.addPersonagem(dino2);
 
-        criaMuros(segundaFase, 2);
+        criaMuros(umaFase, 2);
         
         int[][] matriz2 = {
             {0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0},
@@ -179,41 +197,45 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
             {0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3}
         };
         
-        criaCenarioFase(matriz2, 2);
+        criaCenarioFase(matriz2);
     }
     
     public void constroiFase3(){
-        this.addPersonagem(hero, 3);
+        this.addPersonagem(hero);
         
         Cenario porta3 = new Cenario("porta.png");
         porta3.setPosicao(0,6);
-        this.addPersonagem(porta3, 3);
+        this.addPersonagem(porta3);
         
         Bau bau3 = new Bau("bau.png");
         bau3.setPosicao(5,3);
-        this.addPersonagem(bau3, 3);
+        this.addPersonagem(bau3);
         
         Heart h7 = new Heart("coracao.png");
         h7.setPosicao(7, 7);
-        this.addPersonagem(h7, 3);
+        this.addPersonagem(h7);
 
         Heart h8 = new Heart("coracao.png");
         h8.setPosicao(9, 5);
-        this.addPersonagem(h8, 3);
+        this.addPersonagem(h8);
 
         Heart h9 = new Heart("coracao.png");
         h9.setPosicao(10, 11);
-        this.addPersonagem(h9, 3);
+        this.addPersonagem(h9);
 
         Heart h10 = new Heart("coracao.png");
         h10.setPosicao(11, 8);
-        this.addPersonagem(h10, 3);
+        this.addPersonagem(h10);
         
         Heart h11 = new Heart("coracao.png");
         h11.setPosicao(3, 7);
-        this.addPersonagem(h11, 3);
+        this.addPersonagem(h11);
+        
+        Cobrinha cobra3 = new Cobrinha("cobrinha.png");
+        cobra3.setPosicao(5, 6);
+        this.addPersonagem(cobra3);
 
-        criaMuros(terceiraFase, 3);
+        criaMuros(umaFase, 3);
         
         int[][] matriz3 = {
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -228,46 +250,45 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
             {0, 3, 0, 3, 3, 3, 3, 3, 3, 3, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}
         };
-        criaCenarioFase(matriz3, 3);
+        criaCenarioFase(matriz3);
     }
     
     public void constroiFase4(){
-        this.addPersonagem(hero, 4);
+        this.addPersonagem(hero);
         
         Cenario porta4 = new Cenario("porta.png");
         porta4.setPosicao(0,6);
-        this.addPersonagem(porta4, 4);
+        this.addPersonagem(porta4);
         
         Bau bau4 = new Bau("bau.png");
         bau4.setPosicao(6,5);
-        this.addPersonagem(bau4, 4);
+        this.addPersonagem(bau4);
         
         Heart h12 = new Heart("coracao.png");
         h12.setPosicao(5, 1);
-        this.addPersonagem(h12, 4);
+        this.addPersonagem(h12);
 
         Heart h13 = new Heart("coracao.png");
         h13.setPosicao(7, 1);
-        this.addPersonagem(h13, 4);
+        this.addPersonagem(h13);
 
         Heart h14 = new Heart("coracao.png");
         h14.setPosicao(5, 8);
-        this.addPersonagem(h14, 4);
+        this.addPersonagem(h14);
 
         Heart h15 = new Heart("coracao.png");
         h15.setPosicao(6, 8);
-        this.addPersonagem(h15, 4);
+        this.addPersonagem(h15);
         
         Heart h16 = new Heart("coracao.png");
         h16.setPosicao(7, 8);
-        this.addPersonagem(h16, 4);
+        this.addPersonagem(h16);
         
-        Cobrinha cobra3 = new Cobrinha("cobrinha.png");
-        cobra3.setPosicao(5, 6);
-        this.addPersonagem(cobra3, 3);
+        Caveira c1 = new Caveira("caveira.png", 'h');
+        c1.setPosicao(1, 4);
+        this.addPersonagem(c1);
 
-
-        criaMuros(quartaFase, 4);
+        criaMuros(umaFase, 4);
         
         int[][] matriz4 = {
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -283,7 +304,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
         };
         
-        criaCenarioFase(matriz4, 4);
+        criaCenarioFase(matriz4);
     }
     
     private GameState loadGameState() { // Retomando
@@ -291,25 +312,8 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
             ObjectInputStream in = new ObjectInputStream(fileIn)) {
             
             GameState gameState = (GameState) in.readObject();
+            return gameState; // Retorna o estado que o jogo parou (arraylist e a fase)
             
-            switch (gameState.getCurrentPhase()){
-                case 1:
-                    primeiraFase = gameState.getArrayFaseAtual();
-                    break;
-                case 2:
-                    segundaFase = gameState.getArrayFaseAtual();;
-                    break;
-                case 3:
-                    terceiraFase = gameState.getArrayFaseAtual();;
-                    break;
-                case 4:
-                    quartaFase = gameState.getArrayFaseAtual();;
-                    break;
-                default:
-                    break;
-            }
-            
-            return (GameState) in.readObject();
         } catch (FileNotFoundException | ClassNotFoundException e) {
             return null;
         } catch (IOException e) {
@@ -318,39 +322,18 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         }
     }
 
-    public void saveGameState() { // Salvando o estado do jogo em um arquivo
+    // Vamos salvar a fase
+    // Para isso, enviaremos o estadoAtual para ela
+    public void saveGameState(GameState estadoAtual) { // Salvando o estado do jogo em um arquivo
         try (FileOutputStream fileOut = new FileOutputStream("savegame.ser");
             ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
             
-            switch (hero.getFase()){
-                case 1:
-                    umaFase = primeiraFase;
-                    break;
-                case 2:
-                    umaFase = segundaFase;
-                    break;
-                case 3:
-                    umaFase = terceiraFase;
-                    break;
-                case 4:
-                    umaFase = quartaFase;
-                    break;
-                default:
-                    break;
-            }
-            GameState gameState = new GameState(umaFase, hero.getFase());
-            
-            out.writeObject(gameState);
+            // Aqui se escreve no arquivo o último estado atual (tecla x)
+            out.writeObject(estadoAtual);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    /*
-    public void advanceToNextPhase() {
-        // Lógica para avançar para a próxima fase
-        gameState.setCurrentPhase(gameState.getCurrentPhase() + 1);
-        saveGameState();
-    }*/
     
     public void criaMuros(ArrayList<Personagem> a, int fase){
         
@@ -363,85 +346,40 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
             if(i != Consts.RES - 1) {
                 Cenario wha = new Cenario("brick-cima.png");
                 wha.setPosicao(0, i);
-                this.addPersonagem(wha, fase);
+                this.addPersonagem(wha);
                 if(fase == 1 && i == 7){ // Se for a primeira fase
-                    this.removePersonagem(wha, fase);
+                    this.removePersonagem(wha);
                 }
                 else if(fase == 2 && i == 10){
-                    this.removePersonagem(wha, fase);
+                    this.removePersonagem(wha);
                 }
                 else if(fase == 3 && i == 6){
-                    this.removePersonagem(wha, fase);
+                    this.removePersonagem(wha);
                 }
                 else if(fase == 4 && i == 6){
-                    this.removePersonagem(wha, fase);                   
+                    this.removePersonagem(wha);                   
                 }
                 
                 Cenario wve = new Cenario("brick-lateral.png");
                 wve.setPosicao(i, 0);
-                this.addPersonagem(wve, fase);
+                this.addPersonagem(wve);
             }
             
-            this.addPersonagem(wvd, fase);
-            this.addPersonagem(whb, fase);
+            this.addPersonagem(wvd);
+            this.addPersonagem(whb);
         }
     }
 
     public boolean ehPosicaoValida(Posicao p){
-        if(hero.getFase() != -1){
-            switch (hero.getFase()){
-                case 1:
-                    return cj.ehPosicaoValida(this.primeiraFase, p);
-                case 2:
-                    return cj.ehPosicaoValida(this.segundaFase, p);
-                case 3:
-                    return cj.ehPosicaoValida(this.terceiraFase, p);
-                case 4:
-                    return cj.ehPosicaoValida(this.quartaFase, p);
-                default:
-                    break;
-            }
-        }
-        
-        return false;
+        return cj.ehPosicaoValida(this.umaFase, p);
     }
         
-    public void addPersonagem(Personagem umPersonagem, int fase) {
-        switch (fase) {
-            case 1:
-                primeiraFase.add(umPersonagem);
-                break;
-            case 2:
-                segundaFase.add(umPersonagem);
-                break;
-            case 3:
-                terceiraFase.add(umPersonagem);
-                break;
-            case 4:
-                quartaFase.add(umPersonagem);
-                break;
-            default:
-                break;
-        }
+    public void addPersonagem(Personagem umPersonagem) {
+        umaFase.add(umPersonagem);
     }
 
-    public void removePersonagem(Personagem umPersonagem, int fase) {
-        switch (fase) {
-            case 1:
-                primeiraFase.remove(umPersonagem);
-                break;
-            case 2:
-                segundaFase.remove(umPersonagem);
-                break;
-            case 3:
-                terceiraFase.remove(umPersonagem);
-                break;
-            case 4:
-                quartaFase.remove(umPersonagem);
-                break;
-            default:
-                break;
-        }
+    public void removePersonagem(Personagem umPersonagem) {
+        umaFase.remove(umPersonagem);
     }
 
     public Graphics getGraphicsBuffer(){
@@ -462,30 +400,18 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
                     Logger.getLogger(Tela.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-        }
-        
-        switch (hero.getFase()){
-            case 1:
-                this.cj.desenhaTudo(primeiraFase);
-                this.cj.processaTudo(primeiraFase, 2);
-                break;
-            case 2:
-                this.cj.desenhaTudo(segundaFase);
-                this.cj.processaTudo(segundaFase, 4);
-                break;
-            case 3:
-                this.cj.desenhaTudo(terceiraFase);
-                this.cj.processaTudo(terceiraFase, 5);
-                break;
-            case 4:
-                this.cj.desenhaTudo(quartaFase);
-                this.cj.processaTudo(quartaFase, 5);
-                break;
-            default:
-                break;
+        } 
 
+        // Problemas: o heroi está spawnando na posicao nativa 1,1 quando troca de fase 
+
+        // Se trocou a fase, o array "umaFase" deverá ser atualizado para a fase correspondente
+        if(estadoAtual.isTrocouFase()){ // Se trocou de fase, preciso limpar o array atual e atualizar
+            umaFase.clear();
+            constroiFaseAtual(estadoAtual.getFaseAtual());
+            estadoAtual.setTrocouFase(false);
         }
-        
+        this.cj.desenhaTudo(umaFase);
+        this.cj.processaTudo(umaFase, estadoAtual);
 
         g.dispose();
         g2.dispose();
@@ -504,7 +430,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         timer.schedule(task, 0, Consts.PERIOD);
     }
     
-    public void criaCenarioFase(int [][]matriz, int fase){
+    public void criaCenarioFase(int [][]matriz){
         // Colocando as árvores da primeira fase (hard coding)
         
         for(int i = 0; i < Consts.RES - 2; i++){
@@ -512,41 +438,24 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
                 if(matriz[i][j] == 1){
                     Cenario arvore = new Cenario("arvore.png");
                     arvore.setPosicao(i+1,j+1);
-                    this.addPersonagem(arvore, fase);
+                    this.addPersonagem(arvore);
                 }
                 if(matriz[i][j] == 2){
                     Cenario arbusto = new Cenario("arbusto.png");
                     arbusto.setPosicao(i+1,j+1);
-                    this.addPersonagem(arbusto, fase);
+                    this.addPersonagem(arbusto);
                 }
                 if(matriz[i][j] == 3){
-                    Cenario agua = new Cenario("agua.gif");
+                    Cenario agua = new Cenario("agua.png");
                     agua.setPosicao(i+1,j+1);
-                    this.addPersonagem(agua, fase);
+                    this.addPersonagem(agua);
                 }
             }
         }
     }
 
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_C) {
-            switch (hero.getFase()){
-                case 1:
-                    primeiraFase.clear();
-                    break;
-                case 2:
-                    segundaFase.clear();
-                    break;
-                case 3:
-                    terceiraFase.clear();
-                    break;
-                case 4:
-                    quartaFase.clear();
-                    break;
-                default:
-                    break;
-            }
-        } else if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W)
+        if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W)
             hero.moveUp();
         else if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S)
             hero.moveDown();
@@ -555,9 +464,9 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         else if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D)
             hero.moveRight();
         else if (e.getKeyCode() == KeyEvent.VK_SPACE)
-            hero.shootEsfera(hero.getFase(), hero.getLastMovement());
+            hero.shootEsfera(hero.getLastMovement());
         else if(e.getKeyCode() == KeyEvent.VK_X)
-            saveGameState();
+            saveGameState(this.estadoAtual);
 
         this.setTitle("-> Cell: " + (hero.getPosicao().getColuna()) + ", " + (hero.getPosicao().getLinha()));
         

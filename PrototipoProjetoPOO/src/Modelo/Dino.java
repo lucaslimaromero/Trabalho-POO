@@ -32,19 +32,19 @@ public class Dino extends Personagem implements Serializable {
             if (this.getPosicao().getColuna() > hero.getPosicao().getColuna() && this.getPosicao().getLinha() == hero.getPosicao().getLinha()) {
                 Fogo f = new Fogo("fire.png", 'l');
                 f.setPosicao(pPosicao.getLinha(), pPosicao.getColuna());
-                Desenho.acessoATelaDoJogo().addPersonagem(f, this.fase);
+                Desenho.acessoATelaDoJogo().addPersonagem(f);
             } else if (this.getPosicao().getColuna() < hero.getPosicao().getColuna() && this.getPosicao().getLinha() == hero.getPosicao().getLinha()) {
                 Fogo f = new Fogo("fire.png", 'r');
                 f.setPosicao(pPosicao.getLinha(), pPosicao.getColuna());
-                Desenho.acessoATelaDoJogo().addPersonagem(f, this.fase);
+                Desenho.acessoATelaDoJogo().addPersonagem(f);
             } else if (this.getPosicao().getLinha() > hero.getPosicao().getLinha() && this.getPosicao().getColuna() == hero.getPosicao().getColuna()) {
                 Fogo f = new Fogo("fire.png", 'u');
                 f.setPosicao(pPosicao.getLinha(), pPosicao.getColuna());
-                Desenho.acessoATelaDoJogo().addPersonagem(f, this.fase);
+                Desenho.acessoATelaDoJogo().addPersonagem(f);
             } else if (this.getPosicao().getLinha() < hero.getPosicao().getLinha() && this.getPosicao().getColuna() == hero.getPosicao().getColuna()) {
                 Fogo f = new Fogo("fire.png", 'd');
                 f.setPosicao(pPosicao.getLinha(), pPosicao.getColuna());
-                Desenho.acessoATelaDoJogo().addPersonagem(f, this.fase);
+                Desenho.acessoATelaDoJogo().addPersonagem(f);
             }
             
             

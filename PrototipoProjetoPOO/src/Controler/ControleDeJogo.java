@@ -28,7 +28,7 @@ public class ControleDeJogo {
         }
     }
     
-    public void processaTudo(ArrayList<Personagem> umaFase, int nHeart){
+    public void processaTudo(ArrayList<Personagem> umaFase, GameState estadoAtual){
         Personagem hero = umaFase.get(0);
         Personagem porta = umaFase.get(1);
         Personagem bau = umaFase.get(2);
@@ -39,7 +39,7 @@ public class ControleDeJogo {
             if(hero.getPosicao().igual(pIesimoPersonagem.getPosicao())){
                 if(pIesimoPersonagem.isbTransponivel()){
                     if(pIesimoPersonagem.isbMortal()){
-                        umaFase.remove(hero);
+                        hero.respawnHeroi(estadoAtual.getFaseAtual());
                     }
                     if(pIesimoPersonagem instanceof Heart){ // Para ele coletar os corações
                         hero.setnHeart(hero.getnHeart() + 1);
@@ -47,10 +47,10 @@ public class ControleDeJogo {
 
                     if(hero.getPosicao().igual(porta.getPosicao()))
                     {
+                        // Esse é o momento em que ocorre a troca de fase
                         hero.setnHeart(0); // Reinicia o número de corações
-                        umaFase.clear();
-                        //advanceToNextPhase();
-                        hero.setFase(hero.getFase()+1);
+                        estadoAtual.avancaProximaFase(); // Atualizo o estado do jogo
+                        hero.setFase(hero.getFase() + 1);
                         break;
                     }
                     if(!(pIesimoPersonagem instanceof Bau)){
@@ -76,7 +76,7 @@ public class ControleDeJogo {
                             break;
                     }
                 }
-                if(hero.getnHeart() == nHeart){
+                if(hero.getnHeart() == estadoAtual.getNumCoracoesFase()){
                     bau.setImage("bau_aberto_perola.png");
                     bau.setbTransponivel(true);
                     if(hero.getPosicao().igual(bau.getPosicao())){

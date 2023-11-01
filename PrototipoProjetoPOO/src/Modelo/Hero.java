@@ -14,13 +14,15 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Hero extends Personagem implements Serializable{
-    public Hero(String sNomeImagePNG) {
+    public Hero(String sNomeImagePNG, int faseAtual) {
         super(sNomeImagePNG);
-        this.fase = 1; // Sempre começa na fase 1 ? aqui é o lugar que podemos alterar pra salvar a fase tlvz
+        this.setFase(faseAtual); // Sempre começa na fase 1 ? aqui é o lugar que podemos alterar pra salvar a fase tlvz
     }
 
     public void setFase(int faseNova){
-        if(faseNova == 2){
+        if(faseNova == 1){
+            this.pPosicao = new Posicao(1, 7);
+        } else if(faseNova == 2){
             this.pPosicao = new Posicao(11, 5);
         } else if(faseNova == 3){
             this.pPosicao = new Posicao(9, 7);
@@ -33,6 +35,8 @@ public class Hero extends Personagem implements Serializable{
     public void voltaAUltimaPosicao(){
         this.pPosicao.volta();
     }
+    
+
     
     public boolean setPosicao(int linha, int coluna){
         if(this.pPosicao.setPosicao(linha, coluna)){
@@ -85,9 +89,9 @@ public class Hero extends Personagem implements Serializable{
         return false;
     }    
     
-    public void shootEsfera(int fase, char sentido){ // Recebe a fase
+    public void shootEsfera(char sentido){ // Recebe a fase
         Esfera esf = new Esfera("bola.png", sentido); // Pode ser r,l,u,d
         esf.setPosicao(pPosicao.getLinha(),pPosicao.getColuna());
-        Desenho.acessoATelaDoJogo().addPersonagem(esf, fase);
+        Desenho.acessoATelaDoJogo().addPersonagem(esf);
     }
 }
