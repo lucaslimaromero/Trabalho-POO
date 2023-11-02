@@ -110,7 +110,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         hero.setPosicao(1, 7);
         this.addPersonagem(hero);
 
-        // Criando a porta da fase 1 (0,7)
+        // Criando a porta da fase 1
         Cenario porta1 = new Cenario("porta.png");
         porta1.setPosicao(0,7);
         this.addPersonagem(porta1);
@@ -123,11 +123,11 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         
         int[][] matriz1 = {
             {2, 2, 2, 2, 2, 2, 0, 2, 2, 1, 1},
-            {2, 1, 1, 2, 0, 0, 0, 2, 2, 1, 1},
+            {2, 1, 1, 2, 5, 0, 0, 2, 2, 1, 1},
             {0, 1, 1, 2, 2, 2, 0, 2, 2, 2, 1},
             {0, 0, 1, 1, 2, 2, 0, 2, 2, 2, 1},
-            {0, 0, 0, 0, 2, 2, 0, 2, 2, 1, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0},
+            {0, 0, 0, 0, 2, 2, 0, 2, 2, 1, 5},
+            {0, 0, 0, 0, 0, 0, 7, 0, 2, 0, 0},
             {0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0},
             {1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0},
             {1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0},
@@ -136,18 +136,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         };
         
         criaCenarioFase(matriz1);
-
-        Cobrinha cobra = new Cobrinha("cobrinha.png");
-        cobra.setPosicao(6, 7);
-        this.addPersonagem(cobra);
         
-        Heart h1 = new Heart("coracao.png");
-        h1.setPosicao(2, 5);
-        this.addPersonagem(h1);
-        
-        Heart h2 = new Heart("coracao.png");
-        h2.setPosicao(5, 11);
-        this.addPersonagem(h2);
     }
     
     public void constroiFase2(){
@@ -161,48 +150,20 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         bau2.setPosicao(6,1);
         this.addPersonagem(bau2);
 
-        Heart h3 = new Heart("coracao.png");
-        h3.setPosicao(11, 1);
-        this.addPersonagem(h3);
-
-        Heart h4 = new Heart("coracao.png");
-        h4.setPosicao(2, 2);
-        this.addPersonagem(h4);
-
-        Heart h5 = new Heart("coracao.png");
-        h5.setPosicao(2, 10);
-        this.addPersonagem(h5);
-
-        Heart h6 = new Heart("coracao.png");
-        h6.setPosicao(9, 8);
-        this.addPersonagem(h6);
-
-        Box b2 = new Box("box.png");
-        b2.setPosicao(10,7);
-        this.addPersonagem(b2);
-
-        Dino dino1 = new Dino("dino.png", hero, 2);
-        dino1.setPosicao(9, 1);
-        this.addPersonagem(dino1);
-
-        Dino dino2 = new Dino("dino-bravo.png", hero, 2);
-        dino2.setPosicao(1, 4);
-        this.addPersonagem(dino2);
-
         criaMuros(umaFase, 2);
         
         int[][] matriz2 = {
-            {0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0},
-            {0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0},
+            {0, 0, 0, 8, 0, 2, 2, 2, 0, 0, 0},
+            {0, 5, 0, 0, 0, 2, 2, 2, 0, 5, 0},
             {0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0},
             {3, 3, 3, 3, 4, 3, 3, 3, 3, 4, 3},
             {3, 3, 3, 3, 4, 3, 3, 3, 3, 4, 3},
             {0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 3},
             {0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 3},
             {0, 0, 0, 0, 0, 2, 2, 1, 1, 0, 3},
-            {0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 3},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3},
-            {0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3}
+            {8, 0, 0, 0, 0, 2, 2, 5, 0, 0, 3},
+            {0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 3},
+            {5, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3}
         };
         
         criaCenarioFase(matriz2);
@@ -219,44 +180,20 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         bau3.setPosicao(5,3);
         this.addPersonagem(bau3);
         
-        Heart h7 = new Heart("coracao.png");
-        h7.setPosicao(7, 7);
-        this.addPersonagem(h7);
-
-        Heart h8 = new Heart("coracao.png");
-        h8.setPosicao(9, 5);
-        this.addPersonagem(h8);
-
-        Heart h9 = new Heart("coracao.png");
-        h9.setPosicao(10, 11);
-        this.addPersonagem(h9);
-
-        Heart h10 = new Heart("coracao.png");
-        h10.setPosicao(11, 8);
-        this.addPersonagem(h10);
-        
-        Heart h11 = new Heart("coracao.png");
-        h11.setPosicao(3, 7);
-        this.addPersonagem(h11);
-        
-        Cobrinha cobra3 = new Cobrinha("cobrinha.png");
-        cobra3.setPosicao(5, 6);
-        this.addPersonagem(cobra3);
-
         criaMuros(umaFase, 3);
         
         int[][] matriz3 = {
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 1, 1, 1, 1, 0, 3, 3, 3, 0},
-            {0, 3, 1, 1, 1, 1, 0, 3, 3, 3, 0},
+            {0, 3, 1, 1, 1, 1, 5, 3, 3, 3, 0},
             {0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0},
-            {0, 3, 0, 1, 0, 0, 0, 1, 0, 0, 0},
+            {0, 3, 0, 1, 0, 7, 0, 1, 0, 0, 0},
             {0, 0, 0, 2, 0, 2, 0, 1, 0, 0, 0},
-            {0, 3, 0, 2, 0, 2, 0, 0, 0, 0, 0},
+            {0, 3, 0, 2, 0, 2, 5, 0, 0, 0, 0},
             {0, 3, 0, 2, 0, 2, 1, 3, 3, 3, 0},
-            {0, 3, 0, 1, 0, 0, 0, 3, 3, 3, 0},
-            {0, 3, 0, 3, 3, 3, 3, 3, 3, 3, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}
+            {0, 3, 0, 1, 5, 0, 0, 3, 3, 3, 0},
+            {0, 3, 0, 3, 3, 3, 3, 3, 3, 3, 5},
+            {0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 1}
         };
         criaCenarioFase(matriz3);
     }
@@ -271,27 +208,8 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         Bau bau4 = new Bau("bau.png");
         bau4.setPosicao(6,5);
         this.addPersonagem(bau4);
-        
-        Heart h12 = new Heart("coracao.png");
-        h12.setPosicao(5, 1);
-        this.addPersonagem(h12);
-
-        Heart h13 = new Heart("coracao.png");
-        h13.setPosicao(7, 1);
-        this.addPersonagem(h13);
-
-        Heart h14 = new Heart("coracao.png");
-        h14.setPosicao(5, 8);
-        this.addPersonagem(h14);
-
-        Heart h15 = new Heart("coracao.png");
-        h15.setPosicao(6, 8);
-        this.addPersonagem(h15);
-        
-        Heart h16 = new Heart("coracao.png");
-        h16.setPosicao(7, 8);
-        this.addPersonagem(h16);
         /*
+        
         Caveira c1 = new Caveira("caveira.png", 'h');
         c1.setPosicao(1, 4);
         this.addPersonagem(c1);
@@ -304,48 +222,20 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         c3.setPosicao(6, 9);
         this.addPersonagem(c3);*/
 
-        Box b41 = new Box("box.png");
-        b41.setPosicao(1,8);
-        this.addPersonagem(b41);
-
-        Box b42 = new Box("box.png");
-        b42.setPosicao(3,3);
-        this.addPersonagem(b42);
-
-        Box b43 = new Box("box.png");
-        b43.setPosicao(5,10);
-        this.addPersonagem(b43);
-
-        Box b44 = new Box("box.png");
-        b44.setPosicao(6,10);
-        this.addPersonagem(b44);
-
-        Box b45 = new Box("box.png");
-        b45.setPosicao(7,10);
-        this.addPersonagem(b45);
-
-        Box b46 = new Box("box.png");
-        b46.setPosicao(9,3);
-        this.addPersonagem(b46);
-
-        Box b47 = new Box("box.png");
-        b47.setPosicao(10,8);
-        this.addPersonagem(b47);
-
         criaMuros(umaFase, 4);
         
         int[][] matriz4 = {
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0},
             {0, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0},
+            {0, 6, 0, 0, 0, 0, 0, 0, 0, 2, 0},
             {0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0},
-            {0, 3, 3, 3, 3, 0, 2, 0, 0, 0, 0},
-            {0, 3, 3, 3, 0, 0, 2, 0, 0, 0, 0},
-            {0, 3, 3, 3, 3, 0, 2, 0, 0, 0, 0},
+            {5, 3, 3, 3, 3, 0, 2, 5, 0, 6, 0},
+            {0, 3, 3, 3, 0, 0, 2, 5, 0, 6, 0},
+            {5, 3, 3, 3, 3, 0, 2, 5, 0, 6, 0},
             {0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0},
+            {0, 6, 0, 0, 0, 0, 0, 0, 0, 2, 0},
             {0, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+            {0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0}
         };
         
         criaCenarioFase(matriz4);
@@ -493,6 +383,26 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
                     Cenario agua = new Cenario("agua.png");
                     agua.setPosicao(i+1,j+1);
                     this.addPersonagem(agua);
+                }
+                if(matriz[i][j] == 5){
+                    Heart heart = new Heart("coracao.png");
+                    heart.setPosicao(i+1,j+1);
+                    this.addPersonagem(heart);
+                }
+                if(matriz[i][j] == 6){
+                    Box box = new Box("box.png");
+                    box.setPosicao(i+1,j+1);
+                    this.addPersonagem(box);
+                }
+                if(matriz[i][j] == 7){
+                    Cobrinha cobrinha = new Cobrinha("cobrinha.png");
+                    cobrinha.setPosicao(i+1,j+1);
+                    this.addPersonagem(cobrinha);
+                }
+                if(matriz[i][j] == 8){
+                    Dino dino = new Dino("dino-bravo.png", hero, estadoAtual.getFaseAtual());
+                    dino.setPosicao(i+1, j+1);
+                    this.addPersonagem(dino);
                 }
             }
         }

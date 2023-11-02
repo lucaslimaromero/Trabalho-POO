@@ -40,7 +40,7 @@ public class ControleDeJogo {
                 if(pIesimoPersonagem.isbTransponivel()){
                     if(pIesimoPersonagem.isbMortal()){
                         hero.respawnHeroi(estadoAtual.getFaseAtual());
-                        System.out.println("Você morreu! Respawn efetuado!");
+                        System.out.println("Voce morreu! Respawn efetuado!");
                     }
                     if(pIesimoPersonagem instanceof Heart){ // Para ele coletar os corações
                         hero.setnHeart(hero.getnHeart() + 1);
