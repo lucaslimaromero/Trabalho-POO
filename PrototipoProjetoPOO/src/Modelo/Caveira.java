@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 public class Caveira extends Personagem implements Serializable{
     private int iContaIntervalos;
+    private boolean parada;
     
     public Caveira(String sNomeImagePNG, char direcao) {
         super(sNomeImagePNG);

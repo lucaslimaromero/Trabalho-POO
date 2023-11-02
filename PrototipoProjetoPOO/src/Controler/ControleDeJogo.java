@@ -40,6 +40,7 @@ public class ControleDeJogo {
                 if(pIesimoPersonagem.isbTransponivel()){
                     if(pIesimoPersonagem.isbMortal()){
                         hero.respawnHeroi(estadoAtual.getFaseAtual());
+                        System.out.println("Você morreu! Respawn efetuado!");
                     }
                     if(pIesimoPersonagem instanceof Heart){ // Para ele coletar os corações
                         hero.setnHeart(hero.getnHeart() + 1);
@@ -159,6 +160,7 @@ public class ControleDeJogo {
                 }
             } else if(pIesimoPersonagem instanceof Caveira){
                 for(int j = 1; j < umaFase.size(); j++){
+                    //Caveira caveira = (Caveira) pIesimoPersonagem;
                     pJesimoPersonagem = umaFase.get(j);
                     if(pJesimoPersonagem != pIesimoPersonagem) {
                         if (pIesimoPersonagem.getPosicao().igual(pJesimoPersonagem.getPosicao())) {

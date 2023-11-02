@@ -46,6 +46,16 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
                                    // Isso inclui a fase e corações pegos (?)
                                    // Poderá incluir a posição do heroi também
 
+    // PONTOS IMPORTANTES (LEIA BOMBZZ):
+
+    // PRINCIPAIS (2): - Deixar a caveira parada até abrir o baú (senão literalmente fica injogável)
+    //                 - Caveira morrer pra esfera do herói (senão literalmente fica injogável tbm)
+    //                      - Inclusive até comentei a linha do caveira na fase 4, pq n dava pra coletar os coracoes, pq ea n morre
+    //                 - Bolota ser implemetado
+    // - Um bug estranho no baú, que volta com a imagem da pérola (msm dps de ser coletada) quando na 4ta fase o jogador anda em direção a linha 0
+    // - Personagem entrando debaixo do bau (detalhe)
+    // - Uma implementação mais completa do respawn do heroi, fazendo com que os corações se reposicionem e zere o contador interno do heroi (nHearts)
+
     public Tela() {
         Desenho.setCenario(this);
         initComponents();
@@ -57,7 +67,6 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
                 Consts.RES * Consts.CELL_SIDE + getInsets().top + getInsets().bottom);
 
         umaFase = new ArrayList<Personagem>();
-
         
         // Temos que dar load no Game Salvo
         if(loadGameState() == null) // Se retornar nulo, indica que é a primeira vez, logo deve seguir o fluxo natural do jogo (começar na fase 1)
@@ -69,14 +78,13 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         // Constrói a fase atual baseado no arraylist salvo
         constroiFaseAtual(estadoAtual.getFaseAtual());
         
-        System.out.println("----- Bem vindo ao Aventura de Bombonari! -----");
+        System.out.println("----- Bem vindo a Las Aventuras de Bombonari! -----");
         System.out.println(" Autores: ");
         System.out.println(" - Guilherme Augusto da Silva Fincatti");
-        System.out.println(" - Lucas Lima Romero");
-        System.out.println("");
+        System.out.println(" - Lucas Lima Romero\n");
         System.out.println("W A S D: Movimentos");
-        System.out.println("SPACE: Ejetar a esfera de forca");
-        System.out.println("X: Salvamento do Progresso");
+        System.out.println("SPACE  : Ejetar a esfera de forca");
+        System.out.println("X      : Salvamento do Progresso");
     }
     
     public void constroiFaseAtual(int faseAtual){
@@ -283,10 +291,46 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         Heart h16 = new Heart("coracao.png");
         h16.setPosicao(7, 8);
         this.addPersonagem(h16);
-        
+        /*
         Caveira c1 = new Caveira("caveira.png", 'h');
         c1.setPosicao(1, 4);
         this.addPersonagem(c1);
+
+        Caveira c2 = new Caveira("caveira.png", 'h');
+        c2.setPosicao(11, 4);
+        this.addPersonagem(c2);
+
+        Caveira c3 = new Caveira("caveira.png", 'v');
+        c3.setPosicao(6, 9);
+        this.addPersonagem(c3);*/
+
+        Box b41 = new Box("box.png");
+        b41.setPosicao(1,8);
+        this.addPersonagem(b41);
+
+        Box b42 = new Box("box.png");
+        b42.setPosicao(3,3);
+        this.addPersonagem(b42);
+
+        Box b43 = new Box("box.png");
+        b43.setPosicao(5,10);
+        this.addPersonagem(b43);
+
+        Box b44 = new Box("box.png");
+        b44.setPosicao(6,10);
+        this.addPersonagem(b44);
+
+        Box b45 = new Box("box.png");
+        b45.setPosicao(7,10);
+        this.addPersonagem(b45);
+
+        Box b46 = new Box("box.png");
+        b46.setPosicao(9,3);
+        this.addPersonagem(b46);
+
+        Box b47 = new Box("box.png");
+        b47.setPosicao(10,8);
+        this.addPersonagem(b47);
 
         criaMuros(umaFase, 4);
         
@@ -465,11 +509,12 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
             hero.moveRight();
         else if (e.getKeyCode() == KeyEvent.VK_SPACE)
             hero.shootEsfera(hero.getLastMovement());
-        else if(e.getKeyCode() == KeyEvent.VK_X)
+        else if(e.getKeyCode() == KeyEvent.VK_X){
             saveGameState(this.estadoAtual);
+            System.out.println("Progresso salvo - Fase " + estadoAtual.getFaseAtual());
+        }
 
         this.setTitle("-> Cell: " + (hero.getPosicao().getColuna()) + ", " + (hero.getPosicao().getLinha()));
-        
 
         //repaint(); /*invoca o paint imediatamente, sem aguardar o refresh*/
     }
