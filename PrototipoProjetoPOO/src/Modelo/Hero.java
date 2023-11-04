@@ -21,13 +21,13 @@ public class Hero extends Personagem implements Serializable{
 
     public void setFase(int faseNova){
         if(faseNova == 1){
-            this.pPosicao = new Posicao(1, 7);
+            this.setPosicao(1, 7);
         } else if(faseNova == 2){
-            this.pPosicao = new Posicao(11, 5);
+            this.setPosicao(11, 5);
         } else if(faseNova == 3){
-            this.pPosicao = new Posicao(9, 7);
+            this.setPosicao(9, 7);
         } else if(faseNova == 4){
-            this.pPosicao = new Posicao(11, 6);
+            this.setPosicao(11, 6);
         }
         this.fase = faseNova;
     }
@@ -36,7 +36,24 @@ public class Hero extends Personagem implements Serializable{
         this.pPosicao.volta();
     }
     
-
+    public void respawnHeroi(int faseNova) {
+        switch (faseNova) {
+            case 1:
+                this.pPosicao = new Posicao(1, 7);
+                break;
+            case 2:
+                this.pPosicao = new Posicao(11, 5);
+                break;
+            case 3:
+                this.pPosicao = new Posicao(9, 7);
+                break;
+            case 4:
+                this.pPosicao = new Posicao(11, 6);
+                break;
+            default:
+                break;
+        }
+    }
     
     public boolean setPosicao(int linha, int coluna){
         if(this.pPosicao.setPosicao(linha, coluna)){

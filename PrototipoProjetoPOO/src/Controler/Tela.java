@@ -52,10 +52,14 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
     //                 - Caveira morrer pra esfera do herói (senão literalmente fica injogável tbm)
     //                      - Inclusive até comentei a linha do caveira na fase 4, pq n dava pra coletar os coracoes, pq ea n morre
     //                 - Bolota ser implemetado
-    // - Um bug estranho no baú, que volta com a imagem da pérola (msm dps de ser coletada) quando na 4ta fase o jogador anda em direção a linha 0
-    // - Personagem entrando debaixo do bau (detalhe)
-    // - Uma implementação mais completa do respawn do heroi, fazendo com que os corações se reposicionem e zere o contador interno do heroi (nHearts)
-
+    // (SOLVED) - Um bug estranho no baú, que volta com a imagem da pérola (msm dps de ser coletada) quando na 4ta fase o jogador anda em direção a linha 0
+    // (SOLVED) - Personagem entrando debaixo do bau (detalhe)
+    // (SOLVED) - Uma implementação mais completa do respawn do heroi, fazendo com que os corações se reposicionem e zere o contador interno do heroi (nHearts)
+    // (SOLVED) - Implementação de avisos no jogo
+    // (SOLVED) - Implementação de uma forma de reiniciar a fase (tecla r)
+    // (SOLVED) - Implementação de salvar uma fase (tecla x)
+    // (SOLVED) - Implementação de carregar uma fase com o .ser
+    
     public Tela() {
         Desenho.setCenario(this);
         initComponents();
@@ -140,6 +144,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
     }
     
     public void constroiFase2(){
+        hero.setPosicao(11, 5);
         this.addPersonagem(hero);
         
         Cenario porta2 = new Cenario("porta.png");
@@ -170,6 +175,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
     }
     
     public void constroiFase3(){
+        hero.setPosicao(9, 7);
         this.addPersonagem(hero);
         
         Cenario porta3 = new Cenario("porta.png");
@@ -199,6 +205,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
     }
     
     public void constroiFase4(){
+        hero.setPosicao(11, 6);
         this.addPersonagem(hero);
         
         Cenario porta4 = new Cenario("porta.png");
@@ -422,6 +429,11 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         else if(e.getKeyCode() == KeyEvent.VK_X){
             saveGameState(this.estadoAtual);
             System.out.println("Progresso salvo - Fase " + estadoAtual.getFaseAtual());
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_R){
+            // Reinicia a fase
+            estadoAtual.reiniciaFase(hero);
+            System.out.println("Reiniciando... - Fase " + estadoAtual.getFaseAtual());
         }
 
         this.setTitle("-> Cell: " + (hero.getPosicao().getColuna()) + ", " + (hero.getPosicao().getLinha()));

@@ -16,8 +16,6 @@ import java.awt.event.KeyEvent;
  */
 public class Box extends Personagem implements Serializable {
     
-    
-    
     public Box(String sNomeImagePNG){
         super(sNomeImagePNG);
         this.bTransponivel = false;

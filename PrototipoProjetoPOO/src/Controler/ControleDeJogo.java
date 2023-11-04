@@ -23,23 +23,26 @@ import java.util.Set;
 public class ControleDeJogo {
     
     public void desenhaTudo(ArrayList<Personagem> e){
-        for(int i = 0; i < e.size(); i++){
+        for(int i = 1; i < e.size(); i++){
             e.get(i).autoDesenho();
         }
+        e.get(0).autoDesenho(); // O herói agora passa por cima do baú
     }
     
     public void processaTudo(ArrayList<Personagem> umaFase, GameState estadoAtual){
         Personagem hero = umaFase.get(0);
         Personagem porta = umaFase.get(1);
-        Personagem bau = umaFase.get(2);
+        Bau bau = (Bau) umaFase.get(2);
         Personagem pIesimoPersonagem;
         Personagem pJesimoPersonagem;
         for(int i = 1; i < umaFase.size(); i++){
             pIesimoPersonagem = umaFase.get(i);
+            // Tratamento de Colisões
             if(hero.getPosicao().igual(pIesimoPersonagem.getPosicao())){
                 if(pIesimoPersonagem.isbTransponivel()){
                     if(pIesimoPersonagem.isbMortal()){
-                        hero.respawnHeroi(estadoAtual.getFaseAtual());
+                        
+                        estadoAtual.reiniciaFase((Hero) hero);
                         System.out.println("Voce morreu! Respawn efetuado!");
                     }
                     if(pIesimoPersonagem instanceof Heart){ // Para ele coletar os corações
@@ -77,10 +80,14 @@ public class ControleDeJogo {
                             break;
                     }
                 }
-                if(hero.getnHeart() == estadoAtual.getNumCoracoesFase()){
-                    bau.setImage("bau_aberto_perola.png");
-                    bau.setbTransponivel(true);
-                    if(hero.getPosicao().igual(bau.getPosicao())){
+                
+                if (hero.getnHeart() == estadoAtual.getNumCoracoesFase()) {
+                    if(!bau.isbAberto()){
+                        bau.setImage("bau_aberto_perola.png");
+                        bau.setbTransponivel(true);
+                        bau.setbAberto(true);
+                    }
+                    if (hero.getPosicao().igual(bau.getPosicao())) {
                         bau.setImage("bau_aberto.png");
                         porta.setbTransponivel(true);
                         porta.setImage("porta_aberta.png");
@@ -88,6 +95,7 @@ public class ControleDeJogo {
                     }
                 }
             }
+            
             
             
             if(pIesimoPersonagem instanceof Box){

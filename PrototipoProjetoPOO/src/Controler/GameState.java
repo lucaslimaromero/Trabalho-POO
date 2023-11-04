@@ -8,6 +8,7 @@ package Controler;
  *
  * @author lucas
  */
+import Modelo.Hero;
 import Modelo.Personagem;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -74,11 +75,20 @@ public class GameState implements Serializable {
     public void avancaProximaFase() { // Se for a 4ta o jogo reinicia para a primeira
     // Lógica para avançar para a próxima fase
     
-        if(this.getFaseAtual() == 4)
+        if(this.getFaseAtual() == 4){
+            System.out.println("Voce zerou Las Aventuras de Bombonari!");
             this.setFaseAtual(1);
+        }
         else
             this.setFaseAtual(this.getFaseAtual() + 1);
         
+        this.setNumCoracoesFase();
+        this.setTrocouFase(true);
+    }
+    
+    public void reiniciaFase(Hero hero){
+        hero.respawnHeroi(this.getFaseAtual());
+        hero.setnHeart(0);
         this.setNumCoracoesFase();
         this.setTrocouFase(true);
     }
