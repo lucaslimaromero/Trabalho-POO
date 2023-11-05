@@ -41,12 +41,13 @@ public class ControleDeJogo {
             if(hero.getPosicao().igual(pIesimoPersonagem.getPosicao())){
                 if(pIesimoPersonagem.isbTransponivel()){
                     if(pIesimoPersonagem.isbMortal()){
-                        
                         estadoAtual.reiniciaFase((Hero) hero);
                         System.out.println("Voce morreu! Respawn efetuado!");
                     }
+
                     if(pIesimoPersonagem instanceof Heart){ // Para ele coletar os corações
                         hero.setnHeart(hero.getnHeart() + 1);
+                        umaFase.remove(pIesimoPersonagem);
                     }
 
                     if(hero.getPosicao().igual(porta.getPosicao()))
@@ -57,11 +58,8 @@ public class ControleDeJogo {
                         hero.setFase(hero.getFase() + 1);
                         break;
                     }
-                    if(!(pIesimoPersonagem instanceof Bau)){
-                        umaFase.remove(pIesimoPersonagem);
-                    }
                 }
-               
+
                 else if(pIesimoPersonagem.isbMovimenta()){
                     switch (hero.getLastMovement()) {
                         case 'u':
@@ -95,31 +93,32 @@ public class ControleDeJogo {
                     }
                 }
             }
-            
-            
+
+
             
             if(pIesimoPersonagem instanceof Box){
+                Box box = (Box) pIesimoPersonagem;
                 for(int j = 1; j < umaFase.size(); j++){
                     pJesimoPersonagem = umaFase.get(j);
-                    if(pJesimoPersonagem != pIesimoPersonagem && !(pJesimoPersonagem instanceof Caveira)) {
-                        if (pIesimoPersonagem.getPosicao().igual(pJesimoPersonagem.getPosicao())) {
+                    if(pJesimoPersonagem != box && !(pJesimoPersonagem instanceof Caveira)) {
+                        if (box.getPosicao().igual(pJesimoPersonagem.getPosicao())) {
                             if (!pJesimoPersonagem.isbTransponivel()) {
                                 if (!pJesimoPersonagem.isbMovimenta()) {
                                     switch (hero.getLastMovement()) {
                                         case 'u':
-                                            pIesimoPersonagem.moveDown();
+                                            box.moveDown();
                                             hero.moveDown();
                                             break;
                                         case 'd':
-                                            pIesimoPersonagem.moveUp();
+                                            box.moveUp();
                                             hero.moveUp();
                                             break;
                                         case 'l':
-                                            pIesimoPersonagem.moveRight();
+                                            box.moveRight();
                                             hero.moveRight();
                                             break;
                                         case 'r':
-                                            pIesimoPersonagem.moveLeft();
+                                            box.moveLeft();
                                             hero.moveLeft();
                                             break;
                                         default:

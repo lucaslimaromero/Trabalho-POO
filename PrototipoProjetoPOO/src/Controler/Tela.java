@@ -185,6 +185,11 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         Bau bau3 = new Bau("bau.png");
         bau3.setPosicao(5,3);
         this.addPersonagem(bau3);
+
+        Cenario ponte = new Cenario("ponte_lateral.png");
+        ponte.setPosicao(6, 2);
+        ponte.setbTransponivel(true);
+        this.addPersonagem(ponte);
         
         criaMuros(umaFase, 3);
         
@@ -198,7 +203,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
             {0, 3, 0, 2, 0, 2, 5, 0, 0, 0, 0},
             {0, 3, 0, 2, 0, 2, 1, 3, 3, 3, 0},
             {0, 3, 0, 1, 5, 0, 0, 3, 3, 3, 0},
-            {0, 3, 0, 3, 3, 3, 3, 3, 3, 3, 5},
+            {0, 3, 4, 3, 3, 3, 3, 3, 3, 3, 5},
             {0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 1}
         };
         criaCenarioFase(matriz3);
@@ -237,7 +242,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
             {0, 6, 0, 0, 0, 0, 0, 0, 0, 2, 0},
             {0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0},
             {5, 3, 3, 3, 3, 0, 2, 5, 0, 6, 0},
-            {0, 3, 3, 3, 0, 0, 2, 5, 0, 6, 0},
+            {4, 3, 3, 3, 0, 0, 2, 5, 0, 6, 0},
             {5, 3, 3, 3, 3, 0, 2, 5, 0, 6, 0},
             {0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0},
             {0, 6, 0, 0, 0, 0, 0, 0, 0, 2, 0},
@@ -341,9 +346,9 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
                     Logger.getLogger(Tela.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-        } 
+        }
 
-        // Problemas: o heroi está spawnando na posicao nativa 1,1 quando troca de fase 
+
 
         // Se trocou a fase, o array "umaFase" deverá ser atualizado para a fase correspondente
         if(estadoAtual.isTrocouFase()){ // Se trocou de fase, preciso limpar o array atual e atualizar
@@ -390,6 +395,12 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
                     Cenario agua = new Cenario("agua.png");
                     agua.setPosicao(i+1,j+1);
                     this.addPersonagem(agua);
+                }
+                if(matriz[i][j] == 4){
+                    Cenario ponte = new Cenario("ponte.png");
+                    ponte.setPosicao(i+1, j+1);
+                    ponte.setbTransponivel(true);
+                    this.addPersonagem(ponte);
                 }
                 if(matriz[i][j] == 5){
                     Heart heart = new Heart("coracao.png");

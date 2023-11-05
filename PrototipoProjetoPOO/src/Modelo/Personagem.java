@@ -25,7 +25,6 @@ public abstract class Personagem implements Serializable {
     protected int nHeart;
     protected boolean bixo;
     protected int fase;
-    public String imagem;
     protected char Sentido;
     protected char direcao;
     
@@ -34,7 +33,6 @@ public abstract class Personagem implements Serializable {
         this.bTransponivel = true;
         this.bMortal = false;
         this.bMovimenta = false;
-        this.imagem = sNomeImagePNG;
         this.setImage(sNomeImagePNG);
     }
     
@@ -46,7 +44,6 @@ public abstract class Personagem implements Serializable {
             Graphics g = bi.createGraphics();
             g.drawImage(img, 0, 0, Consts.CELL_SIDE, Consts.CELL_SIDE, null);
             iImage = new ImageIcon(bi);
-            this.imagem = imagem;
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
@@ -66,12 +63,6 @@ public abstract class Personagem implements Serializable {
 
     public void setDirecao(char direcao) {
         this.direcao = direcao;
-    }
-    
-    
-    
-    public String getImage(){
-        return this.imagem;
     }
 
     public int getFase() {
