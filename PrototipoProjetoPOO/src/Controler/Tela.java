@@ -48,10 +48,18 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
 
     // PONTOS IMPORTANTES (LEIA BOMBZZ):
 
-    // PRINCIPAIS (2): - Deixar a caveira parada até abrir o baú (senão literalmente fica injogável)
-    //                 - Caveira morrer pra esfera do herói (senão literalmente fica injogável tbm)
-    //                      - Inclusive até comentei a linha do caveira na fase 4, pq n dava pra coletar os coracoes, pq ea n morre
-    //                 - Bolota ser implemetado
+    // PRINCIPAIS PONTOS Q FALTAM:
+    // - Deixar a caveira parada até abrir o baú (senão literalmente fica injogável)
+    // - Caveira morrer para a esfera do herói (senão literalmente fica injogável tbm)
+    // - Bolota ser implemetado
+    // - Tentar consertar a implementação da caixa q está sujeito a alguns bugs principalmente na fase 4
+    //      - Como a implementação é de um "vai e vem" o personagem pode empurrar a caixa pra dentro do coração e mesmo assim coletá-lo, tornando a fase
+    //      4 bem mais fácil (aconteceu isso quando pedi pra gabi e meus primos jogarem)
+    //      - O ideal seria se a implementação, ao invés de fazer o vai e vem, não deixasse o jogador empurrar o coração em cima de nenhum objeto, mesmo q ele seja transponível
+    //      - As caixas podem ser empurradas dentro de outras caixas, daí fazendo o de cima, resolveria isso tbm
+    // - Fazer o Diagrama UML do Projeto
+
+
     // (SOLVED) - Um bug estranho no baú, que volta com a imagem da pérola (msm dps de ser coletada) quando na 4ta fase o jogador anda em direção a linha 0
     // (SOLVED) - Personagem entrando debaixo do bau (detalhe)
     // (SOLVED) - Uma implementação mais completa do respawn do heroi, fazendo com que os corações se reposicionem e zere o contador interno do heroi (nHearts)
@@ -70,9 +78,10 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         this.setSize(Consts.RES * Consts.CELL_SIDE + getInsets().left + getInsets().right,
                 Consts.RES * Consts.CELL_SIDE + getInsets().top + getInsets().bottom);
 
+        // Instancia o ArrayList que representa a fase atual
         umaFase = new ArrayList<Personagem>();
         
-        // Temos que dar load no Game Salvo
+        // Temos que dar load no GameState Salvo
         if(loadGameState() == null) // Se retornar nulo, indica que é a primeira vez, logo deve seguir o fluxo natural do jogo (começar na fase 1)
             estadoAtual = new GameState(umaFase, 1);
         else // Se tiver algo salvo, eu dou load no estado atual (inclui o arraylist e o num da fase)
@@ -89,6 +98,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         System.out.println("W A S D: Movimentos");
         System.out.println("SPACE  : Ejetar a esfera de forca");
         System.out.println("X      : Salvamento do Progresso");
+        System.out.println("R      : Reiniciar a Fase");
     }
     
     public void constroiFaseAtual(int faseAtual){
