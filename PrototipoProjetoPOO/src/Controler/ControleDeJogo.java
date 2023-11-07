@@ -47,6 +47,7 @@ public class ControleDeJogo {
 
                     if(pIesimoPersonagem instanceof Heart){ // Para ele coletar os corações
                         hero.setnHeart(hero.getnHeart() + 1);
+                        hero.setnTiro(hero.getnTiro() + 1);
                         umaFase.remove(pIesimoPersonagem);
                     }
 
@@ -175,7 +176,7 @@ public class ControleDeJogo {
                         Caveira caveira = (Caveira) pIesimoPersonagem;
                         pJesimoPersonagem = umaFase.get(j);
                         if(pJesimoPersonagem != caveira) {
-                            if (caveira.getPosicao().igual(pJesimoPersonagem.getPosicao())) {
+                            if (caveira.getPosicao().igual(pJesimoPersonagem.getPosicao()) && !(pJesimoPersonagem instanceof Esfera)) {
                                 if(caveira.getDirecao() == 'h'){
                                     if(caveira.getSentido() == 'r'){
                                         caveira.setSentido('l');

@@ -107,8 +107,11 @@ public class Hero extends Personagem implements Serializable{
     }    
     
     public void shootEsfera(char sentido){ // Recebe a fase
-        Esfera esf = new Esfera("bola.png", sentido); // Pode ser r,l,u,d
-        esf.setPosicao(pPosicao.getLinha(),pPosicao.getColuna());
-        Desenho.acessoATelaDoJogo().addPersonagem(esf);
+        if(this.getnTiro() > 0){
+            Esfera esf = new Esfera("bola.png", sentido); // Pode ser r,l,u,d
+            esf.setPosicao(pPosicao.getLinha(),pPosicao.getColuna());
+            Desenho.acessoATelaDoJogo().addPersonagem(esf);
+            this.setnTiro(this.getnTiro() - 1);
+        }
     }
 }
