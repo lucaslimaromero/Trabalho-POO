@@ -179,14 +179,18 @@ public class ControleDeJogo {
                                 if(caveira.getDirecao() == 'h'){
                                     if(caveira.getSentido() == 'r'){
                                         caveira.setSentido('l');
+                                        caveira.moveLeft();
                                     } else{
                                         caveira.setSentido('r');
+                                        caveira.moveRight();
                                     }
                                 } else {
                                     if(caveira.getSentido() == 'u'){
                                         caveira.setSentido('d');
+                                        caveira.moveDown();
                                     } else{
                                         caveira.setSentido('u');
+                                        caveira.moveUp();
                                     }
                                 }
                             }
