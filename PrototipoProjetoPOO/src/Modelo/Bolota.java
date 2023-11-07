@@ -22,6 +22,7 @@ public class Bolota extends Personagem  implements Serializable {
         this.hero = hero;
         this.bTransponivel = false;
         this.bixo = true;
+        this.bMortal = true;
         this.fase = fase;
         this.iContaIntervalos = 0;
         this.iContaIntervalos2 = 0;

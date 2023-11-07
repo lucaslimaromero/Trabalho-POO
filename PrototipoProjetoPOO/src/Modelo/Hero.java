@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 public class Hero extends Personagem implements Serializable{
     public Hero(String sNomeImagePNG, int faseAtual) {
         super(sNomeImagePNG);
+        this.nTiro = 0;
         this.setFase(faseAtual); // Sempre começa na fase 1 ? aqui é o lugar que podemos alterar pra salvar a fase tlvz
     }
 

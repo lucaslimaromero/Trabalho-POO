@@ -42,6 +42,7 @@ public class ControleDeJogo {
                 if(pIesimoPersonagem.isbTransponivel()){
                     if(pIesimoPersonagem.isbMortal()){
                         estadoAtual.reiniciaFase((Hero) hero);
+                        hero.setnTiro(0);
                         System.out.println("Voce morreu! Respawn efetuado!");
                     }
 
