@@ -15,8 +15,9 @@ public class Caveira extends Personagem implements Serializable{
         this.bMortal = true;
         this.bTransponivel = false;
         this.iContaIntervalos = 0;
-        this.bixo = false;
+        this.bixo = true;
         this.direcao = direcao;
+        this.parada = true;
         if(direcao == 'h'){
             this.setSentido('r');
         } else{
@@ -24,21 +25,39 @@ public class Caveira extends Personagem implements Serializable{
         }
     }
 
+    public boolean isParada() {
+        return parada;
+    }
+
+    public void setParada(boolean parada) {
+        this.parada = parada;
+    }
+    
+    
+
     public void autoDesenho() {
         super.autoDesenho();
         
-        if(this.getDirecao() == 'h'){
-            if(this.getSentido() == 'r'){
-                this.moveRight();
-            } else {
-                this.moveLeft();
-            }
-        } else{
-            if(this.getSentido() == 'u'){
-                this.moveUp();
-            } else {
-                this.moveDown();
+        this.iContaIntervalos++;
+        if(this.parada == false){
+            if(this.iContaIntervalos == Consts.TIMERBICHOHORIZONTAL){
+                if(this.getDirecao() == 'h'){
+                    if(this.getSentido() == 'r'){
+                        this.moveRight();
+                    } else {
+                        this.moveLeft();
+                    }
+                } else{
+                    if(this.getSentido() == 'u'){
+                        this.moveUp();
+                    } else {
+                        this.moveDown();
+                    }
+                }
+                this.iContaIntervalos = 0;
             }
         }
+        
+        
     }    
 }

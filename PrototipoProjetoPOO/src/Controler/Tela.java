@@ -50,9 +50,9 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
 
     // PRINCIPAIS PONTOS Q FALTAM:
     // - Deixar a caveira parada até abrir o baú (senão literalmente fica injogável)
-    // - Caveira morrer para a esfera do herói (senão literalmente fica injogável tbm)
-    // - Bolota ser implemetado
-    // - Tentar consertar a implementação da caixa q está sujeito a alguns bugs principalmente na fase 4
+    // - Caveira morrer para a esfera do herói (senão literalmente fica injogável tbm): check
+    // - Bolota ser implemetado: check porem bolota ta meio burro ainda
+    // - Tentar consertar a implementação da caixa q está sujeito a alguns bugs principalmente na fase 4: check
     //      - Como a implementação é de um "vai e vem" o personagem pode empurrar a caixa pra dentro do coração e mesmo assim coletá-lo, tornando a fase
     //      4 bem mais fácil (aconteceu isso quando pedi pra gabi e meus primos jogarem)
     //      - O ideal seria se a implementação, ao invés de fazer o vai e vem, não deixasse o jogador empurrar o coração em cima de nenhum objeto, mesmo q ele seja transponível
@@ -93,7 +93,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         
         System.out.println("----- Bem vindo a Las Aventuras de Bombonari! -----");
         System.out.println(" Autores: ");
-        System.out.println(" - Guilherme Augusto da Silva Fincatti");
+        System.out.println(" - Guilherme Augusto Fincatti da Silva");
         System.out.println(" - Lucas Lima Romero\n");
         System.out.println("W A S D: Movimentos");
         System.out.println("SPACE  : Ejetar a esfera de forca");
@@ -132,6 +132,14 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         Bau bau1 = new Bau("bau.png");
         bau1.setPosicao(10,5);
         this.addPersonagem(bau1);
+        
+        Caveira c4 = new Caveira("caveira.png", 'h');
+        c4.setPosicao(6, 5);
+        this.addPersonagem(c4);
+        
+        Bolota b4 = new Bolota("Esfera.png", hero, estadoAtual.getFaseAtual());
+        b4.setPosicao(8, 10);
+        this.addPersonagem(b4);
         
         criaMuros(umaFase, 1);
         
@@ -230,7 +238,6 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         Bau bau4 = new Bau("bau.png");
         bau4.setPosicao(6,5);
         this.addPersonagem(bau4);
-        /*
         
         Caveira c1 = new Caveira("caveira.png", 'h');
         c1.setPosicao(1, 4);
@@ -242,7 +249,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
 
         Caveira c3 = new Caveira("caveira.png", 'v');
         c3.setPosicao(6, 9);
-        this.addPersonagem(c3);*/
+        this.addPersonagem(c3);
 
         criaMuros(umaFase, 4);
         

@@ -84,6 +84,7 @@ public class ControleDeJogo {
                         bau.setImage("bau_aberto_perola.png");
                         bau.setbTransponivel(true);
                         bau.setbAberto(true);
+                        
                     }
                     if (hero.getPosicao().igual(bau.getPosicao())) {
                         bau.setImage("bau_aberto.png");
@@ -102,8 +103,8 @@ public class ControleDeJogo {
                     pJesimoPersonagem = umaFase.get(j);
                     if(pJesimoPersonagem != box && !(pJesimoPersonagem instanceof Caveira)) {
                         if (box.getPosicao().igual(pJesimoPersonagem.getPosicao())) {
-                            if (!pJesimoPersonagem.isbTransponivel()) {
-                                if (!pJesimoPersonagem.isbMovimenta()) {
+                            if (!pJesimoPersonagem.isbTransponivel() || (pJesimoPersonagem instanceof Heart)) {
+                                if (!pJesimoPersonagem.isbMovimenta() || (pJesimoPersonagem instanceof Box)) {
                                     switch (hero.getLastMovement()) {
                                         case 'u':
                                             box.moveDown();
@@ -182,6 +183,35 @@ public class ControleDeJogo {
                                     pIesimoPersonagem.setSentido('d');
                                 } else{
                                     pIesimoPersonagem.setSentido('u');
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else if(pIesimoPersonagem instanceof Bolota){
+                for(int j = 1; j < umaFase.size(); j++){
+                    pJesimoPersonagem = umaFase.get(j);
+                    if(pJesimoPersonagem != pIesimoPersonagem) {
+                        if (pIesimoPersonagem.getPosicao().igual(pJesimoPersonagem.getPosicao())) {
+                            if (!pJesimoPersonagem.isbTransponivel() || (pJesimoPersonagem instanceof Heart)) {
+                                if (!pJesimoPersonagem.isbMovimenta() || (pJesimoPersonagem instanceof Box)) {
+                                    switch (pIesimoPersonagem.getLastMovement()) {
+                                        case 'u':
+                                            pIesimoPersonagem.moveDown();
+                                            break;
+                                        case 'd':
+                                            pIesimoPersonagem.moveUp();
+                                            break;
+                                        case 'l':
+                                            pIesimoPersonagem.moveRight();
+                                            break;
+                                        case 'r':
+                                            pIesimoPersonagem.moveLeft();
+                                            break;
+                                        default:
+                                            break;
+                                    }
                                 }
                             }
                         }
