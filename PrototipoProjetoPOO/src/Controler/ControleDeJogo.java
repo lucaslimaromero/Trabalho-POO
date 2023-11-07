@@ -80,12 +80,15 @@ public class ControleDeJogo {
                 }
                 
                 if (hero.getnHeart() == estadoAtual.getNumCoracoesFase()) {
+                    Caveira.setParada(false);
+
                     if(!bau.isbAberto()){
+                        // Quando todos os corações são coletados, a caveira deve começar a se movimentar
                         bau.setImage("bau_aberto_perola.png");
                         bau.setbTransponivel(true);
                         bau.setbAberto(true);
-                        
                     }
+
                     if (hero.getPosicao().igual(bau.getPosicao())) {
                         bau.setImage("bau_aberto.png");
                         porta.setbTransponivel(true);
@@ -167,22 +170,24 @@ public class ControleDeJogo {
                     }
                 }
             } else if(pIesimoPersonagem instanceof Caveira){
-                for(int j = 1; j < umaFase.size(); j++){
-                    //Caveira caveira = (Caveira) pIesimoPersonagem;
-                    pJesimoPersonagem = umaFase.get(j);
-                    if(pJesimoPersonagem != pIesimoPersonagem) {
-                        if (pIesimoPersonagem.getPosicao().igual(pJesimoPersonagem.getPosicao())) {
-                            if(pIesimoPersonagem.getDirecao() == 'h'){
-                                if(pIesimoPersonagem.getSentido() == 'r'){
-                                    pIesimoPersonagem.setSentido('l');
-                                } else{
-                                    pIesimoPersonagem.setSentido('r');
-                                }
-                            } else {
-                                if(pIesimoPersonagem.getSentido() == 'u'){
-                                    pIesimoPersonagem.setSentido('d');
-                                } else{
-                                    pIesimoPersonagem.setSentido('u');
+                if(!Caveira.isParada()){
+                    for(int j = 1; j < umaFase.size(); j++){
+                        Caveira caveira = (Caveira) pIesimoPersonagem;
+                        pJesimoPersonagem = umaFase.get(j);
+                        if(pJesimoPersonagem != caveira) {
+                            if (caveira.getPosicao().igual(pJesimoPersonagem.getPosicao())) {
+                                if(caveira.getDirecao() == 'h'){
+                                    if(caveira.getSentido() == 'r'){
+                                        caveira.setSentido('l');
+                                    } else{
+                                        caveira.setSentido('r');
+                                    }
+                                } else {
+                                    if(caveira.getSentido() == 'u'){
+                                        caveira.setSentido('d');
+                                    } else{
+                                        caveira.setSentido('u');
+                                    }
                                 }
                             }
                         }

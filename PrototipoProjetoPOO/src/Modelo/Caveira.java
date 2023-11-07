@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 public class Caveira extends Personagem implements Serializable{
     private int iContaIntervalos;
-    private boolean parada;
+    private static boolean parada;
     
     public Caveira(String sNomeImagePNG, char direcao) {
         super(sNomeImagePNG);
@@ -17,7 +17,7 @@ public class Caveira extends Personagem implements Serializable{
         this.iContaIntervalos = 0;
         this.bixo = true;
         this.direcao = direcao;
-        this.parada = true;
+        Caveira.parada = true;
         if(direcao == 'h'){
             this.setSentido('r');
         } else{
@@ -25,21 +25,19 @@ public class Caveira extends Personagem implements Serializable{
         }
     }
 
-    public boolean isParada() {
+    public static boolean isParada() {
         return parada;
     }
 
-    public void setParada(boolean parada) {
-        this.parada = parada;
+    public static void setParada(boolean parada) {
+        Caveira.parada = parada;
     }
-    
-    
 
     public void autoDesenho() {
         super.autoDesenho();
         
         this.iContaIntervalos++;
-        if(this.parada == false){
+        if(!Caveira.parada){ // Se a classe caveira puder se movimentar (!parada)
             if(this.iContaIntervalos == Consts.TIMERBICHOHORIZONTAL){
                 if(this.getDirecao() == 'h'){
                     if(this.getSentido() == 'r'){
