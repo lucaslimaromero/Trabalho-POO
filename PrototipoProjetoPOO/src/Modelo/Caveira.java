@@ -36,8 +36,8 @@ public class Caveira extends Personagem implements Serializable{
     public void autoDesenho() {
         super.autoDesenho();
         
-        this.iContaIntervalos++;
-        if(!Caveira.parada){ // Se a classe caveira puder se movimentar (!parada)
+        if(!(this.isParada())){ // Se a classe caveira puder se movimentar (!parada)
+            this.iContaIntervalos++;
             if(this.iContaIntervalos == Consts.TIMERBICHOHORIZONTAL){
                 if(this.getDirecao() == 'h'){
                     if(this.getSentido() == 'r'){

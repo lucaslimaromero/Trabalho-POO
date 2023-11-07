@@ -49,7 +49,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
     // PONTOS IMPORTANTES (LEIA BOMBZZ):
 
     // PRINCIPAIS PONTOS Q FALTAM:
-    // - Deixar a caveira parada até abrir o baú (senão literalmente fica injogável)
+    // - Deixar a caveira parada até abrir o baú (senão literalmente fica injogável): check
     // - Caveira morrer para a esfera do herói (senão literalmente fica injogável tbm): check
     // - Bolota ser implemetado: check porem bolota ta meio burro ainda
     // - Tentar consertar a implementação da caixa q está sujeito a alguns bugs principalmente na fase 4: check

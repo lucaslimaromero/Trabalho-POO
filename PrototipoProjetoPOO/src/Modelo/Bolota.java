@@ -25,7 +25,6 @@ public class Bolota extends Personagem  implements Serializable {
         this.fase = fase;
         this.iContaIntervalos = 0;
         this.iContaIntervalos2 = 0;
-        
     }
     
     public void autoDesenho() {
@@ -33,7 +32,7 @@ public class Bolota extends Personagem  implements Serializable {
 
         this.iContaIntervalos++;
         this.iContaIntervalos2++;
-        if(this.iContaIntervalos == Consts.TIMERBICHOHORIZONTAL) {
+        if(this.iContaIntervalos == Consts.TIMERBOLOTA && this.iContaIntervalos2 != Consts.TIMERBOLOTA + 1) {
             if (this.getPosicao().getColuna() > hero.getPosicao().getColuna()) {
                 this.moveLeft();
                 this.setLastMovement('l');
@@ -44,8 +43,7 @@ public class Bolota extends Personagem  implements Serializable {
             }
             this.iContaIntervalos = 0;
         }
-        
-        if(this.iContaIntervalos2 == Consts.TIMERBICHOHORIZONTAL + 2) {
+        if(this.iContaIntervalos2 == Consts.TIMERBOLOTA + 1) {
             if (this.getPosicao().getLinha() > hero.getPosicao().getLinha()) {
                 this.moveUp();
                 this.setLastMovement('u');
@@ -55,8 +53,9 @@ public class Bolota extends Personagem  implements Serializable {
                 this.setLastMovement('d');
             }
             this.iContaIntervalos2 = 0;
+            this.iContaIntervalos = 0;
         }
-        
+                
         
     }
 }
