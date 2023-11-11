@@ -58,6 +58,7 @@ public class ControleDeJogo {
                         hero.setnHeart(0); // Reinicia o número de corações
                         estadoAtual.avancaProximaFase(); // Atualizo o estado do jogo
                         hero.setFase(hero.getFase() + 1);
+                        hero.setnTiro(0);
                         break;
                     }
                 }

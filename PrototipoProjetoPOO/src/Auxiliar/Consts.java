@@ -10,7 +10,6 @@ public class Consts {
     public static final int TIMER = 10;
     public static final int TIMERBICHOHORIZONTAL = 5;
     public static final int TIMERFOGO = 15;
-    public static final int TIMERPACMAN = 30;
     public static final int TIMERAGUA = 15;
     public static final int TIMERBOLOTA = 8;
 
