@@ -20,7 +20,7 @@ public class Bolota extends Personagem  implements Serializable {
     public Bolota(String sNomeImagePNG, Personagem hero, int fase) {
         super(sNomeImagePNG);
         this.hero = hero;
-        this.bTransponivel = false;
+        this.bTransponivel = true;
         this.bixo = true;
         this.bMortal = true;
         this.fase = fase;

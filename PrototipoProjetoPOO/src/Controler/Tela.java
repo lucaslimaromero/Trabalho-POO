@@ -201,10 +201,6 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         ponte.setbTransponivel(true);
         this.addPersonagem(ponte);
         
-        Bolota b4 = new Bolota("Esfera.png", hero, estadoAtual.getFaseAtual());
-        b4.setPosicao(11, 7);
-        this.addPersonagem(b4);
-        
         criaMuros(umaFase, 3);
         
         int[][] matriz3 = {
@@ -220,7 +216,12 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
             {0, 3, 4, 3, 3, 3, 3, 3, 3, 3, 5},
             {0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 1}
         };
+        
         criaCenarioFase(matriz3);
+        
+        Bolota b4 = new Bolota("Bolota.png", hero, estadoAtual.getFaseAtual());
+        b4.setPosicao(11, 7);
+        this.addPersonagem(b4);
     }
     
     public void constroiFase4(){
