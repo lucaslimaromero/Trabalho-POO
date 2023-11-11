@@ -106,9 +106,9 @@ public class ControleDeJogo {
                 Box box = (Box) pIesimoPersonagem;
                 for(int j = 1; j < umaFase.size(); j++){
                     pJesimoPersonagem = umaFase.get(j);
-                    if(pJesimoPersonagem != box && !(pJesimoPersonagem instanceof Caveira)) {
+                    if(pJesimoPersonagem != box) {
                         if (box.getPosicao().igual(pJesimoPersonagem.getPosicao())) {
-                            if (!pJesimoPersonagem.isbTransponivel() || (pJesimoPersonagem instanceof Heart)) {
+                            if (!pJesimoPersonagem.isbTransponivel() || (pJesimoPersonagem instanceof Heart) || (pJesimoPersonagem instanceof Caveira)) {
                                 if (!pJesimoPersonagem.isbMovimenta() || (pJesimoPersonagem instanceof Box)) {
                                     switch (hero.getLastMovement()) {
                                         case 'u':

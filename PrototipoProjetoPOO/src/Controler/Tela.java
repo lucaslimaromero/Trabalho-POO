@@ -133,14 +133,6 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         bau1.setPosicao(10,5);
         this.addPersonagem(bau1);
         
-        Caveira c4 = new Caveira("caveira.png", 'h');
-        c4.setPosicao(6, 5);
-        this.addPersonagem(c4);
-        
-        Bolota b4 = new Bolota("Esfera.png", hero, estadoAtual.getFaseAtual());
-        b4.setPosicao(8, 10);
-        this.addPersonagem(b4);
-        
         criaMuros(umaFase, 1);
         
         int[][] matriz1 = {
@@ -208,6 +200,10 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         ponte.setPosicao(6, 2);
         ponte.setbTransponivel(true);
         this.addPersonagem(ponte);
+        
+        Bolota b4 = new Bolota("Esfera.png", hero, estadoAtual.getFaseAtual());
+        b4.setPosicao(11, 7);
+        this.addPersonagem(b4);
         
         criaMuros(umaFase, 3);
         
