@@ -99,6 +99,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         System.out.println("SPACE  : Ejetar a esfera de forca");
         System.out.println("X      : Salvamento do Progresso");
         System.out.println("R      : Reiniciar a Fase");
+        System.out.println("MOUSE  : Movimento do personagem para desenvolvedor");
     }
     
     public void constroiFaseAtual(int faseAtual){
