@@ -52,6 +52,9 @@ public class GameState implements Serializable {
             case 4:
                 this.numCoracoesFase = 5;
                 break;
+            case 5:
+                this.numCoracoesFase = 3;
+                break;
             default:
                 break;
         }
@@ -75,7 +78,7 @@ public class GameState implements Serializable {
     public void avancaProximaFase() { // Se for a 4ta o jogo reinicia para a primeira
     // Lógica para avançar para a próxima fase
     
-        if(this.getFaseAtual() == 4){
+        if(this.getFaseAtual() == 5){
             System.out.println("Voce zerou Las Aventuras de Bombonari!");
             this.setFaseAtual(1);
         }

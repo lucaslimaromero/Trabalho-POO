@@ -43,30 +43,8 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
     private ControleDeJogo cj = new ControleDeJogo();
     private Graphics g2;
     private GameState estadoAtual; // Guarda o estado atual da Tela
-                                   // Isso inclui a fase e corações pegos (?)
                                    // Poderá incluir a posição do heroi também
 
-    // PONTOS IMPORTANTES (LEIA BOMBZZ):
-
-    // PRINCIPAIS PONTOS Q FALTAM:
-    // - Deixar a caveira parada até abrir o baú (senão literalmente fica injogável): check
-    // - Caveira morrer para a esfera do herói (senão literalmente fica injogável tbm): check
-    // - Bolota ser implemetado: check porem bolota ta meio burro ainda
-    // - Tentar consertar a implementação da caixa q está sujeito a alguns bugs principalmente na fase 4: check
-    //      - Como a implementação é de um "vai e vem" o personagem pode empurrar a caixa pra dentro do coração e mesmo assim coletá-lo, tornando a fase
-    //      4 bem mais fácil (aconteceu isso quando pedi pra gabi e meus primos jogarem)
-    //      - O ideal seria se a implementação, ao invés de fazer o vai e vem, não deixasse o jogador empurrar o coração em cima de nenhum objeto, mesmo q ele seja transponível
-    //      - As caixas podem ser empurradas dentro de outras caixas, daí fazendo o de cima, resolveria isso tbm
-    // - Fazer o Diagrama UML do Projeto
-
-
-    // (SOLVED) - Um bug estranho no baú, que volta com a imagem da pérola (msm dps de ser coletada) quando na 4ta fase o jogador anda em direção a linha 0
-    // (SOLVED) - Personagem entrando debaixo do bau (detalhe)
-    // (SOLVED) - Uma implementação mais completa do respawn do heroi, fazendo com que os corações se reposicionem e zere o contador interno do heroi (nHearts)
-    // (SOLVED) - Implementação de avisos no jogo
-    // (SOLVED) - Implementação de uma forma de reiniciar a fase (tecla r)
-    // (SOLVED) - Implementação de salvar uma fase (tecla x)
-    // (SOLVED) - Implementação de carregar uma fase com o .ser
     
     public Tela() {
         Desenho.setCenario(this);
@@ -115,6 +93,9 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
                 break;
             case 4:
                 constroiFase4();
+                break;
+            case 5:
+                constroiFase5();
                 break;
             default:
                 break;
@@ -268,6 +249,37 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         criaCenarioFase(matriz4);
     }
     
+    public void constroiFase5(){
+        hero.setPosicao(11, 1);
+        this.addPersonagem(hero);
+        
+        Cenario porta5 = new Cenario("porta.png");
+        porta5.setPosicao(0,11);
+        this.addPersonagem(porta5);
+        
+        Bau bau5 = new Bau("bau.png");
+        bau5.setPosicao(1,7);
+        this.addPersonagem(bau5);
+
+        criaMuros(umaFase, 5);
+        
+        int[][] matriz5 = {
+            {0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+            {0, 1, 0, 6, 0, 1, 2, 2, 2, 2, 0},
+            {0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 10},
+            {0, 1, 0, 1, 8, 1, 2, 2, 0, 2, 2},
+            {0, 0, 0, 1, 0, 1, 0, 0, 10, 0, 0},
+            {0, 1, 5, 1, 0, 1, 2, 0, 2, 2, 2},
+            {0, 1, 0, 1, 0, 1, 10, 0, 0, 0, 0},
+            {0, 1, 0, 1, 5, 1, 2, 2, 2, 0, 2},
+            {0, 1, 9, 0, 0, 1, 11, 11, 2, 0, 2},
+            {0, 1, 0, 1, 0, 5, 0, 0, 0, 0, 0},
+            {0, 1, 8, 1, 0, 1, 0, 0, 2, 11, 2}
+        };
+        
+        criaCenarioFase(matriz5);
+    }
+    
     private GameState loadGameState() { // Retomando
         try (FileInputStream fileIn = new FileInputStream("savegame.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn)) {
@@ -319,6 +331,9 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
                 }
                 else if(fase == 4 && i == 6){
                     this.removePersonagem(wha);                   
+                } 
+                else if(fase == 5 && i == 11){
+                    this.removePersonagem(wha);
                 }
                 
                 Cenario wve = new Cenario("brick-lateral.png");
@@ -436,6 +451,21 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
                     Dino dino = new Dino("dino-bravo.png", hero, estadoAtual.getFaseAtual());
                     dino.setPosicao(i+1, j+1);
                     this.addPersonagem(dino);
+                }
+                if(matriz[i][j] == 9){
+                    Bolota bolota = new Bolota("Bolota.png", hero, estadoAtual.getFaseAtual());
+                    bolota.setPosicao(i+1, j+1);
+                    this.addPersonagem(bolota);
+                }
+                if(matriz[i][j] == 10){
+                    Caveira caveira = new Caveira("Caveira.png", 'h');
+                    caveira.setPosicao(i+1, j+1);
+                    this.addPersonagem(caveira);
+                }
+                if(matriz[i][j] == 11){
+                    Caveira caveira = new Caveira("Caveira.png", 'v');
+                    caveira.setPosicao(i+1, j+1);
+                    this.addPersonagem(caveira);
                 }
             }
         }
